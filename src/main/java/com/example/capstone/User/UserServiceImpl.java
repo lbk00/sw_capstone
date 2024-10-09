@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Optional<User> findByCID(String cID) {
-        return Optional.ofNullable(UserRepository.findByCID(cID));
+        return Optional.ofNullable(UserRepository.findBycID(cID));
     }
 
     private PageRequest dtoToPageRequest(PageRequestDTO dto) {

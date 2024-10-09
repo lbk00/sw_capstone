@@ -78,13 +78,16 @@ public class UserController {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+            System.out.println("user.getCID() = " + user.getCID());
             if (loginDTO.getCPW().equals(user.getCPW())) { // 비밀번호 비교
                 return ResponseEntity.ok(new UserApiResponse(true, "로그인 성공")); // 성공 응답
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그인 실패")); // 실패 응답
             }
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그인 실패")); // 실패 응답
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그\n" +
+                    "\n" +
+                    "\n인 실패")); // 실패 응답
         }
     }
 

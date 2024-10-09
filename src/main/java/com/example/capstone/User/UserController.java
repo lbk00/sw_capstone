@@ -74,7 +74,7 @@ public class UserController {
     //사용자 로그인 api
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
-        Optional<User> userOptional = userservice.findByCID(loginDTO.getCID());
+        Optional<User> userOptional = userservice.findBycID(loginDTO.getCID());
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -87,13 +87,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그인 실패")); // 실패 응답
         }
     }
-
-
-
-
-
-
-
 }
 
 

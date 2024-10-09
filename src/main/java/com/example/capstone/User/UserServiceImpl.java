@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Optional<User> findByCID(String cID) {
+    public Optional<User> findBycID(String cID) {
         return Optional.ofNullable(UserRepository.findBycID(cID));
     }
 

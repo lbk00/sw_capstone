@@ -25,7 +25,7 @@ public interface UserService {
     void remove(Long userid);
 
     User registerUser(UserDTO dto);
-    Optional<User> findByCID(String cID);
+    Optional<User> findBycID(String cID);
 
 
 

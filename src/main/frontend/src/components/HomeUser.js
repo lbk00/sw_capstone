@@ -112,6 +112,9 @@ export default function HomeUser() {
     // 상품 데이터를 저장할 state
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
+    const [sortOrder, setSortOrder] = useState('default'); // 기본 정렬 상태
+    const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
+    const [filteredProducts, setFilteredProducts] = useState([]); // 필터링된 상품 상태
     const productsPerPage = 6; // 페이지당 상품 수
     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 선언
 
@@ -119,24 +122,39 @@ export default function HomeUser() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                // 백엔드에서 상품 데이터를 가져옴 (API 엔드포인트 수정 필요)
                 const response = await axios.get("http://localhost:8080/products/list");
-                setProducts(response.data.products); // 응답에서 products 배열에 접근
+                setProducts(response.data.products);
+                setFilteredProducts(response.data.products); // 초기값으로 모든 상품 설정
             } catch (error) {
                 console.error("Error fetching product data:", error);
             }
         };
 
-        fetchProducts(); // 컴포넌트가 마운트될 때 데이터 가져오기
+        fetchProducts();
     }, []);
+
+    // 가격 정렬 함수
+    const handleSort = (order) => {
+        let sortedProducts;
+        if (order === 'asc') {
+            sortedProducts = [...filteredProducts].sort((a, b) => a.price - b.price);
+        } else if (order === 'desc') {
+            sortedProducts = [...filteredProducts].sort((a, b) => b.price - a.price);
+        } else {
+            sortedProducts = products; // 초기 상태로 되돌리기
+        }
+        setFilteredProducts(sortedProducts);
+        setSortOrder(order);
+        setCurrentPage(1); // 정렬 후 페이지를 1로 초기화
+    };
 
     // 현재 페이지에 표시할 상품 계산
     const indexOfLastProduct = currentPage * productsPerPage; // 현재 페이지의 마지막 상품 인덱스
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 현재 페이지의 첫 번째 상품 인덱스
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct); // 현재 페이지에서 보여줄 상품들
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct); // 필터링된 현재 페이지에서 보여줄 상품들
 
     // 총 페이지 수 계산
-    const totalPages = Math.ceil(products.length / productsPerPage);
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
     // 페이지 변경 함수
     const handlePageChange = (event, value) => {
@@ -148,6 +166,15 @@ export default function HomeUser() {
         navigate(`/itempurchase/${productId}`); // 상품 ID와 함께 구매 페이지로 이동
     };
 
+
+    // 검색 수행 함수
+    const handleSearch = () => {
+        const results = products.filter(product =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredProducts(results);
+        setCurrentPage(1); // 검색 후 페이지를 1로 초기화
+    };
 
     {/*상품 메뉴 옆 Drawer*/}
     const [open, setOpen] = React.useState(false);
@@ -242,6 +269,8 @@ export default function HomeUser() {
                         <FormControl sx={{ width: '25ch', bgcolor: 'white' }} size="small">
                             <OutlinedInput
                                 placeholder="검색어를 입력하세요"
+                                value={searchTerm} // 입력한 검색어 상태를 value로 설정
+                                onChange={(e) => setSearchTerm(e.target.value)} // 검색어 업데이트
                                 sx={{
                                     '& .MuiOutlinedInput-notchedOutline': {
                                         borderColor: 'red',
@@ -258,7 +287,7 @@ export default function HomeUser() {
                                 }}
                                 endAdornment={
                                     <InputAdornment position="end">
-                                        <IconButton edge="end">
+                                        <IconButton edge="end" onClick={handleSearch}> {/* 클릭 시 handleSearch 호출 */}
                                             <SearchIcon />
                                         </IconButton>
                                     </InputAdornment>
@@ -326,13 +355,13 @@ export default function HomeUser() {
                     <ToggleButton value="popularity" aria-label="popularity">
                         인기순
                     </ToggleButton>
-                    <ToggleButton value="recent" aria-label="recent">
+                    <ToggleButton value="recent" aria-label="recent" onClick={() => handleSort(null)}>
                         최근순
                     </ToggleButton>
-                    <ToggleButton value="lowPrice" aria-label="low price">
+                    <ToggleButton value="lowPrice" aria-label="low price" onClick={() => handleSort('asc')}>
                         가격이 낮은순
                     </ToggleButton>
-                    <ToggleButton value="highPrice" aria-label="high price">
+                    <ToggleButton value="highPrice" aria-label="high price" onClick={() => handleSort('desc')}>
                         가격이 높은순
                     </ToggleButton>
                 </ToggleButtonGroup>
@@ -340,8 +369,8 @@ export default function HomeUser() {
             {/*하단의 상품 정렬 페이지*/}
             <Grid container spacing={2}>
                 {currentProducts.length === 0 ? (
-                    <Typography variant="h6" color="text.secondary">
-                        상품을 불러오는 중입니다...
+                    <Typography variant="h6" color="text.secondary" sx={{ marginLeft: 4 }}>
+                        일치하는 상품이 없습니다.
                     </Typography>
                 ) : (
                     currentProducts.map((product) => (
@@ -394,4 +423,3 @@ export default function HomeUser() {
     );
 }
 
-// export default HomeUser;

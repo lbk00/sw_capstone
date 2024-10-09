@@ -44,9 +44,9 @@ export default function SignIn() {
 
     // 로그인 API 호출
     try {
-      const response = await axios.post('http://localhost:8080/api/login', {
-        cID,
-        cPW,
+      const response = await axios.post('http://localhost:8080/api/user/login', {
+        cid: cID,
+        cpw: cPW,
       });
 
       if (response.data.success) { // 로그인 성공 여부 확인

@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -63,6 +65,16 @@ public class ProductController {
         return ResponseEntity.ok(productListResponseDTO);
     }
 
+    // 가격 낮은 순으로 정렬된 상품 목록 반환
+    @GetMapping("/sorted-by-price-desc")
+    public List<Product> getProductsSortedByPriceDesc() {
+        return productService.getProductsSortedByPriceDesc();
+    }
 
+    // 가격 높은 순으로 정렬된 상품 목록 반환
+    @GetMapping("/sorted-by-price-asc")
+    public List<Product> getProductsSortedByPriceAsc() {
+        return productService.getProductsSortedByPriceAsc();
+    }
 
 }

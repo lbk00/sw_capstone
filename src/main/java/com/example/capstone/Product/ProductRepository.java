@@ -19,6 +19,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p.amount FROM Product p")
     List<Integer> findAllAmount();
 
+    // 가격 기준으로 내림차순
+    List<Product> findAllByOrderByPriceDesc();
+    // 가격 기준으로 오름차순
+    List<Product> findAllByOrderByPriceAsc();
 
 
 }

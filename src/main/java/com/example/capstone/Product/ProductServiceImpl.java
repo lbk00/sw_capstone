@@ -99,6 +99,14 @@ public class ProductServiceImpl implements ProductService{
         return productListResponseDTO;
     }
 
+    @Override
+    public List<Product> getProductsSortedByPriceAsc() {
+        return productRepository.findAllByOrderByPriceAsc();
+    }
 
+    @Override
+    public List<Product> getProductsSortedByPriceDesc() {
+        return productRepository.findAllByOrderByPriceDesc();
+    }
     // Business methods for Item
 }

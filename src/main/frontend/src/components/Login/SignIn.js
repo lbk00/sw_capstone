@@ -47,7 +47,10 @@ export default function SignIn() {
       const response = await axios.post('http://localhost:8080/api/user/login', {
         cid: cID,
         cpw: cPW,
+      }, {
+        withCredentials: true  // 세션 쿠키 포함
       });
+
 
       if (response.data.success) { // 로그인 성공 여부 확인
         setOpenModal(true); // 모달창 열기

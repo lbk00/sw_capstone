@@ -252,7 +252,7 @@ export default function HomeUser() {
     };
 
     const openManagerList = () => {
-        window.open('http://localhost:3000/manager/list', '_blank', 'noopener,noreferrer'); // 새로운 팝업 열기
+        window.open('http://localhost:3000/dashboard', '_blank', 'noopener,noreferrer'); // 새로운 팝업 열기
     };
 
     return (

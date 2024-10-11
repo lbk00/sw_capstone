@@ -21,8 +21,9 @@ public class CustomServletConfig implements WebMvcConfigurer{
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .maxAge(500)
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS");
+                .allowedOrigins("http://localhost:3000") // React 앱이 실행 중인 주소 (CORS 허용 도메인)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
+                .allowCredentials(true) // 세션 쿠키 전달 허용
+                .maxAge(500); // 캐싱 시간 설정
     }
 }

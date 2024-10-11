@@ -463,7 +463,7 @@ public class OrderServiceImpl implements OrderService {
             // 새로운 상품id가 추가될수는 없음 , 모든 상품중 일부만 수정될수 있음
             // orderList를 만들고 setOrderedProducts에 넘겨줘야함
             // OrderUpdateRequestDTO에서 상품 id를 하나씩 가져와서 주문서에 있는 orderedProducts를 수정
-            List orderList = order.getOrderedProducts();
+            List<Product> orderList = order.getOrderedProducts();
 
             //orderList Set 하는 부분 확인
             // 현재는 입력값 , 수량이 적용되지않음

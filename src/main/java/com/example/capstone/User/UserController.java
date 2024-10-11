@@ -3,6 +3,7 @@ package com.example.capstone.User;
 import com.example.capstone.DTO.LoginDTO;
 import com.example.capstone.DTO.PageRequestDTO;
 import com.example.capstone.DTO.UserResponseDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,20 +74,46 @@ public class UserController {
 
     //사용자 로그인 api
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpSession session) {
         Optional<User> userOptional = userservice.findBycID(loginDTO.getCID());
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (loginDTO.getCPW().equals(user.getCPW())) { // 비밀번호 비교
+                // 로그인 성공 시 세션에 사용자 정보 저장
+                session.setAttribute("loggedInUser", user);
+                // Session의 유효 시간 설정 (1800초 = 30분)
+                session.setMaxInactiveInterval(1800);
                 return ResponseEntity.ok(new UserApiResponse(true, "로그인 성공")); // 성공 응답
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그인 실패")); // 실패 응답
             }
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그인 실패")); // 실패 응답
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그\n" +
+                    "\n" +
+                    "\n인 실패")); // 실패 응답
         }
     }
+
+    // 로그아웃 api 추가 , 세션 무효화
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        session.invalidate(); // 세션 무효화
+        return ResponseEntity.ok(new UserApiResponse(true, "로그아웃 성공"));
+    }
+
+    //현재 로그인된 사용자 정보 반환 api
+    @GetMapping("/current-user")
+    public ResponseEntity<User> getCurrentUser(HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            return ResponseEntity.ok(loggedInUser); // 로그인된 사용자 정보 반환
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 로그인되지 않은 경우
+        }
+    }
+
 }
 
 

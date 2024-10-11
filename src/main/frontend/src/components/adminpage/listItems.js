@@ -72,10 +72,10 @@ export const MainListItems = () => {
       <Collapse in={openOrder} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/list">
-            <ListItemText primary="주문서 조회" />
+            <ListItemText primary="주문서 등록" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="주문서 작성" />
+            <ListItemText primary="주문서 조회" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemText primary="주문서 수정" />
@@ -96,16 +96,16 @@ export const MainListItems = () => {
       <Collapse in={openSupplier} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 생성" />
+            <ListItemText primary="공급업체 등록" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemText primary="공급업체 조회" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 삭제" />
+            <ListItemText primary="공급업체 수정" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 수정" />
+            <ListItemText primary="공급업체 삭제" />
           </ListItemButton>
         </List>
       </Collapse>
@@ -137,9 +137,6 @@ export const MainListItems = () => {
             <Collapse in={openInventory} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="매진 상품 예측" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText primary="재고 확인 및 수정" />
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }}>
@@ -148,6 +145,7 @@ export const MainListItems = () => {
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText primary="납품 품목 확인" />
                 </ListItemButton>
+
               </List>
             </Collapse>
 
@@ -164,10 +162,7 @@ export const MainListItems = () => {
                         <ListItemText primary="상품 목록" />
                       </ListItemButton>
                       <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="상품 검색" />
-                      </ListItemButton>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="상품 등록" />
+                        <ListItemText primary="상품 조회" />
                       </ListItemButton>
                       <ListItemButton sx={{ pl: 4 }}>
                         <ListItemText primary="상품 수정" />

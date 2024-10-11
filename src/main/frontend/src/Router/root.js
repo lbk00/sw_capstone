@@ -15,6 +15,7 @@ const SignUp = lazy(() => import("../components/Login/SignUp"))
 const Mypage = lazy(() => import("../components/Login/Mypage"))
 const Dashboard = lazy(() => import("../components/adminpage/Dashboard"))
 const ManagerList = lazy(() => import("../components/Manager/ListPage"))
+const OrderList = lazy(() => import("../components/Order/ListPage"))
 
 
 
@@ -32,6 +33,10 @@ const root = createBrowserRouter([
   {
       path: "homeuser",
       element: <Suspense fallback={Loading}><MainUser/></Suspense>
+  },
+  {
+        path: "dashboard",
+        element: <Suspense fallback={Loading}><Dashboard/></Suspense>
   },
   {
       path: "/itempurchase/:productId",
@@ -55,6 +60,11 @@ const root = createBrowserRouter([
      element: <Suspense fallback={Loading}><Dashboard/></Suspense>,
      children: Router()
   },
+  {
+       path: "order",
+       element: <Suspense fallback={Loading}><Dashboard/></Suspense>,
+       children: Router()
+    },
   ...Router()
 ]);
 

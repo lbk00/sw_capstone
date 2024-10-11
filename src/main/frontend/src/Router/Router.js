@@ -8,13 +8,13 @@ const Router = () => {
   const ManagerRead = lazy(() => import("../components/Manager/ReadPage"))
   const ManagerAdd = lazy(() => import("../components/Manager/AddPage"))
   const ManagerModify = lazy(() => import("../components/Manager/ModifyPage"))
-  const AddPage = lazy(() => import("../components/Manager/AddPage"));
+  const AddPage = lazy(() => import("../components/Manager/AddPage"))
+  const OrderList = lazy(() => import("../components/Order/ListPage"))
+  const OrderRead = lazy(() => import("../components/Order/ReadPage"));
   return [
+
    {
-     path: "list", element: <Suspense fallback={Loading}><ManagerList/></Suspense>
-   },
-   {
-     path: "", element: <Navigate replace to="/manager/list"/>
+     path: "manager/list", element: <Suspense fallback={Loading}><ManagerList/></Suspense>
    },
    {
      path: "read/:userId", element: <Suspense fallback={Loading}><ManagerRead/></Suspense>
@@ -24,6 +24,13 @@ const Router = () => {
    },
    {
      path: "modify/:userId", element: <Suspense fallback={Loading}><ManagerModify/></Suspense>
+   },
+
+   {
+     path: "order/list", element: <Suspense fallback={Loading}><OrderList/></Suspense>
+   },
+   {
+        path: "read/:id", element: <Suspense fallback={Loading}><OrderRead/></Suspense>
    },
 
 

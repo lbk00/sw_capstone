@@ -71,7 +71,7 @@ export const MainListItems = () => {
       </ListItemButton>
       <Collapse in={openOrder} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/list">
             <ListItemText primary="주문서 조회" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
@@ -119,18 +119,10 @@ export const MainListItems = () => {
             </ListItemButton>
             <Collapse in={openUser} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }} component={Link} to="/list">
+                <ListItemButton sx={{ pl: 4 }} component={Link} to="/manager/list">
                   <ListItemText primary="사용자 목록" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} component={Link} to="/add">
-                  <ListItemText primary="사용자 등록" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} component={Link} to="/modify/1">
-                  <ListItemText primary="사용자 수정" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} component={Link} to="/modify/1">
-                  <ListItemText primary="사용자 삭제" />
-                </ListItemButton>
+
 
               </List>
             </Collapse>

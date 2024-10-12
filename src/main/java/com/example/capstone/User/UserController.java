@@ -3,6 +3,10 @@ package com.example.capstone.User;
 import com.example.capstone.DTO.LoginDTO;
 import com.example.capstone.DTO.PageRequestDTO;
 import com.example.capstone.DTO.UserResponseDTO;
+import com.example.capstone.config.SessionManager;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +32,8 @@ public class UserController {
     @Autowired
     private final UserService userservice;
 
+    @Autowired
+    private final SessionManager sessionManager;
 
     //사용자 조회 api
     @GetMapping("/{user_Id}")
@@ -72,33 +78,40 @@ public class UserController {
         return ResponseEntity.ok("회원가입 성공");
     }
 
-    //사용자 로그인 api
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpSession session) {
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response) {
         Optional<User> userOptional = userservice.findBycID(loginDTO.getCID());
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (loginDTO.getCPW().equals(user.getCPW())) { // 비밀번호 비교
-                // 로그인 성공 시 세션에 사용자 정보 저장
-                session.setAttribute("loggedInUser", user);
-                // Session의 유효 시간 설정 (1800초 = 30분)
-                session.setMaxInactiveInterval(1800);
+                // 세션 매니저를 통해 세션 생성 및 사용자 정보 보관
+                sessionManager.createSession(user, request, response);
                 return ResponseEntity.ok(new UserApiResponse(true, "로그인 성공")); // 성공 응답
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그인 실패")); // 실패 응답
             }
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그\n" +
-                    "\n" +
-                    "\n인 실패")); // 실패 응답
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new UserApiResponse(false, "로그인 실패")); // 실패 응답
         }
     }
 
+
+
     // 로그아웃 api 추가 , 세션 무효화
+    @CrossOrigin(origins = "http://localhost:3000") // React가 동작하는 도메인
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpSession session) {
-        session.invalidate(); // 세션 무효화
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        // 세션 매니저를 통해 세션 만료
+        sessionManager.expire(request);
+
+        // JSESSIONID 쿠키 삭제
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(0);  // 쿠키 만료
+        response.addCookie(cookie);
+
         return ResponseEntity.ok(new UserApiResponse(true, "로그아웃 성공"));
     }
 

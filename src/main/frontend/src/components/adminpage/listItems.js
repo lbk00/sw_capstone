@@ -71,13 +71,13 @@ export const MainListItems = () => {
       </ListItemButton>
       <Collapse in={openOrder} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/list">
+          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/add">
             <ListItemText primary="주문서 등록" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/list">
             <ListItemText primary="주문서 조회" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
+          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/modify">
             <ListItemText primary="주문서 수정" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>

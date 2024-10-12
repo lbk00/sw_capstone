@@ -36,7 +36,7 @@ export default function ShoppingCart() {
     const location = useLocation();
     const [cartItems, setCartItems] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]); // 선택된 항목들의 ID
-
+    const [selectAll, setSelectAll] = useState(false); // 전체 선택 상태
 
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = (newOpen) => () => {
@@ -92,12 +92,31 @@ export default function ShoppingCart() {
     const handleCheckboxChange = (productId) => {
         setSelectedItems((prevSelectedItems) => {
             if (prevSelectedItems.includes(productId)) {
+                // 이미 선택된 경우 해제
                 return prevSelectedItems.filter((id) => id !== productId);
             } else {
+                // 선택되지 않은 경우 추가
                 return [...prevSelectedItems, productId];
             }
         });
+
+        // "모두 선택" 상태 업데이트
+        if (selectedItems.length + 1 === cartItems.length) {
+            setSelectAll(true); // 모두 선택된 상태로 변경
+        } else {
+            setSelectAll(false); // 선택 해제된 경우
+        }
     };
+
+    const handleSelectAllChange = () => {
+        if (selectAll) {
+            setSelectedItems([]); // 모두 해제
+        } else {
+            setSelectedItems(cartItems.map(product => product.id)); // 모두 선택
+        }
+        setSelectAll(!selectAll); // 전체 선택 상태 토글
+    };
+
     // 선택된 항목 삭제
     const handleDeleteSelected = () => {
         const updatedCartItems = cartItems.filter((product) => !selectedItems.includes(product.id));
@@ -141,6 +160,13 @@ export default function ShoppingCart() {
         setSnackbarOpen(false);
     };
 
+    const calculateTotalPrice = (products) => {
+        return products.reduce((total, product) => {
+            return total + product.price * product.amount;
+        }, 0);
+    };
+
+    const totalPrice = calculateTotalPrice(cartItems); // 최종 가격 계산
 
     return (
         <div className="App">
@@ -216,7 +242,7 @@ export default function ShoppingCart() {
                 <Grid container>
                     <Grid item xs={6}>
                         <Typography gutterBottom variant="h5">
-                            일반배송 2
+                            일반배송
                         </Typography>
                     </Grid>
                     <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -242,6 +268,7 @@ export default function ShoppingCart() {
                                 />
                             }
                             label=""
+                            sx={{ marginLeft: 2 }} // 왼쪽 여백 추가
                         />
                         {/* 상품 이미지 */}
                         <CardMedia
@@ -286,9 +313,38 @@ export default function ShoppingCart() {
                                 ₩ {product.price.toLocaleString()} 원
                             </Typography>
                         </CardContent>
+                        <CardContent sx={{ height: 200, width: 400, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                            <Typography gutterBottom variant="h5" component="div">
+                                ₩ {(product.price * product.amount).toLocaleString()} 원
+                            </Typography>
+                        </CardContent>
                     </Box>
                 ))}
             </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={selectAll}
+                            onChange={handleSelectAllChange}
+                        />
+                    }
+                    sx={{ marginLeft: 2 }} // 왼쪽 여백 추가
+                    label=""
+                />
+
+                <Typography
+                    variant="h5"
+                    component="div"
+                    sx={{
+                        textAlign: 'right', // 텍스트를 오른쪽 정렬
+                        marginRight: 20, // 오른쪽 마진 추가 (원하는 값으로 조절 가능)
+                    }}
+                >
+                    총 가격: ₩ {totalPrice.toLocaleString()} 원
+                </Typography>
+            </Box>
+
             <Box sx={{ display: 'flex', justifyContent: 'center',gap: 2, mb: 2 }}>
                 <Button
                     variant="contained"

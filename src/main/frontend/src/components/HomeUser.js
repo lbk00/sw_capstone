@@ -118,6 +118,7 @@ export default function HomeUser() {
     const productsPerPage = 6; // 페이지당 상품 수
     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 선언
     const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
 
     // 데이터베이스에서 상품 데이터를 가져오는 함수
     useEffect(() => {
@@ -143,6 +144,7 @@ export default function HomeUser() {
                 });
                 console.log(response.data); // 확인용 로그
                 setUser(response.data);
+                setIsLoggedIn(true); // 로그인 처리
             } catch (error) {
                 console.error("사용자 정보 가져오기 오류:", error);
             }
@@ -154,12 +156,31 @@ export default function HomeUser() {
     // 로그아웃 함수
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:8080/api/user/logout'); // 로그아웃 API 호출
-            // 로그아웃 후 home으로 이동
-            navigate('/homeuser'); // 로그아웃 후 로그인 페이지로 이동
+            await axios.post('http://localhost:8080/api/user/logout', {}, { withCredentials: true });
+            //navigate('/homeuser'); // 로그아웃 후 로그인 페이지로 이동
+            setIsLoggedIn(false); // 로그아웃 처리
         } catch (error) {
             console.error("로그아웃 실패:", error);
         }
+    };
+
+    useEffect(() => {
+        // 로그인하지 않은 경우 리디렉션
+        if (!isLoggedIn) {
+            navigate("/homeuser");
+        }
+    }, [isLoggedIn, navigate]);
+
+    const handleLogin = () => {
+        navigate('/signin');  // 로그인 페이지 이동
+    };
+
+    const handleSignup = () => {
+        navigate('/signup');  // 회원가입 페이지 이동
+    };
+
+    const handleCart = () => {
+        navigate('/cart');  // 로그인 페이지 이동
     };
 
     // 가격 정렬 함수
@@ -268,13 +289,22 @@ export default function HomeUser() {
                         메인페이지
                     </Typography>
                     <Button color="inherit" sx={{ mr: 2 }} onClick={openManagerList}>관리자 페이지</Button>
-                    {user ? (
+                    {isLoggedIn ? (
                         <Avatar>{user.cname.charAt(0)}</Avatar> // 사용자의 이름의 첫 글자를 Avatar에 표시
                     ) : (
-                        <h1>?</h1>
+                        <h1></h1>
                     )}
-                    <Button color="inherit">장바구니</Button>
-                    <Button color="inherit" onClick={handleLogout}>Logout</Button>
+                    {isLoggedIn ? ( // 로그인 여부에따라 버튼 다르게 뜨도록
+                        <>
+                            <Button color="inherit" onClick={handleCart}>장바구니</Button>
+                            <Button color="inherit" onClick={handleLogout}>로그아웃</Button>
+                        </>
+                    ) : (
+                        <>
+                            <Button color="inherit" onClick={handleLogin}>로그인</Button>
+                            <Button color="inherit" onClick={handleSignup}>회원가입</Button>
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
             <Divider />

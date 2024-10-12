@@ -159,7 +159,7 @@ export const MainListItems = () => {
                   <Collapse in={openProduct} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="상품 목록" />
+                        <ListItemText primary="상품 등록" />
                       </ListItemButton>
                       <ListItemButton sx={{ pl: 4 }}>
                         <ListItemText primary="상품 조회" />

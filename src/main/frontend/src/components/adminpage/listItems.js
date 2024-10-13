@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -18,6 +18,10 @@ import Box from '@mui/material/Box';
 import Inventory from '@mui/icons-material/Inventory'; // Added this line
 import Store from '@mui/icons-material/Store'; // Added this line
 import { Link } from 'react-router-dom';
+import Modal from '@mui/material/Modal';
+import ListPage from '../Order/ListPage';
+import Button from '@mui/material/Button';
+
 
 export const MainListItems = () => {
   const [openOrder, setOpenOrder] = React.useState(false);
@@ -47,6 +51,11 @@ export const MainListItems = () => {
         setOpenProduct(!openProduct);
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <React.Fragment>
       <ListItemButton sx={{ justifyContent: 'flex-start', marginLeft: 5 }}>
@@ -62,29 +71,38 @@ export const MainListItems = () => {
         </Box>
       </ListItemButton>
       <Divider />
-      <ListItemButton onClick={handleClickOrder}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
+
+      <ListItemButton onClick={handleOpen}>
+      <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
         <ListItemText primary="주문서 관리" />
-        {openOrder ? <ExpandLess /> : <ExpandMore />}
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            <Box sx={{
+                p: 4,
+                width: '80vw',
+                height: '80vh',
+                overflow: 'auto',
+                backgroundColor: 'white',
+                position: 'absolute', // Add position here
+                top: '50%', // Add top here
+                left: '50%', // Add left here
+                transform: 'translate(-50%, -50%)' // Add transform here
+            }}>
+              <ListPage />
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+                <Button variant="contained" component={Link} to="/order/add">주문서 등록</Button>
+                <Button variant="contained" component={Link} to="/order/modify">주문서 수정</Button>
+                <Button variant="contained">주문서 삭제</Button>
+              </Box>
+            </Box>
+          </Modal>
       </ListItemButton>
-      <Collapse in={openOrder} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/add">
-            <ListItemText primary="주문서 등록" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/list">
-            <ListItemText primary="주문서 조회" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }} component={Link} to="/order/modify">
-            <ListItemText primary="주문서 수정" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="주문서 삭제" />
-          </ListItemButton>
-        </List>
-      </Collapse>
 
       <ListItemButton onClick={handleClickSupplier}>
         <ListItemIcon>

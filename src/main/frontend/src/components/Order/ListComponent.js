@@ -67,7 +67,11 @@ const ListComponent = ({ onRowClick }) => {
                   </TableCell>
                   <TableCell align="right">{order.id}</TableCell>
                   <TableCell align="right">{order.orderType}</TableCell>
-                  <TableCell align="right">{order.orderedProducts}</TableCell>
+                  <TableCell align="right">
+                    {order.orderedProducts.map((product, index) => (
+                      <p key={index}>{product.name}</p>
+                    ))}
+                  </TableCell>
                   <TableCell align="right">{order.totalAmount}</TableCell>
                   <TableCell align="right">{order.totalPrice}</TableCell>
                 </TableRow>

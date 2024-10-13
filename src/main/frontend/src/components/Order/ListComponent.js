@@ -12,6 +12,9 @@ import Paper from '@mui/material/Paper';
 import ReadComponent from './ReadComponent';
 import { useNavigate } from 'react-router-dom';
 import PageComponent from "../common/PageComponent";
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import ReadPage from './ReadPage';
 
 
 const initState = {
@@ -20,24 +23,33 @@ const initState = {
 }
 
 const ListComponent = ({ onRowClick }) => {
-  console.log(onRowClick);
-  const [selectedid, setSelectedid] = useState(null); // setSelectedid 함수 정의
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const {moveToRead, page, size, refresh, moveToList} = useCustomMove()
   const [serverData, setServerData] = useState(initState)
-  const [orders, setorders] = useState([]); // orders state
+  const [order, setOrder] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
+
+  const handleRowClick = (order) => {
+        setSelectedId(order.id);
+        setOpenModal(true);
+      };
+
+  const handleCloseModal = () => {
+          setOpenModal(false);
+      };
 
   useEffect(() => {
     getList({page,size}).then(data => {
       console.log(data)
       setServerData(data)
-      setorders(data.dtoList) // setorders function
+      setOrder(data.dtoList) // setOrder function
       console.log(data.dtoList)
     })
     .catch(error => {
       console.error('Error fetching data: ', error);
-      setorders([]); // API 호출 실패 시 orders를 빈 배열로 설정
+      setOrder([]); // API 호출 실패 시 order를 빈 배열로 설정
     });
   }, [page,size, refresh]);
   return (
@@ -57,11 +69,17 @@ const ListComponent = ({ onRowClick }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders.length > 0 ? orders.map(order =>
-                <TableRow key={order.id} onClick={() => {
-                      console.log(`Row clicked with id: ${order.id}`); // 로깅하여 확인
-                      onRowClick(order.id);
-                      }}>
+              {order.length > 0 ? order.map(order =>
+                <TableRow
+                  key={order.id}
+                  onClick={() => {
+                    handleRowClick(order);
+                    console.log(`Row clicked with id: ${order.id}`); // 로깅하여 확인
+                    onRowClick(order.id);
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+
                   <TableCell component="th" scope="row">
                     {order.id}
                   </TableCell>
@@ -80,7 +98,24 @@ const ListComponent = ({ onRowClick }) => {
           </Table>
         </TableContainer>
       </div>
-      <PageComponent serverData={serverData} movePage={moveToList} setorders={setorders}></PageComponent>
+      <PageComponent serverData={serverData} movePage={moveToList} setOrder={setOrder}></PageComponent>
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+      >
+        <Box sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '80vw',
+          height: '80vh',
+          overflow: 'auto',
+          bgcolor: 'background.paper',
+        }}>
+          {selectedId && <ReadPage id={selectedId} />}
+        </Box>
+      </Modal>
     </div>
   );
 }

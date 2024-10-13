@@ -23,6 +23,7 @@ public class UserDTO {
     private String cEmail; // 관리자 이메일
     private String cAdr; // 관리자 주소
     private byte[] cProfileImage;
+    private Integer role;
 
 
 

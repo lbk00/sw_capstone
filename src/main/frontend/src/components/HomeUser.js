@@ -157,19 +157,12 @@ export default function HomeUser() {
     const handleLogout = async () => {
         try {
             await axios.post('http://localhost:8080/api/user/logout', {}, { withCredentials: true });
-            //navigate('/homeuser'); // 로그아웃 후 로그인 페이지로 이동
+            window.location.href = "/homeuser"; // 페이지 새로고침
             setIsLoggedIn(false); // 로그아웃 처리
         } catch (error) {
             console.error("로그아웃 실패:", error);
         }
     };
-
-    useEffect(() => {
-        // 로그인하지 않은 경우 리디렉션
-        if (!isLoggedIn) {
-            navigate("/homeuser");
-        }
-    }, [isLoggedIn, navigate]);
 
     const handleLogin = () => {
         navigate('/signin');  // 로그인 페이지 이동
@@ -288,7 +281,13 @@ export default function HomeUser() {
                     <Typography align="left" variant="h6" sx={{ flexGrow: 1 }}>
                         메인페이지
                     </Typography>
-                    <Button color="inherit" sx={{ mr: 2 }} onClick={openManagerList}>관리자 페이지</Button>
+                    {user && user.role === 2 && (
+                        <Button color="inherit" sx={{ mr: 2 }} onClick={openManagerList}>
+                            관리자 페이지
+                        </Button>
+                    )}
+
+
                     {isLoggedIn ? (
                         <Avatar>{user.cname.charAt(0)}</Avatar> // 사용자의 이름의 첫 글자를 Avatar에 표시
                     ) : (

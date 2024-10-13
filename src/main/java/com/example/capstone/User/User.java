@@ -50,7 +50,7 @@ public class User {
     @Column(nullable = true, length = 20,   name = "cAdr")
     private String cAdr; // 관리자 주소
 
-    private String role; // 사용자 권한
+    private Integer role; // 사용자 권한 1 = 일반 고객 , 2 = 쇼핑몰 관리자
 
     @CreationTimestamp
     private Timestamp createDate; // 사용자 생성일
@@ -87,4 +87,6 @@ public class User {
     public void changecAdr(String cAdr) {
         this.cAdr = cAdr;
     }
+
+
 }

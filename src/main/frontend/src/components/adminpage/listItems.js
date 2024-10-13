@@ -23,7 +23,7 @@ import ListPage from '../Order/ListPage';
 import Button from '@mui/material/Button';
 
 
-export const MainListItems = () => {
+export const MainListItems = ({ user }) => {
   const [openOrder, setOpenOrder] = React.useState(false);
   const [openSupplier, setOpenSupplier] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
@@ -67,7 +67,7 @@ export const MainListItems = () => {
               sx={{ borderRadius: '50%', width: 100, height: 100 }} // 크기를 조절
             />
           </ListItemAvatar>
-          <ListItemText primary="강민석" />
+            <ListItemText primary={user?.cname || "Unknown"} />
         </Box>
       </ListItemButton>
       <Divider />

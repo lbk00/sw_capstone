@@ -35,7 +35,8 @@ import Avatar from '@mui/material/Avatar';
 import ManagerRead from '../Manager/ReadPage';
 import ManagerList from '../Manager/ListPage';
 import AddPage from '../Manager/AddPage'; // AddPage 컴포넌트를 import 합니다.
-import ListPage from '../Manager/ListPage'; // ListPage 컴포넌트를 import 합니다.
+import ListPage from '../Manager/ListPage';
+import axios from "axios"; // ListPage 컴포넌트를 import 합니다.
 
 
 function Copyright(props) {
@@ -109,6 +110,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+    const [user, setUser] = useState(null);
   const [open, setOpen] = React.useState(true);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const { moveToRead } = useCustomMove(); // useCustomMove 훅에서 moveToRead 함수를 가져옵니다.
@@ -121,6 +123,23 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+    {/*현재 로그인한 관리자 정보*/}
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/user/current-user', {
+                    withCredentials: true // 세션 쿠키 전달을 위한 설정
+                });
+                console.log(response.data); // 확인용 로그
+                setUser(response.data);
+            } catch (error) {
+                console.error("사용자 정보 가져오기 오류:", error);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
   {/* 알림 설정 */}
   const [alarmOpen, setAlarmOpen] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
@@ -246,7 +265,7 @@ export default function Dashboard() {
               </Toolbar>
               <Divider />
               <List component="nav">
-                {MainListItems()}
+                  <MainListItems user={user} />
                 <Divider sx={{ my: 1 }} />
               </List>
             </Drawer>

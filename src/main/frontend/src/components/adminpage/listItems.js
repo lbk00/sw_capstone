@@ -19,7 +19,7 @@ import Inventory from '@mui/icons-material/Inventory'; // Added this line
 import Store from '@mui/icons-material/Store'; // Added this line
 import { Link } from 'react-router-dom';
 
-export const MainListItems = () => {
+export const MainListItems = ({ user }) => {
   const [openOrder, setOpenOrder] = React.useState(false);
   const [openSupplier, setOpenSupplier] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
@@ -58,7 +58,7 @@ export const MainListItems = () => {
               sx={{ borderRadius: '50%', width: 100, height: 100 }} // 크기를 조절
             />
           </ListItemAvatar>
-          <ListItemText primary="강민석" />
+            <ListItemText primary={user?.cname || "Unknown"} />
         </Box>
       </ListItemButton>
       <Divider />

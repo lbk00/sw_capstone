@@ -238,20 +238,20 @@ export default function ShoppingCart() {
             <Divider />
             {/*일반배송 ,장바구니 표시*/}
             <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
-            <Toolbar>
-                <Grid container>
-                    <Grid item xs={6}>
-                        <Typography gutterBottom variant="h5">
-                            일반배송
-                        </Typography>
+                <Toolbar>
+                    <Grid container>
+                        <Grid item xs={6}>
+                            <Typography gutterBottom variant="h5">
+                                일반배송
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Typography gutterBottom variant="h5">
+                                장바구니
+                            </Typography>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Typography gutterBottom variant="h5">
-                            장바구니
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </Toolbar>
+                </Toolbar>
             </AppBar>
 
             {/*장바구니 정보*/}

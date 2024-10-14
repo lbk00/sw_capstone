@@ -12,6 +12,7 @@ import  useCustomMove  from "../../hooks/useCustomMove";
 import * as OrderApi from '../../api/OrderApi.js';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 const initState = {
     id: 0,
@@ -37,17 +38,19 @@ function ReadComponent({ id }) {
       };
 
     useEffect(() => {
-      if (id !== undefined) { // Add this line
-              getOne(id)
-                .then(data => {
-                  console.log(data); // API로부터 받아온 데이터를 콘솔에 출력
-                  setOrder(data);
-                })
-                .catch(error => {
-                  console.error('Error fetching data: ', error); // API 호출에 실패했을 때 에러 메시지를 출력
-                });
-            } // Add this line
-          }, [id]);
+        // API에서 주문서 정보를 가져오는 함수
+        const fetchOrderDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/orders/${id}`);
+                setOrder(response.data); // 주문서 데이터를 상태로 저장
+            } catch (error) {
+                console.error('Error fetching the order details:', error);
+            }
+        };
+
+        fetchOrderDetails(); // useEffect 호출 시 데이터를 가져옴
+    }, [id]);
+
 
     return(
         <>

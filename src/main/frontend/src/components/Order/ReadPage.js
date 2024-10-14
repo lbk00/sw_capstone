@@ -7,15 +7,15 @@ import axios from 'axios';
 
 
 
-const ReadPage = () => {
-  const { id } = useParams(); // URL 파라미터에서 주문서의 ID를 가져옵니다.
+const ReadPage = ({ id }) => {
+  //const { id } = useParams(); // URL 파라미터에서 주문서의 ID를 가져옵니다.
   const [open, setOpen] = useState(false); // 모달창의 상태를 관리하는 상태를 생성합니다.
 
     const handleOpen = () => setOpen(true); // 모달창을 열기 위한 함수를 생성합니다.
     const handleClose = () => setOpen(false); // 모달창을 닫기 위한 함수를 생성합니다.
     const order = async (id) => {
         try {
-          await axios.post(`http://localhost:8080/api/orders/order/${id}`); // 백엔드 서버의 주소와 경로를 적절히 수정해야 합니다.
+          await axios.get(`http://localhost:8080/api/orders/order/${id}`); // 백엔드 서버의 주소와 경로를 적절히 수정해야 합니다.
           alert('주문이 완료되었습니다.');
         } catch (error) {
           console.error('주문 중 오류가 발생했습니다:', error);

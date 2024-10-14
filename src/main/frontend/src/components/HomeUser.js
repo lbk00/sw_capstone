@@ -159,6 +159,7 @@ export default function HomeUser() {
             await axios.post('http://localhost:8080/api/user/logout', {}, { withCredentials: true });
             window.location.href = "/homeuser"; // 페이지 새로고침
             setIsLoggedIn(false); // 로그아웃 처리
+            sessionStorage.clear(); // sessionStorage 비우기
         } catch (error) {
             console.error("로그아웃 실패:", error);
         }

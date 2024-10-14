@@ -145,7 +145,7 @@ export default function ItemPurchase() {
         };
 
         // 기존 장바구니 상품 가져오기 (없으면 빈 배열)
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        let cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
         // 장바구니에 이미 있는지 확인
         const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
 
@@ -158,7 +158,7 @@ export default function ItemPurchase() {
             cartItems.push(cartItem);
         }
         // 로컬 스토리지에 저장
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
         setSnackbarMessage("장바구니에 추가되었습니다.");
         setOpenSnackbar(true);
         // 장바구니 페이지로 이동

@@ -46,7 +46,7 @@ export default function ShoppingCart() {
 
     // location.state에서 새로 전달된 cartItem을 가져옴
     useEffect(() => {
-        const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
         setCartItems(storedCartItems);
     }, []);  // 컴포넌트가 처음 렌더링될 때 한 번만 실행
 
@@ -82,7 +82,7 @@ export default function ShoppingCart() {
 
     // 장바구니 초기화 함수
     const handleClearCart = () => {
-        localStorage.removeItem('cartItems');  // 'cartItems' 키의 항목을 로컬 스토리지에서 삭제
+        sessionStorage.removeItem('cartItems');  // 'cartItems' 키의 항목을 로컬 스토리지에서 삭제
         setCartItems([]);  // 상태를 빈 배열로 설정하여 UI에서도 장바구니가 비워짐
     };
 
@@ -122,7 +122,7 @@ export default function ShoppingCart() {
         const updatedCartItems = cartItems.filter((product) => !selectedItems.includes(product.id));
         setCartItems(updatedCartItems);
         setSelectedItems([]); // 선택 항목 초기화
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); // 로컬 스토리지 업데이트
+        sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); // 로컬 스토리지 업데이트
     };
 
     //장바구니 상품 구매 처리
@@ -147,7 +147,7 @@ export default function ShoppingCart() {
             // 장바구니에서 구매한 상품 제거
             const updatedCartItems = cartItems.filter(item => !selectedItems.includes(item.id));
             setCartItems(updatedCartItems);
-            localStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); // 로컬 스토리지 업데이트
+            sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); // 로컬 스토리지 업데이트
             setSelectedItems((prev) => prev.filter(id => !selectedItems.includes(id)));
 
         } catch (error) {

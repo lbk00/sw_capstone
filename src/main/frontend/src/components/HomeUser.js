@@ -120,6 +120,7 @@ export default function HomeUser() {
     const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
 
+
     // 데이터베이스에서 상품 데이터를 가져오는 함수
     useEffect(() => {
         const fetchProducts = async () => {
@@ -192,10 +193,13 @@ export default function HomeUser() {
         setCurrentPage(1); // 정렬 후 페이지를 1로 초기화
     };
 
+
+
     // 현재 페이지에 표시할 상품 계산
     const indexOfLastProduct = currentPage * productsPerPage; // 현재 페이지의 마지막 상품 인덱스
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 현재 페이지의 첫 번째 상품 인덱스
     const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct); // 필터링된 현재 페이지에서 보여줄 상품들
+    const bannerProducts = [...products].sort((a, b) => b.amount - a.amount);
 
     // 총 페이지 수 계산
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
@@ -207,8 +211,9 @@ export default function HomeUser() {
 
     // 상품 클릭 시 상세 화면으로 이동
     const handleCardClick = (productId) => {
-        navigate(`/itempurchase/${productId}`); // 상품 ID와 함께 구매 페이지로 이동
+        navigate(`/itempurchase/${productId}`, { state: { isLoggedIn } }); // 상품 ID와 함께 구매 페이지로 이동 , 로그인 상태 전달
     };
+
 
 
     // 검색 수행 함수
@@ -243,7 +248,7 @@ export default function HomeUser() {
             </List>
             <Divider />
             <List>
-                {['바지', '운동화', '트레이닝복', '티셔츠' , '점퍼'].map((text, index) => (
+                {['상의','아우터','바지'].map((text, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
@@ -320,15 +325,12 @@ export default function HomeUser() {
                         </Drawer>
                     </div>
 
+                    <Button sx={{ width : 90, color: 'black' }}>상의</Button>
+                    <Divider orientation="vertical" variant="middle" flexItem />
+                    <Button sx={{ width : 90, color: 'black' }}>아우터</Button>
+                    <Divider orientation="vertical" variant="middle" flexItem />
                     <Button sx={{ width : 90, color: 'black' }}>바지</Button>
                     <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>운동화</Button>
-                    <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>트레이닝복</Button>
-                    <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>티셔츠</Button>
-                    <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>점퍼</Button>
                     <Box sx={{ flexGrow: 1 }} />
                     <form noValidate autoComplete="off">
                         <FormControl sx={{ width: '25ch', bgcolor: 'white' }} size="small">
@@ -362,51 +364,35 @@ export default function HomeUser() {
                     </form>
                 </Toolbar>
             </AppBar>
-            {/*임시 배너*/}
+            {/*상품 배너*/}
             <Box sx={{ bgcolor: 'lightgray', p: 2 }}>
                 <Swiper autoplay={true} pagination={true} navigation={true} modules={[Navigation , SwiperPagination , Autoplay]} className="mySwiper">
-                    <SwiperSlide>
-                        <CardMedia
-                            sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
-                            title="sample1"
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <CardMedia
-                            sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
-                            title="sample1"
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <CardMedia
-                            sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
-                            title="sample1"
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <CardMedia
-                            sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
-                            title="sample1"
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <CardMedia
-                            sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
-                            title="sample1"
-                        />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <CardMedia
-                            sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
-                            title="sample1"
-                        />
-                    </SwiperSlide>
+                    {bannerProducts.length === 0 ? (
+                        <Typography variant="h6" color="text.secondary" sx={{ marginLeft: 4 }}>
+                            일치하는 상품이 없습니다.
+                        </Typography>
+                    ) : (
+                        bannerProducts.map((product) => (
+                            <SwiperSlide>
+                                <Card
+                                    onClick={() => handleCardClick(product.id)} // 클릭 시 페이지 이동
+                                    sx={{ cursor: 'pointer' }} // 커서를 포인터로 변경
+                                >
+                                    <CardContent>
+                                        <CardMedia
+                                            sx={{ height: 200 }}
+                                            image={
+                                                product.itemImage
+                                                    ? `data:image/jpeg;base64,${product.itemImage}`
+                                                    : defaultImage // 기본 이미지 사용
+                                            }
+                                            title={product.name}
+                                        />
+                                    </CardContent>
+                                </Card>
+                            </SwiperSlide>
+                        ))
+                    )}
                 </Swiper>
             </Box>
             {/*상품 정렬 타입 선택*/}
@@ -417,17 +403,14 @@ export default function HomeUser() {
                     onChange={handleSortTypeChange}
                     aria-label="sort type"
                 >
-                    <ToggleButton value="popularity" aria-label="popularity">
-                        인기순
-                    </ToggleButton>
                     <ToggleButton value="recent" aria-label="recent" onClick={() => handleSort(null)}>
-                        최근순
+                        최신순
                     </ToggleButton>
                     <ToggleButton value="lowPrice" aria-label="low price" onClick={() => handleSort('asc')}>
-                        가격이 낮은순
+                        가격이 낮은 순
                     </ToggleButton>
                     <ToggleButton value="highPrice" aria-label="high price" onClick={() => handleSort('desc')}>
-                        가격이 높은순
+                        가격이 높은 순
                     </ToggleButton>
                 </ToggleButtonGroup>
             </Box>

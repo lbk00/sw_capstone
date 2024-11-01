@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
+
 import axios from 'axios'
 
 import AppBar from '@mui/material/AppBar';
@@ -42,7 +43,10 @@ export default function ShoppingCart() {
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
+    const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 선언
     const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [user, setUser] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
 
     // location.state에서 새로 전달된 cartItem을 가져옴
     useEffect(() => {
@@ -79,6 +83,51 @@ export default function ShoppingCart() {
             </List>
         </Box>
     );
+
+    //로그인 관련
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/user/current-user', {
+                    withCredentials: true // 세션 쿠키 전달을 위한 설정
+                });
+                console.log(response.data); // 확인용 로그
+                setUser(response.data);
+                setIsLoggedIn(true); // 로그인 처리
+            } catch (error) {
+                console.error("사용자 정보 가져오기 오류:", error);
+            }
+        };
+
+        fetchUser();
+    }, []);
+    // 로그아웃 함수
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:8080/api/user/logout', {}, { withCredentials: true });
+            window.location.href = "/homeuser"; // 페이지 새로고침
+            setIsLoggedIn(false); // 로그아웃 처리
+            sessionStorage.clear(); // sessionStorage 비우기
+        } catch (error) {
+            console.error("로그아웃 실패:", error);
+        }
+    };
+
+    const handleLogin = () => {
+        navigate('/signin');  // 로그인 페이지 이동
+    };
+
+    const handleSignup = () => {
+        navigate('/signup');  // 회원가입 페이지 이동
+    };
+
+    const handleCart = () => {
+        navigate('/cart');  // 로그인 페이지 이동
+    };
+
+    const openManagerList = () => {
+        window.open('http://localhost:3000/dashboard', '_blank', 'noopener,noreferrer'); // 새로운 팝업 열기
+    };
 
     // 장바구니 초기화 함수
     const handleClearCart = () => {
@@ -171,6 +220,7 @@ export default function ShoppingCart() {
     return (
         <div className="App">
             <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
+                {/*상단페이지*/}
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                         <Icon sx={{ mr: 1 }} />
@@ -178,9 +228,29 @@ export default function ShoppingCart() {
                     <Typography align="left" variant="h6" sx={{ flexGrow: 1 }}>
                         메인페이지
                     </Typography>
-                    <Avatar>Lee</Avatar>
-                    <Button color="inherit">Login</Button>
-                    <Button color="inherit">Sign up</Button>
+                    {user && user.role === 2 && (
+                        <Button color="inherit" sx={{ mr: 2 }} onClick={openManagerList}>
+                            관리자 페이지
+                        </Button>
+                    )}
+
+
+                    {isLoggedIn ? (
+                        <Avatar>{user.cname.charAt(0)}</Avatar> // 사용자의 이름의 첫 글자를 Avatar에 표시
+                    ) : (
+                        <h1></h1>
+                    )}
+                    {isLoggedIn ? ( // 로그인 여부에따라 버튼 다르게 뜨도록
+                        <>
+                            <Button color="inherit" onClick={handleCart}>장바구니</Button>
+                            <Button color="inherit" onClick={handleLogout}>로그아웃</Button>
+                        </>
+                    ) : (
+                        <>
+                            <Button color="inherit" onClick={handleLogin}>로그인</Button>
+                            <Button color="inherit" onClick={handleSignup}>회원가입</Button>
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
             <Divider />

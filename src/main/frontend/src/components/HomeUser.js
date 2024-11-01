@@ -451,7 +451,7 @@ export default function HomeUser() {
             </Grid>
 
             {/*상품 이동 페이지네이션*/}
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 , pt: 4 , pb : 6}}>
                 <Pagination
                     count={totalPages} // 총 페이지 수
                     page={currentPage} // 현재 페이지
@@ -461,9 +461,6 @@ export default function HomeUser() {
                 />
             </Box>
             {/*홈페이지의 최하단 네비게이션*/}
-            <BottomNavigationAction label="Recents" icon={<MenuIcon />} />
-            <BottomNavigationAction label="Favorites" icon={<MenuIcon />} />
-            <BottomNavigationAction label="Nearby" icon={<MenuIcon />} />
             <AppBar position="static" sx={{ bgcolor: 'gray', color: 'black' ,height: 50}}>
                 <Toolbar></Toolbar>
             </AppBar>

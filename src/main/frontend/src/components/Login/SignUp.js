@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -30,92 +28,76 @@ function Copyright(props) {
   );
 }
 
-
-
-
-  const sendVerificationCode = () => {
-    // TODO: Implement the logic to send the verification code to the user's phone number
-    console.log('Sending verification code...');
-  };
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-
-
   const [user, setUser] = useState({
-      cid: '',
-      cPW: '',
-      cName: '',
-      cGender: '',
-      cbirthDate: '',
-      ctel: '',
-      cEmail: '',
-      cProfileImage: '',
-      cAdr: '',
-    });
+    cid: '',
+    cname: '',
+    cgender: '',
+    ctel: '',
+    cpw: '',
+    cemail: '',
+    cadr: '',
+    cprofileimage: '',
 
-    // 모달창의 열림 상태를 관리하는 상태 변수
-    const [openModal, setOpenModal] = useState(false);
+  });
 
-    const submitUser = (user) => {
-        axios.post('http://localhost:8080/api/user/signup', user)
-          .then(response => {
-            console.log(response);
-            // 회원가입이 성공적으로 완료되면 모달창을 엽니다.
-            setOpenModal(true);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      };
-
-      const handleSubmit = (event) => {
-        event.preventDefault();
-        submitUser(user);
-      };
+  const [openModal, setOpenModal] = useState(false);
   const [profileImage, setProfileImage] = useState('');
-
-    const handleImageChange = (e) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    };
   const [address, setAddress] = useState('');
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const handleComplete = (data) => {
-      let fullAddress = data.address;
-      let extraAddress = '';
+  const submitUser = (user) => {
+    axios.post('http://localhost:8080/api/user/signup', user)
+      .then(response => {
+        console.log(response);
+        setOpenModal(true);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-      if (data.addressType === 'R') {
-        if (data.bname !== '') {
-          extraAddress += data.bname;
-        }
-        if (data.buildingName !== '') {
-          extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-        }
-        fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    submitUser(user);
+  };
+
+  const handleImageChange = (e) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfileImage(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = '';
+
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddress += data.bname;
       }
-
-      setAddress(fullAddress);
-      setOpen(false);
+      if (data.buildingName !== '') {
+        extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+      }
+      fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
     }
 
-    const sendVerificationCode = () => {
-      // TODO: Implement the logic to send the verification code to the user's phone number
-      console.log('Sending verification code...');
-    };
+    setAddress(fullAddress);
+    setOpen(false);
+  };
 
   const handleChange = (e) => {
-      const { id, value } = e.target;
-      setUser({ ...user, [id]: value });
-    };
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleGenderChange = (gender) => {
+    setUser({ ...user, cgender: gender });
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -137,120 +119,102 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={6}>
-               <Grid item xs={12}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="id"
+                  id="cid"
                   label="아이디"
-                  name="id"
-                  autoComplete="id"
+                  name="cid"
+                  autoComplete="cid"
+                  onChange={handleChange}
                 />
-
                 <Box mt={1}>
-                 <Typography color="text.secondary">
-                 영문, 숫자의 조합으로 4~12자리로 입력해주세요.
-                 </Typography>
+                  <Typography color="text.secondary">
+                    영문, 숫자의 조합으로 4~12자리로 입력해주세요.
+                  </Typography>
                 </Box>
-                </Grid>
-               <Grid item xs={12}>
-                <TextField
-                 required
-                 fullWidth
-                 id="name"
-                 label="이름(실명)"
-                 name="name"
-                 autoComplete="name"
-                 />
-                 <Box mt={1}>
-                  <Typography color="text.secondary">
-                   실명을 입력해 주세요.
-                  </Typography>
-                 </Box>
-                </Grid>
-
-              <Grid item xs={12}>
-               <TextField
-                required
-                fullWidth
-                id="nickname"
-                label="닉네임"
-                name="nickname"
-                autoComplete="nickname"
-               />
-               <Box mt={1}>
-                <Typography color="text.secondary">
-                 닉네임을 입력해주세요.
-                </Typography>
-               </Box>
               </Grid>
-
-               <Grid item xs={12}>
-                 <Grid container spacing={1}>
-                   <Grid item xs={4}>
-                     <Select
-                       required
-                       fullWidth
-                       id="phonePrefix"
-                       name="phonePrefix"
-                       defaultValue="010"
-                     >
-                       <MenuItem value="010">010</MenuItem>
-                       <MenuItem value="011">011</MenuItem>
-                       <MenuItem value="016">016</MenuItem>
-                       <MenuItem value="017">017</MenuItem>
-                       <MenuItem value="018">018</MenuItem>
-                       <MenuItem value="019">019</MenuItem>
-                     </Select>
-                   </Grid>
-                   <Grid item xs={8}>
-                     <TextField
-                       required
-                       fullWidth
-                       id="phone"
-                       label="휴대폰 번호"
-                       name="phone"
-                       autoComplete="phone"
-                     />
-                   </Grid>
-                 </Grid>
-                 <Box mt={1}>
-                   <Button
-                     variant="contained"
-                     color="primary"
-                     onClick={sendVerificationCode} // 인증번호를 보내는 함수
-                   >
-                     인증하기
-                   </Button>
-                 </Box>
-                 <Box mt={1}>
-                   <TextField
-                     required
-                     fullWidth
-                     id="verificationCode"
-                     label="인증번호"
-                     name="verificationCode"
-                   />
-                 </Box>
-               </Grid>
-
-               <Grid item xs={12}>
-                 <TextField
-                   required
-                   fullWidth
-                   name="password"
-                   label="비밀번호"
-                   type="password"
-                   id="password"
-                   autoComplete="new-password"
-                 />
-                 <Box mt={1}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="cname"
+                  label="이름(실명)"
+                  name="cname"
+                  autoComplete="cname"
+                  onChange={handleChange}
+                />
+                <Box mt={1}>
                   <Typography color="text.secondary">
-                   영문,숫자를 포함한 6자 이상의 비밀번호를 입력하세요.
+                    실명을 입력해 주세요.
                   </Typography>
-                 </Box>
-               </Grid>
-
+                </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography component="legend">성별</Typography>
+                <Button
+                  variant={user.cgender === '남' ? 'contained' : 'outlined'}
+                  onClick={() => handleGenderChange('남')}
+                >
+                  남
+                </Button>
+                <Button
+                  variant={user.cgender === '여' ? 'contained' : 'outlined'}
+                  onClick={() => handleGenderChange('여')}
+                >
+                  여
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={1}>
+                  <Grid item xs={4}>
+                    <Select
+                      required
+                      fullWidth
+                      id="phonePrefix"
+                      name="phonePrefix"
+                      defaultValue="010"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="010">010</MenuItem>
+                      <MenuItem value="011">011</MenuItem>
+                      <MenuItem value="016">016</MenuItem>
+                      <MenuItem value="017">017</MenuItem>
+                      <MenuItem value="018">018</MenuItem>
+                      <MenuItem value="019">019</MenuItem>
+                    </Select>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="ctel"
+                      label="휴대폰번호"
+                      name="ctel"
+                      autoComplete="ctel"
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="cpw"
+                  label="비밀번호"
+                  type="password"
+                  id="cpw"
+                  autoComplete="new-password"
+                  onChange={handleChange}
+                />
+                <Box mt={1}>
+                  <Typography color="text.secondary">
+                    영문,숫자를 포함한 6자 이상의 비밀번호를 입력하세요.
+                  </Typography>
+                </Box>
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -260,6 +224,7 @@ export default function SignUp() {
                   type="password"
                   id="confirmPassword"
                   autoComplete="new-password"
+                  onChange={handleChange}
                 />
                 <Box mt={1}>
                   <Typography color="text.secondary">
@@ -267,18 +232,17 @@ export default function SignUp() {
                   </Typography>
                 </Box>
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="cemail"
                   label="이메일"
-                  name="email"
-                  autoComplete="email"
+                  name="cemail"
+                  autoComplete="cemail"
+                  onChange={handleChange}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <Box mt={1}>
                   <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
@@ -295,38 +259,36 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
-                    id="address"
+                    id="cadr"
                     label="기본 주소"
-                    name="address"
+                    name="cadr"
                     value={address}
-                    autoComplete="address"
+                    autoComplete="cadr"
+                    onChange={handleChange}
                   />
-
                 </Box>
                 <Box mt={1}>
-                 <TextField
-                  required
-                  fullWidth
-                  id="address"
-                  label="상세 주소"
-                  name="address"
-                  autoComplete="address"
-                 />
+                  <TextField
+                    required
+                    fullWidth
+                    id="c_adr"
+                    label="상세 주소"
+                    name="c_adr"
+                    autoComplete="c_adr"
+                    onChange={handleChange}
+                  />
                 </Box>
-
               </Grid>
               <Grid item xs={12}>
-                    <input
-                      accept="image/*"
-                      type="file"
-                      onChange={handleImageChange}
-                    />
-                    {profileImage && (
-                      <img src={profileImage} alt="프로필 이미지" style={{ width: 100, height: 100 }} />
-                    )}
-                  </Grid>
-
-
+                <input
+                  accept="image/*"
+                  type="file"
+                  onChange={handleImageChange}
+                />
+                {profileImage && (
+                  <img src={profileImage} alt="프로필 이미지" style={{ width: 100, height: 100 }} />
+                )}
+              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -336,12 +298,9 @@ export default function SignUp() {
             >
               회원가입 하기
             </Button>
-
-            {/* 회원가입 성공 모달창 */}
             <Dialog open={openModal} onClose={() => setOpenModal(false)}>
               <DialogTitle>회원가입이 성공하였습니다.</DialogTitle>
             </Dialog>
-
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">

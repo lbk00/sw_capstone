@@ -25,6 +25,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { MainListItems } from './listItems';
 import { Routes, Route } from 'react-router-dom';
 import ListComponent from '../Manager/ListComponent';
+//import ListComponent from '../Order/ListComponent';
 import ReadComponent from '../Manager/ReadComponent';
 import useCustomMove from '../../hooks/useCustomMove';
 import { Outlet } from 'react-router-dom';
@@ -35,7 +36,8 @@ import Avatar from '@mui/material/Avatar';
 import ManagerRead from '../Manager/ReadPage';
 import ManagerList from '../Manager/ListPage';
 import AddPage from '../Manager/AddPage'; // AddPage 컴포넌트를 import 합니다.
-import ListPage from '../Manager/ListPage';
+import managerListPage from '../Manager/ListPage';
+import ListPage from '../Order/ListPage';
 import axios from "axios"; // ListPage 컴포넌트를 import 합니다.
 
 
@@ -257,14 +259,10 @@ export default function Dashboard() {
                     px: [1],
                   }}
               >
-                {/* 관리자 프로필 사진 */}
-                <Avatar className="admin-profile" src="/path/to/admin/profile.jpg" />
-                <IconButton onClick={toggleDrawer}>
-                  <ChevronLeftIcon />
-                </IconButton>
               </Toolbar>
               <Divider />
               <List component="nav">
+                  {/*관리자 메뉴*/}
                   <MainListItems user={user} />
                 <Divider sx={{ my: 1 }} />
               </List>
@@ -282,45 +280,17 @@ export default function Dashboard() {
                 }}
             >
               <Toolbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <Grid container spacing={3}>
-                  {/* Chart */}
-                  <Grid item xs={12} md={8} lg={9}>
-                    <Paper
-                        sx={{
-                          p: 2,
-                          display: 'flex',
-                          flexDirection: 'column',
-                          height: 240,
-                        }}
-                    >
-
+              <Container maxWidth="lg" sx={{ ml:4, mt: 4, mb: 4 }}>
+                      {/*서브메뉴 클릭시 변경되는 페이지*/}
+                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column',height : 700 , width: 1550 }}>
+                        <h2>동작 설명 페이지</h2>
+                            <managerListPage/>
                     </Paper>
-                  </Grid>
-                  {/* Recent Deposits */}
-                  <Grid item xs={12} md={4} lg={3}>
-                    <Paper
-                        sx={{
-                          p: 2,
-                          display: 'flex',
-                          flexDirection: 'column',
-                          height: 240,
-                        }}
-                    >
-                      <Deposits />
-                    </Paper>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                       <Routes>
                         <Route path="/add" element={<AddPage />} />
                         <Route path="/list" element={<ListPage />} />
                         <Route path="*" element={<Outlet />} />
                       </Routes>
-                    </Paper>
-                  </Grid>
-                </Grid>
                 <Copyright sx={{ pt: 4 }} />
               </Container>
             </Box>

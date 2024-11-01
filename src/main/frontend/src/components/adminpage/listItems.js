@@ -71,12 +71,12 @@ export const MainListItems = ({ user }) => {
         </Box>
       </ListItemButton>
       <Divider />
-
       <ListItemButton onClick={handleOpen}>
       <ListItemIcon>
                 <DashboardIcon />
-              </ListItemIcon>
+      </ListItemIcon>
         <ListItemText primary="주문서 관리" />
+          {/*
         <Modal
             open={open}
             onClose={handleClose}
@@ -102,6 +102,7 @@ export const MainListItems = ({ user }) => {
               </Box>
             </Box>
           </Modal>
+          */}
       </ListItemButton>
 
       <ListItemButton onClick={handleClickSupplier}>

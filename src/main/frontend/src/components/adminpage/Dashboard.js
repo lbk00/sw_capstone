@@ -36,8 +36,8 @@ import Avatar from '@mui/material/Avatar';
 import ManagerRead from '../Manager/ReadPage';
 import ManagerList from '../Manager/ListPage';
 import AddPage from '../Manager/AddPage'; // AddPage 컴포넌트를 import 합니다.
-import managerListPage from '../Manager/ListPage';
-import ListPage from '../Order/ListPage';
+import ManagerListPage from '../Manager/ListPage';
+import OrderListPage from '../Order/ListPage';
 import axios from "axios"; // ListPage 컴포넌트를 import 합니다.
 
 
@@ -112,6 +112,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+    // 현재 페이지를 나타내주는 변수 0 : 기본 / 1 : 주문서 관리 / 2:
+    const [statePage, setStatePage] = useState(0);
+
+
+
     const [user, setUser] = useState(null);
   const [open, setOpen] = React.useState(true);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -263,7 +268,7 @@ export default function Dashboard() {
               <Divider />
               <List component="nav">
                   {/*관리자 메뉴*/}
-                  <MainListItems user={user} />
+                  <MainListItems user={user} statePage={statePage} setStatePage={setStatePage} />
                 <Divider sx={{ my: 1 }} />
               </List>
             </Drawer>
@@ -282,13 +287,19 @@ export default function Dashboard() {
               <Toolbar />
               <Container maxWidth="lg" sx={{ ml:4, mt: 4, mb: 4 }}>
                       {/*서브메뉴 클릭시 변경되는 페이지*/}
-                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column',height : 700 , width: 1550 }}>
-                        <h2>동작 설명 페이지</h2>
-                            <managerListPage/>
+                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column',height : 'flex' , width: 1550 }}>
+                        {/*statePage가 변경될때마다 구성내용 변경*/}
+                        {statePage === 1 ? (
+                            <OrderListPage /> // statePage가 1일 때
+                        ) : statePage === 3 ? (
+                            <ManagerListPage /> // statePage가 3일 때
+                        ) : (
+                            <h2>동작 설명 페이지</h2> // statePage가 0일 때
+                        )}
                     </Paper>
                       <Routes>
                         <Route path="/add" element={<AddPage />} />
-                        <Route path="/list" element={<ListPage />} />
+                        <Route path="/list" element={<OrderListPage />} />
                         <Route path="*" element={<Outlet />} />
                       </Routes>
                 <Copyright sx={{ pt: 4 }} />

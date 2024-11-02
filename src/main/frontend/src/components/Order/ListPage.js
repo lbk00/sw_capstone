@@ -1,6 +1,8 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
 import ListComponent from "./ListComponent";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 
 
@@ -20,7 +22,11 @@ import ListComponent from "./ListComponent";
        Order List Page Component
      </div>
      <ListComponent onRowClick={handleRowClick} />
-
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+            <Button variant="contained" component={Link} to="/order/add">주문서 등록</Button>
+            <Button variant="contained" component={Link} to="/order/modify">주문서 수정</Button>
+            <Button variant="contained">주문서 삭제</Button>
+        </Box>
      <div>{page}</div>
 
     </div>

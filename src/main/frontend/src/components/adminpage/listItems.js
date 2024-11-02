@@ -23,7 +23,7 @@ import ListPage from '../Order/ListPage';
 import Button from '@mui/material/Button';
 
 
-export const MainListItems = ({ user }) => {
+export const MainListItems = ({ user ,statePage, setStatePage }) => {
   const [openOrder, setOpenOrder] = React.useState(false);
   const [openSupplier, setOpenSupplier] = React.useState(false);
   const [openUser, setOpenUser] = React.useState(false);
@@ -32,7 +32,8 @@ export const MainListItems = ({ user }) => {
 
 
   const handleClickOrder = () => {
-    setOpenOrder(!openOrder);
+      setStatePage(1);
+      setOpenOrder(!openOrder);
   };
 
   const handleClickSupplier = () => {
@@ -40,6 +41,7 @@ export const MainListItems = ({ user }) => {
   };
 
   const handleClickUser = () => {
+      setStatePage(3);
       setOpenUser(!openUser);
   };
 
@@ -71,7 +73,7 @@ export const MainListItems = ({ user }) => {
         </Box>
       </ListItemButton>
       <Divider />
-      <ListItemButton onClick={handleOpen}>
+      <ListItemButton onClick={handleClickOrder}> {/*주문서 관리시 상태 1로 변경*/}
       <ListItemIcon>
                 <DashboardIcon />
       </ListItemIcon>
@@ -103,6 +105,7 @@ export const MainListItems = ({ user }) => {
             </Box>
           </Modal>
           */}
+
       </ListItemButton>
 
       <ListItemButton onClick={handleClickSupplier}>

@@ -263,7 +263,7 @@ export default function ItemPurchase() {
             </List>
             <Divider />
             <List>
-                {['바지', '운동화', '트레이닝복', '티셔츠', '점퍼'].map((text, index) => (
+                {['상의','아우터','바지'].map((text, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
@@ -356,15 +356,12 @@ export default function ItemPurchase() {
                         </Drawer>
                     </div>
 
+                    <Button sx={{ width : 90, color: 'black' }}>상의</Button>
+                    <Divider orientation="vertical" variant="middle" flexItem />
+                    <Button sx={{ width : 90, color: 'black' }}>아우터</Button>
+                    <Divider orientation="vertical" variant="middle" flexItem />
                     <Button sx={{ width : 90, color: 'black' }}>바지</Button>
                     <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>운동화</Button>
-                    <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>트레이닝복</Button>
-                    <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>티셔츠</Button>
-                    <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>점퍼</Button>
                     <Box sx={{ flexGrow: 1 }} />
                     <form noValidate autoComplete="off">
                         <FormControl sx={{ width: '25ch', bgcolor: 'white' }} size="small">

@@ -108,8 +108,8 @@ const ListComponent = ({ onRowClick }) => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '80vw',
-          height: '80vh',
+          width: '35vw',
+          height: '90vh',
           overflow: 'auto',
           bgcolor: 'background.paper',
         }}>

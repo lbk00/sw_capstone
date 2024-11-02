@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import ReadComponent from "./ReadComponent";
 import { Typography, Paper, Box, Modal, Button } from '@mui/material';
 import axios from 'axios';
@@ -27,13 +27,23 @@ const ReadPage = ({ id }) => {
       <Typography variant="h4" component="div" gutterBottom>
         Order Receipt
       </Typography>
-      <Paper elevation={3} sx={{ p: 2, width: '80%', mt: 2 }}>
+      <Paper elevation={3} sx={{ p: 2, width: '500px', mt: 2 }}>
         <ReadComponent id={id} /> {/* 주문서의 ID를 ReadComponent 컴포넌트에 prop으로 전달합니다. */}
       </Paper>
       <Box mt={2}> {/* 주문하기 버튼에 상단 마진을 추가합니다. */}
-              <Button variant="contained" color="primary" onClick={() => order(id)}>
+              <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2 , ml : 3 , mr : 3}}
+                  variant="contained" color="primary" onClick={() => order(id)}>
                     주문하기
-                  </Button>
+              </Button>
+              <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2, ml : 3 , mr : 3}}
+                      variant="contained" color="primary" component={Link}
+                      to="/order/modify">
+                  주문 수정
+              </Button>
+              <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2, ml : 3 , mr : 3}}
+                      variant="contained" color="primary">
+                  주문 삭제
+              </Button>
               </Box>
     </Box>
   );

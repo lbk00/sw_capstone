@@ -19,7 +19,8 @@ const initState = {
     orderedProducts: '',
     totalPrice: '',
     orderType: '',
-    supplier: '',
+    totalAmount:'',
+    manager: '',
 }
 
 function ReadComponent({ id }) {
@@ -51,46 +52,54 @@ function ReadComponent({ id }) {
         fetchOrderDetails(); // useEffect 호출 시 데이터를 가져옴
     }, [id]);
 
+    let totalPrice = 0;
+    // Check if order exists and orderedProducts is an array
+    if (!order || !Array.isArray(order.orderedProducts)) {
+        return <div>Loading...</div>; // Handle loading or error state
+    }
 
     return(
         <>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Order ID</TableCell>
-                            <TableCell align="right">주문종류</TableCell>
-                            <TableCell align="right">주문한 상품</TableCell>
-                            <TableCell align="right">총수량</TableCell>
-                            <TableCell align="right">총가격</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div>
+                <h1>납품 요청 내역</h1>
+                <p>주문번호 : <b>{order.id}</b></p>
+                <p>주문일자 : <b>{new Date().toLocaleString()}</b></p> {/* Display current date and time */}
+                <h3>주문정보</h3>
+                <hr style={{border: '1px solid black', width: '450px', marginLeft: 0}}/>
+                <p>수신인 : {order.manager.mname}</p>
+                <p>연락처 : {order.manager.mtel}</p>
+                <h3>주문상품</h3>
 
-                        <TableRow>
-                          <TableCell component="th" scope="row">
-                            {order.id} {/* 주문 ID */}
-                          </TableCell>
-                          <TableCell align="right">
-                            {order.orderType} {/* 주문 종류 */}
-                          </TableCell>
-                          <TableCell align="right">
-                            {Array.isArray(order.orderedProducts) ? order.orderedProducts.map((product, index) => (
-                              <p key={index}>{product.name}</p>
-                            )) : 'No products'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {order.totalAmount} {/* 총 수량 */}
-                          </TableCell>
-                          <TableCell align="right">
-                            {order.totalPrice} {/* 총 가격 */}
-                          </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                {order.orderedProducts.map((product) => {
+                    let imageBase64 = '';
+                    if (product.itemImage) {
+                        imageBase64 = btoa(String.fromCharCode(...new Uint8Array(product.itemImage))); // Assuming itemImage is a byte array
+                    }
 
+                    // Update total price
+                    totalPrice += product.price * product.amount;
 
+                    return (
+                        <div key={product.id}>
+                            <hr style={{border: '0.1px groove gray', width: '450px', marginLeft: 0}}/>
+                            <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
+                                <img src={`data:image/png;base64,${imageBase64}`} alt="상품 이미지"
+                                     style={{width: '100px', height: 'auto', marginRight: '10px'}}/>
+                                <div style={{marginLeft: '10px'}}>
+                                    <p style={{margin: 0}}>상품명 : {product.name}</p>
+                                    <p style={{margin: 0}}>상품유형 : {product.itemType}</p>
+                                    <p style={{margin: 0}}>사이즈 : {product.size}</p>
+                                    <p style={{margin: 0}}>주문수량 : {product.amount}</p>
+                                    <p style={{margin: 0}}>주문금액 : {product.price} 원</p>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+
+                <hr style={{border: '1px solid black', width: '450px', marginLeft: 0}}/>
+                <h2>총 주문금액 : {totalPrice} 원</h2>
+            </div>
         </>
 
     );

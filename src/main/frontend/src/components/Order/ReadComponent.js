@@ -23,7 +23,7 @@ const initState = {
     manager: '',
 }
 
-function ReadComponent({ id }) {
+function ReadComponent({ id  }) {
 
     const [order, setOrder] = useState(initState);
     const [openModal, setOpenModal] = useState(false);

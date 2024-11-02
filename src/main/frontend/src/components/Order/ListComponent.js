@@ -22,10 +22,10 @@ const initState = {
   totoalCount: 0, prevPage: 0, nextPage: 0, totalPage: 0, current: 0
 }
 
-const ListComponent = ({ onRowClick }) => {
+const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const {moveToRead, page, size, refresh, moveToList} = useCustomMove()
+  const {moveToRead, page, size, refresh, moveToList} = useCustomMove();
   const [serverData, setServerData] = useState(initState)
   const [order, setOrder] = useState([]);
   const params = useParams();
@@ -40,6 +40,7 @@ const ListComponent = ({ onRowClick }) => {
           setOpenModal(false);
       };
 
+
   useEffect(() => {
     getList({page,size}).then(data => {
       console.log(data)
@@ -52,6 +53,9 @@ const ListComponent = ({ onRowClick }) => {
       setOrder([]); // API 호출 실패 시 order를 빈 배열로 설정
     });
   }, [page,size, refresh]);
+
+
+
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       <div className="flex flex-wrap mx-auto justify-center p-6">
@@ -63,7 +67,7 @@ const ListComponent = ({ onRowClick }) => {
                 <TableCell align="right">주문 ID</TableCell>
                 <TableCell align="right">주문종류</TableCell>
                 <TableCell align="right">주문한 상품</TableCell>
-                <TableCell align="right">총수량</TableCell>
+                <TableCell align="right">총 수량</TableCell>
                 <TableCell align="right">총가격</TableCell>
 
               </TableRow>
@@ -98,7 +102,7 @@ const ListComponent = ({ onRowClick }) => {
           </Table>
         </TableContainer>
       </div>
-      <PageComponent serverData={serverData} movePage={moveToList} setOrder={setOrder}></PageComponent>
+      <PageComponent serverData={serverData} movePage={moveToList} orderType={0} setOrder={setOrder}></PageComponent>
       <Modal
         open={openModal}
         onClose={handleCloseModal}

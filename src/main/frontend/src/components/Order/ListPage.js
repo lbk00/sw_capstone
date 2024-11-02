@@ -41,6 +41,7 @@ import Button from "@mui/material/Button";
                     MenuProps={{
                         PaperProps: {
                             sx: {
+                                marginTop: '-160px',
                                 '& .MuiMenuItem-root': {
                                 },
                             },
@@ -66,9 +67,7 @@ import Button from "@mui/material/Button";
                     <MenuItem value="option2">주문 전</MenuItem>
                     <MenuItem value="option3">주문 중</MenuItem>
                     <MenuItem value="option4">주문 완료</MenuItem>
-                    <MenuItem value="option5">반품 중</MenuItem>
-                    <MenuItem value="option6">반품 완료</MenuItem>
-                    <MenuItem value="option7">취소</MenuItem>
+                    <MenuItem value="option5">반품 처리</MenuItem>
                 </Select>
             </FormControl>
             <Button

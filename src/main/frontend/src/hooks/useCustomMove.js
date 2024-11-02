@@ -46,6 +46,7 @@ const useCustomMove = () => {
        navigate({pathname: '/list', search: queryStr});
       }
 
+
      const moveToModify = useCallback((num) => {
      console.log(queryDefault)
      navigate({ pathname: `../modify/${num}`, search: queryDefault })

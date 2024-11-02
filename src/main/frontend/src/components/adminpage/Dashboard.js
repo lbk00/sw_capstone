@@ -38,6 +38,7 @@ import ManagerList from '../Manager/ListPage';
 import AddPage from '../Manager/AddPage'; // AddPage 컴포넌트를 import 합니다.
 import ManagerListPage from '../Manager/ListPage';
 import OrderListPage from '../Order/ListPage';
+import Explain from './Explain';
 import axios from "axios"; // ListPage 컴포넌트를 import 합니다.
 
 
@@ -210,15 +211,16 @@ export default function Dashboard() {
                 >
                   <MenuIcon />
                 </IconButton>
-                <Typography
-                    component="h1"
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    sx={{ flexGrow: 1 }}
-                >
-                  Dashboard
-                </Typography>
+                  <Typography
+                      component="h1"
+                      variant="h6"
+                      color="inherit"
+                      noWrap
+                      sx={{ flexGrow: 1, cursor: 'pointer' }} // 클릭 커서 스타일 추가
+                      onClick={() => setStatePage(0)} // 클릭 이벤트 핸들러 추가
+                  >
+                      Dashboard
+                  </Typography>
                 {/*주문서 생성 알림*/}
                 <IconButton color="inherit" onClick={handleAlarmOpen}>
                   <Badge badgeContent={notificationCount} color="secondary">
@@ -290,18 +292,20 @@ export default function Dashboard() {
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column',height : 'flex' , width: 1550 }}>
                         {/*statePage가 변경될때마다 구성내용 변경*/}
                         {statePage === 1 ? (
-                            <OrderListPage /> // statePage가 1일 때
+                            <OrderListPage/> // statePage가 1일 때
                         ) : statePage === 3 ? (
-                            <ManagerListPage /> // statePage가 3일 때
-                        ) : (
-                            <h2>동작 설명 페이지</h2> // statePage가 0일 때
-                        )}
-                    </Paper>
+                            <ManagerListPage/> // statePage가 3일 때
+                        ) : ( // statePage가 0일 때
+                            <Explain/>
+                  )}
+              </Paper>
+                {/*
                       <Routes>
                         <Route path="/add" element={<AddPage />} />
                         <Route path="/list" element={<OrderListPage />} />
                         <Route path="*" element={<Outlet />} />
                       </Routes>
+                      */}
                 <Copyright sx={{ pt: 4 }} />
               </Container>
             </Box>

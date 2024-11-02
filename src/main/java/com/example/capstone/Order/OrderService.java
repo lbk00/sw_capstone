@@ -21,6 +21,8 @@ public interface OrderService {
     void increaseProductAmount(List<Product> orderedProducts);
     // 주문서를 납품완료로 바꿔주는 메서드
     OrderResponseDTO complete(Long id);
+    // 주문서를 반품중으로 바꿔주는 메서드
+    OrderResponseDTO returnOrder(Long id);
     //특정 주문서를 조회하는 메서드
     OrderResponseDTO orderDetail(Long id);
     //주문서 목록 조회하는 메서드

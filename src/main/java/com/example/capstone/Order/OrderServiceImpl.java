@@ -397,6 +397,17 @@ public class OrderServiceImpl implements OrderService {
         return orderResponseDTO;
     }
 
+    @Override
+    public OrderResponseDTO returnOrder(Long id) {
+        // 주문서 조회
+        Optional<Order> order = ordersRepository.findById(id);
+        // 주문서 상태 -> 주문완료로 변경
+        order.get().setOrderType(OrderType.RETURNING);
+        ordersRepository.save(order.get());
+        OrderResponseDTO orderResponseDTO = OrderResponseDTO.toDTO(order.get());
+        return orderResponseDTO;
+    }
+
 
     @Override
     public OrderResponseDTO orderDetail(Long id) {

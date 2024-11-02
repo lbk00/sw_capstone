@@ -67,11 +67,18 @@ public class OrderController {
         return ResponseEntity.ok(orderResponseDto);
     }
 
-    //납품확인 버튼 클릭 api ( 주문서 상태를 주문완료로 바꾸고 , 상품 수를 추가 )
+    //납품처리 버튼 클릭 api ( 주문서 상태를 주문완료로 바꾸고 , 상품 수를 추가 )
     @RequestMapping(value = "/complete/{id}", method = RequestMethod.GET)
     public ResponseEntity<OrderResponseDTO> complete(@PathVariable("id") Long id) {
         //상품 번호 리스트로 입력 받고 , 해당 정보를 가지고있는 주문서 생성
         OrderResponseDTO orderResponseDto = ordersService.complete(id);
+        return ResponseEntity.ok(orderResponseDto);
+    }
+
+    //반품처리 버튼 클릭 api ( 주문서 상태를 주문완료로 바꾸고 , 상품 수를 추가 )
+    @RequestMapping(value = "/return/{id}", method = RequestMethod.GET)
+    public ResponseEntity<OrderResponseDTO> returnOrder(@PathVariable("id") Long id) {
+        OrderResponseDTO orderResponseDto = ordersService.returnOrder(id);
         return ResponseEntity.ok(orderResponseDto);
     }
 

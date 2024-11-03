@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import ReadComponent from './ReadComponent';
 import { Dialog, DialogTitle, DialogContent, Button, Box } from '@mui/material';
 import PageComponent from "../common/PageComponent";
+import axios from "axios";
 
 const initState = {
   dtoList:[], pageNumList:[], pageRequestDTO: null, prev: false, next: false,
@@ -47,12 +48,20 @@ const ListComponent = () => {
     setSelectedUserId(null);
   };
 
-  const handleAddPage = () => {
-    navigate('/manager/add');
-  };
 
   const handleModifyPage = (userId) => {
     navigate(`/manager/modify/${userId}`);
+  };
+
+
+  const supplierDelete = async (userId) => {
+    try {
+      console.log(`Deleting user with ID: ${userId}`);
+      await axios.delete(`http://localhost:8080/api/manager/${userId}`);
+      alert('삭제가 완료되었습니다.');
+    } catch (error) {
+      console.error('삭제 중 오류가 발생했습니다:', error);
+    }
   };
 
   return (
@@ -92,9 +101,8 @@ const ListComponent = () => {
         <DialogContent>
           {selectedUserId && <ReadComponent userId={selectedUserId} />}
           <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center', position: 'absolute', bottom: 100, left: '50%', transform: 'translateX(-50%)' }}>
-            <Button variant="contained" color="primary" onClick={handleAddPage}>새로운 공급업체 등록</Button>
             <Button variant="contained" color="secondary" sx={{ ml: 1 }} onClick={() => handleModifyPage(selectedUserId)}>공급업체 수정</Button>
-            <Button variant="contained" color="error" sx={{ ml: 1 }}>공급업체 삭제</Button>
+            <Button variant="contained" color="error" sx={{ ml: 1 }} onClick={() => supplierDelete(selectedUserId)}>공급업체 삭제</Button>
           </Box>
         </DialogContent>
       </Dialog>

@@ -1,9 +1,9 @@
 import axios from "axios"
 
  export const API_SERVER_HOST = 'http://localhost:8080'
- const prefix = `${API_SERVER_HOST}/api/supplier`
- export const getOne = async (supplierId) => {
-  const res = await axios.get(`${prefix}/${supplierId}` )
+ const prefix = `${API_SERVER_HOST}/api/user`
+ export const getOne = async (user_Id) => {
+  const res = await axios.get(`${prefix}/${user_Id}` )
   return res.data
   }
 export const getList = async ( pageParam ) => {
@@ -12,22 +12,22 @@ export const getList = async ( pageParam ) => {
  return res.data
  }
 
-export const postAdd = async (supplierObj) => {
- const res = await axios.post(`${prefix}/` , supplierObj)
+export const postAdd = async (userObj) => {
+ const res = await axios.post(`${prefix}/` , userObj)
  return res.data
  }
 
-export const deleteOne = async (supplierId) => {
+export const deleteOne = async (user_Id) => {
 
-  const res = await axios.delete(`${prefix}/${supplierId}` )
+  const res = await axios.delete(`${prefix}/${user_Id}` )
 
   return res.data
 
 }
 
-export const putOne = async (supplier) => {
+export const putOne = async (user) => {
 
-  const res = await axios.put(`${prefix}/${supplier.supplierId}`, supplier)
+  const res = await axios.put(`${prefix}/${user.user_Id}`, user)
 
   return res.data
 }

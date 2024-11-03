@@ -28,16 +28,18 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User registerUser(UserDTO dto) {
+
         User user = new User();
         user.setCID(dto.getCID());
         user.setCPW(dto.getCPW());
         user.setCName(dto.getCName());
         user.setCGender(dto.getCGender());
-        user.setCbirthDate(dto.getCbirthDate());
+
         user.setCtel(dto.getCtel());
         user.setCEmail(dto.getCEmail());
         user.setCProfileImage(dto.getCProfileImage());
         user.setCAdr(dto.getCAdr());
+        user.setRole(dto.getRole());
 
         return UserRepository.save(user);
     }
@@ -81,7 +83,7 @@ public class UserServiceImpl implements UserService{
         User.changecPW(dto.getCPW());
         User.changecName(dto.getCGender());
         User.changecGender(dto.getCGender());
-        User.changecbirthDate(dto.getCbirthDate());
+
         User.changectel(dto.getCtel());
         User.changecEmail(dto.getCEmail());
         User.changecAdr(dto.getCAdr());

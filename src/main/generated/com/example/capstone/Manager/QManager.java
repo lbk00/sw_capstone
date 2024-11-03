@@ -19,19 +19,11 @@ public class QManager extends EntityPathBase<Manager> {
 
     public static final QManager manager = new QManager("manager");
 
-    public final DateTimePath<java.util.Date> mbirthDate = createDateTime("mbirthDate", java.util.Date.class);
-
     public final StringPath mEmail = createString("mEmail");
-
-    public final StringPath mGender = createString("mGender");
-
-    public final StringPath mID = createString("mID");
 
     public final StringPath mName = createString("mName");
 
     public final ArrayPath<byte[], Byte> mProfileImage = createArray("mProfileImage", byte[].class);
-
-    public final StringPath mPW = createString("mPW");
 
     public final StringPath mtel = createString("mtel");
 

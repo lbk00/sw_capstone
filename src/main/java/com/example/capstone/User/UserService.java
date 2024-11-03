@@ -45,10 +45,10 @@ public interface UserService {
                 .cPW(User.getCPW())
                 .cName(User.getCName())
                 .cGender(User.getCGender())
-                .cbirthDate(User.getCbirthDate())
                 .ctel(User.getCtel())
                 .cEmail(User.getCEmail())
                 .cAdr(User.getCAdr())
+                .role(User.getRole())
                 .build();
 
     }
@@ -62,10 +62,10 @@ public interface UserService {
                 .cPW(UserDTO.getCPW())
                 .cName(UserDTO.getCName())
                 .cGender(UserDTO.getCGender())
-                .cbirthDate(UserDTO.getCbirthDate())
                 .ctel(UserDTO.getCtel())
                 .cEmail(UserDTO.getCEmail())
                 .cAdr(UserDTO.getCAdr())
+                .role(UserDTO.getRole())
                 .build();
 
     }

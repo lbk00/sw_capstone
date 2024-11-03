@@ -35,14 +35,13 @@ public class User {
     @Column(nullable = true, length = 20, name = "cGender")
     private String cGender; // 관리자 성별
 
-    @Column(nullable = true, name = "cbirthDate")
-    private Date cbirthDate; // 관리자 생년월일
+
 
     @Column(nullable = true, length = 20, name = "ctel")
-    private String ctel; // 관리자 전화번호
+    private String ctel; // 사용자 전화번호
 
     @Column(unique = true, length = 50, name = "cEmail")
-    private String cEmail; // 관리자 이메일
+    private String cEmail; // 사용자 이메일
 
     @Lob
     private byte[] cProfileImage; // 관리자 프로필 이미지
@@ -50,7 +49,7 @@ public class User {
     @Column(nullable = true, length = 20,   name = "cAdr")
     private String cAdr; // 사용자 주소
 
-    private Integer role; // 사용자 권한 1 = 일반 고객 , 2 = 쇼핑몰 관리자
+    private int role; // 사용자 권한 1 = 일반 고객 , 2 = 쇼핑몰 관리자
 
     @CreationTimestamp
     private Timestamp createDate; // 사용자 생성일
@@ -72,9 +71,7 @@ public class User {
         this.cGender = cGender;
     }
 
-    public void changecbirthDate(Date cbirthDate) {
-        this.cbirthDate = cbirthDate;
-    }
+
 
     public void changectel(String ctel) {
         this.ctel = ctel;

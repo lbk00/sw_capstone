@@ -340,7 +340,7 @@ export default function ShoppingCart() {
                         {/* 상품 이미지 */}
                         <CardMedia
                             sx={{ height: 200, width: 400, marginRight: '20px' }}
-                            image={product.itemImage ? `data:image/jpeg;base64,${product.itemImage}` : require("./sample/sample1.jpg")}
+                            image={product.itemImage ? `data:image/jpeg;base64,${product.itemImage}` : require("./sample/sample1.png")}
                             title={product.name}
                         />
                         <Divider orientation="vertical" variant="middle" flexItem />

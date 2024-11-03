@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import defaultImage from "./sample/sample1.jpg"; // 기본 이미지 설정
+import defaultImage from "./sample/sample1.png"; // 기본 이미지 설정
 
 import {
     Avatar,

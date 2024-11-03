@@ -408,42 +408,42 @@ export default function App() {
                     <SwiperSlide>
                         <CardMedia
                             sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
+                            image={require("./sample/sample1.png")}
                             title="sample1"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <CardMedia
                             sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
+                            image={require("./sample/sample1.png")}
                             title="sample1"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <CardMedia
                             sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
+                            image={require("./sample/sample1.png")}
                             title="sample1"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <CardMedia
                             sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
+                            image={require("./sample/sample1.png")}
                             title="sample1"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <CardMedia
                             sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
+                            image={require("./sample/sample1.png")}
                             title="sample1"
                         />
                     </SwiperSlide>
                     <SwiperSlide>
                         <CardMedia
                             sx={{ height: 200 }}
-                            image={require("./sample/sample1.jpg")}
+                            image={require("./sample/sample1.png")}
                             title="sample1"
                         />
                     </SwiperSlide>
@@ -478,7 +478,7 @@ export default function App() {
                         <CardContent>
                             <CardMedia
                                 sx={{ height: 400 }}
-                                image={require("./sample/sample1.jpg")}
+                                image={require("./sample/sample1.png")}
                                 title="sample1"
                             />
                             <Typography gutterBottom variant="h5" component="div">
@@ -495,7 +495,7 @@ export default function App() {
                         <CardContent>
                             <CardMedia
                                 sx={{ height: 400 }}
-                                image={require("./sample/sample1.jpg")}
+                                image={require("./sample/sample1.png")}
                                 title="sample1"
                             />
                             <Typography gutterBottom variant="h5" component="div">
@@ -512,7 +512,7 @@ export default function App() {
                         <CardContent>
                             <CardMedia
                                 sx={{ height: 400 }}
-                                image={require("./sample/sample1.jpg")}
+                                image={require("./sample/sample1.png")}
                                 title="sample1"
                             />
                             <Typography gutterBottom variant="h5" component="div">
@@ -529,7 +529,7 @@ export default function App() {
                         <CardContent>
                             <CardMedia
                                 sx={{ height: 400 }}
-                                image={require("./sample/sample1.jpg")}
+                                image={require("./sample/sample1.png")}
                                 title="sample1"
                             />
                             <Typography gutterBottom variant="h5" component="div">
@@ -546,7 +546,7 @@ export default function App() {
                         <CardContent>
                             <CardMedia
                                 sx={{ height: 400 }}
-                                image={require("./sample/sample1.jpg")}
+                                image={require("./sample/sample1.png")}
                                 title="sample1"
                             />
                             <Typography gutterBottom variant="h5" component="div">
@@ -563,7 +563,7 @@ export default function App() {
                         <CardContent>
                             <CardMedia
                                 sx={{ height: 400 }}
-                                image={require("./sample/sample1.jpg")}
+                                image={require("./sample/sample1.png")}
                                 title="sample1"
                             />
                             <Typography gutterBottom variant="h5" component="div">

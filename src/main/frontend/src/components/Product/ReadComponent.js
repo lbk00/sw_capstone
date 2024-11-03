@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
-import { getOne } from "../../api/OrderApi";
+import { getOne } from "../../api/ProductApi";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -46,7 +46,7 @@ const ReadComponent = ({ id }) => {
         </Grid>
         <Divider sx={{ width: '100%', my: 2 }} />
         <Grid item xs={6}>
-          <Typography variant="body1" fontSize="1.1rem"><strong>Name:</strong> {product.id}</Typography>
+          <Typography variant="body1" fontSize="1.1rem"><strong>Name:</strong> {product.name}</Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography variant="body1" fontSize="1.1rem"><strong>ItemType:</strong> {product.itemType}</Typography>

@@ -59,7 +59,7 @@ function ReadComponent({ id  }) {
 
     let totalPrice = 0;
     // Check if order exists and orderedProducts is an array
-    if (!order || !Array.isArray(ogirder.orderedProducts)) {
+    if (!order || !Array.isArray(order.orderedProducts)) {
         return <div>Loading...</div>; // Handle loading or error state
     }
 

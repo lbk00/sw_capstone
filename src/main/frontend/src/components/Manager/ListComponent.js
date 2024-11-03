@@ -31,6 +31,8 @@ const ListComponent = () => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
 
+
+
   useEffect(() => {
     getList({ page, size }).then(data => {
       setServerData(data);

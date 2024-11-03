@@ -19,7 +19,7 @@ const initState = {
 }
 
 const ListComponent = () => {
-  const [selectedUser_Id, setSelectedUser_Id] = useState(null);
+  const [selecteduserId, setSelecteduserId] = useState(null);
   const [open, setOpen] = useState(false);
   const { moveToRead, page, size, refresh, moveToList } = useCustomMove();
   const [serverData, setServerData] = useState(initState);
@@ -44,7 +44,7 @@ const ListComponent = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>user_Id</TableCell>
+                <TableCell>userId</TableCell>
                 <TableCell align="right">이름</TableCell>
                 <TableCell align="right">성별</TableCell>
                 <TableCell align="right">id</TableCell>
@@ -57,7 +57,7 @@ const ListComponent = () => {
               {user.length > 0 ? user.map(user =>
                 <TableRow>
                   <TableCell component="th" scope="row">
-                    {user.user_Id}
+                    {user.userId}
                   </TableCell>
                   <TableCell align="right">{user.cname}</TableCell>
                   <TableCell align="right">{user.cgender}</TableCell>

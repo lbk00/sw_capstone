@@ -85,7 +85,7 @@ const ModifyComponent = ({ id, moveList }) => {
                             label="Price"
                             variant="outlined"
                             name="price"
-                            value={Product.totalPrice}
+                            value={product.totalPrice}
                             onChange={handleChangeProduct}
             />
 
@@ -109,7 +109,7 @@ const ModifyComponent = ({ id, moveList }) => {
                 label="COMPLETE"
                 variant="outlined"
                 name="complete"
-                value={Product.complete ? 'Y' : 'N'}
+                value={product.complete ? 'Y' : 'N'}
                 onChange={handleChangeProductComplete}
                 select
                 SelectProps={{

@@ -2,8 +2,8 @@ import axios from "axios"
 
  export const API_SERVER_HOST = 'http://localhost:8080'
  const prefix = `${API_SERVER_HOST}/api/user`
- export const getOne = async (user_Id) => {
-  const res = await axios.get(`${prefix}/${user_Id}`)
+ export const getOne = async (userId) => {
+  const res = await axios.get(`${prefix}/${userId}`)
   return res.data
   }
 export const getList = async ( pageParam ) => {
@@ -17,9 +17,9 @@ export const postAdd = async (userObj) => {
  return res.data
  }
 
-export const deleteOne = async (user_Id) => {
+export const deleteOne = async (userId) => {
 
-  const res = await axios.delete(`${prefix}/${user_Id}` )
+  const res = await axios.delete(`${prefix}/${userId}` )
 
   return res.data
 
@@ -27,7 +27,7 @@ export const deleteOne = async (user_Id) => {
 
 export const putOne = async (user) => {
 
-  const res = await axios.put(`${prefix}/${user.user_Id}`, user)
+  const res = await axios.put(`${prefix}/${user.userId}`, user)
 
   return res.data
 }

@@ -11,7 +11,8 @@ import 'swiper/css/scrollbar';
 import './swiper.css';
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 useNavigate 훅
 import defaultImage from "./sample/sample1.png"; // 기본 이미지
-import sample1 from "./sample/3S 웜업 팬츠.png";
+import sample1 from "./sample/플리스 크루 스웨트.png";
+import sample18 from "./sample/3S 웜업 팬.png";
 import sample2 from "./sample/PL 티.jpg";
 import sample3 from "./sample/SI 워드 크루 스웨트.jpg";
 import sample4 from "./sample/다운 리젠 푸퍼.jpg";
@@ -28,7 +29,7 @@ import sample14 from "./sample/우븐 78 팬츠.jpg";
 import sample15 from "./sample/클럽 쇼츠.png";
 import sample16 from "./sample/테렉스 쇼츠.jpg";
 import sample17 from "./sample/테렉스 아그라빅 쇼츠.png";
-import sample18 from "./sample/플리스 크루 스웨트.png";
+
 
 
 import AppBar from '@mui/material/AppBar';
@@ -72,7 +73,28 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function HomeUser() {
+
     {/*메뉴 이벤트 관리*/}
+    const images = [
+        sample1,
+        sample2,
+        sample3,
+        sample4,
+        sample5,
+        sample6,
+        sample7,
+        sample8,
+        sample9,
+        sample10,
+        sample11,
+        sample12,
+        sample13,
+        sample14,
+        sample15,
+        sample16,
+        sample17,
+        sample18,
+    ];
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [anchorElProduct, setAnchorElProduct] = useState(null);
     const [anchorElOrdersheet, setAnchorElOrdersheet] = useState(null);
@@ -144,8 +166,8 @@ export default function HomeUser() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get("http://localhost:8080/products/list");
-                setProducts(response.data.products);
-                setFilteredProducts(response.data.products); // 초기값으로 모든 상품 설정
+                setProducts(response.data.dtoList);
+                setFilteredProducts(response.data.dtoList); // 초기값으로 모든 상품 설정
             } catch (error) {
                 console.error("Error fetching product data:", error);
             }
@@ -398,7 +420,7 @@ export default function HomeUser() {
                             일치하는 상품이 없습니다.
                         </Typography>
                     ) : (
-                        bannerProducts.map((product) => (
+                        bannerProducts.map((product , index) => (
                             <SwiperSlide>
                                 <Card
                                     onClick={() => handleCardClick(product.id)} // 클릭 시 페이지 이동
@@ -410,7 +432,7 @@ export default function HomeUser() {
                                             image={
                                                 product.itemImage
                                                     ? `data:image/jpeg;base64,${product.itemImage}`
-                                                    : defaultImage // 기본 이미지 사용
+                                                    : images[index % images.length]
                                             }
                                             title={product.name}
                                         />
@@ -447,7 +469,7 @@ export default function HomeUser() {
                         일치하는 상품이 없습니다.
                     </Typography>
                 ) : (
-                    currentProducts.map((product) => (
+                    currentProducts.map((product, index) => (
                         <Grid item xs={12} sm={6} md={4} key={product.id}>
                             <Card
                                 onClick={() => handleCardClick(product.id)} // 클릭 시 페이지 이동
@@ -459,7 +481,7 @@ export default function HomeUser() {
                                         image={
                                             product.itemImage
                                                 ? `data:image/jpeg;base64,${product.itemImage}`
-                                                : defaultImage // 기본 이미지 사용
+                                                : images[index % images.length]
                                         }
                                         title={product.name}
                                     />

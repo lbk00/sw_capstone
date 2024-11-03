@@ -36,7 +36,6 @@ public class OrderResponseDTO {
     }
 
 
-
     public static OrderResponseDTO toDTO(Order order) {
         List<ProductDTO> orderedProductDtos = order.getOrderedProducts()
                 .stream()
@@ -54,6 +53,7 @@ public class OrderResponseDTO {
 
 
         );
+
 
         return orderResponseDto;
     }

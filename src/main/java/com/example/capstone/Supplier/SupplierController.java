@@ -3,8 +3,10 @@ package com.example.capstone.Supplier;
 
 import com.example.capstone.DTO.PageRequestDTO;
 import com.example.capstone.DTO.SupplierResponseDTO;
+import com.example.capstone.User.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -29,7 +31,7 @@ public class SupplierController {
         return supplierService.getSupplierList(pageRequestDTO);
     }
 
-    @PostMapping("/")
+    @PostMapping("/signup") // 관리자 회원가입 api
     public Map<String, Long> register(@RequestBody SupplierDTO dto) {
         log.info("register............" + dto);
         Long supplierId = supplierService.register(dto);
@@ -50,5 +52,7 @@ public class SupplierController {
         supplierService.remove(supplierId);
         return Map.of("result", "success");
     }
+
+
 
 }

@@ -27,10 +27,14 @@ public interface SupplierService {
         return SupplierDTO.builder()
 
                 .supplierId(supplier.getSupplierId())
+                .sID(supplier.getSID())
+                .sPW(supplier.getSPW())
+                .sGender(supplier.getSGender())
                 .sName(supplier.getSName())
                 .stel(supplier.getStel())
                 .sEmail(supplier.getSEmail())
                 .sAdr(supplier.getSAdr())
+                .sProfileImage(supplier.getSProfileImage())
                 .build();
 
 
@@ -42,10 +46,14 @@ public interface SupplierService {
         return Supplier.builder()
 
                 .supplierId(supplierDTO.getSupplierId())
+                .sID(supplierDTO.getSID())
+                .sPW(supplierDTO.getSPW())
+                .sGender(supplierDTO.getSGender())
                 .sName(supplierDTO.getSName())
                 .stel(supplierDTO.getStel())
                 .sEmail(supplierDTO.getSEmail())
                 .sAdr(supplierDTO.getSAdr())
+                .sProfileImage(supplierDTO.getSProfileImage())
                 .build();
 
     }

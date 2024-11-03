@@ -48,7 +48,7 @@ public class User {
     private byte[] cProfileImage; // 관리자 프로필 이미지
 
     @Column(nullable = true, length = 20,   name = "cAdr")
-    private String cAdr; // 관리자 주소
+    private String cAdr; // 사용자 주소
 
     private Integer role; // 사용자 권한 1 = 일반 고객 , 2 = 쇼핑몰 관리자
 

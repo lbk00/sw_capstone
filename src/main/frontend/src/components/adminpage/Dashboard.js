@@ -37,7 +37,9 @@ import ManagerRead from '../Manager/ReadPage';
 import ManagerList from '../Manager/ListPage';
 import AddPage from '../Manager/AddPage'; // AddPage 컴포넌트를 import 합니다.
 import SupplierListPage from '../Manager/ListPage';
+import UserListPage from '../User/ListPage';
 import OrderListPage from '../Order/ListPage';
+import ProductListPage from '../Product/ListPage';
 import Explain from './Explain';
 import axios from "axios"; // ListPage 컴포넌트를 import 합니다.
 
@@ -294,10 +296,15 @@ export default function Dashboard() {
                         {statePage === 1 ? (
                             <OrderListPage/> // statePage가 1일 때
                         ) : statePage === 2 ? (
-                            <SupplierListPage/> // statePage가 3일 때
+                            <SupplierListPage/> // statePage가 2일 때
+                        )  : statePage === 3 ? (
+                            <UserListPage/> // statePage가 3일 때
+                        ) : statePage === 5 ? (
+                           <ProductListPage/> // statePage가 4일 때
                         ) : ( // statePage가 0일 때
                             <Explain/>
                   )}
+
               </Paper>
                 {/*
                       <Routes>

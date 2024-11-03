@@ -48,13 +48,7 @@ public class UserController {
         log.info(pageRequestDTO);
         return userservice.getUserList(pageRequestDTO);
     }
-    //사용자 등록 api
-    @PostMapping("/")
-    public Map<String, Long> register(@RequestBody UserDTO dto) {
-        log.info("register............" + dto);
-        Long user_Id = userservice.register(dto);
-        return Map.of("user_Id", user_Id);
-    }
+
     //사용자 정보 수정 api
     @PutMapping("/{user_Id}")
     public Map<String, String> modify(@PathVariable("user_Id") Long user_Id,

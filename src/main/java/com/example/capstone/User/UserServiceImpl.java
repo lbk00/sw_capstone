@@ -22,9 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
-    private final UserRepository UserRepository;
-
-
+    private final UserRepository userRepository;
 
     @Override
     public User registerUser(UserDTO dto) {
@@ -41,12 +39,12 @@ public class UserServiceImpl implements UserService{
         user.setCAdr(dto.getCAdr());
         user.setRole(dto.getRole());
 
-        return UserRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public Optional<User> findBycID(String cID) {
-        return Optional.ofNullable(UserRepository.findBycID(cID));
+        return Optional.ofNullable(userRepository.findBycID(cID));
     }
 
     private PageRequest dtoToPageRequest(PageRequestDTO dto) {
@@ -56,27 +54,17 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDTO get(Long user_Id) {
 
-        Optional<User> result = UserRepository.findById(user_Id);
+        Optional<User> result = userRepository.findById(user_Id);
 
-        User User = result.orElseThrow();
+        User user = result.orElseThrow();
 
-        return entityToDTO(User);
-    }
-
-    @Override
-    public Long register(UserDTO dto) {
-
-        User User = dtoToEntity(dto);
-
-        User result = UserRepository.save(User);
-
-        return result.getUser_Id();
+        return entityToDTO(user);
     }
 
     @Override
     public void modify(UserDTO dto) {
 
-        Optional<User> result = UserRepository.findById(dto.getUser_Id());
+        Optional<User> result = userRepository.findById(dto.getUser_Id());
 
         User User = result.orElseThrow();
         User.changecID(dto.getCID());
@@ -88,7 +76,7 @@ public class UserServiceImpl implements UserService{
         User.changecEmail(dto.getCEmail());
         User.changecAdr(dto.getCAdr());
 
-        UserRepository.save(User);
+        userRepository.save(User);
 
 
     }
@@ -96,15 +84,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public void remove(Long user_Id) {
 
-        UserRepository.deleteById(user_Id);
+        userRepository.deleteById(user_Id);
     }
 
     @Override
     public UserResponseDTO<UserDTO> getUserList(PageRequestDTO pageRequestDTO) {
         PageRequest pageable = dtoToPageRequest(pageRequestDTO);
-        Page<User> result = UserRepository.search3(pageRequestDTO);
+        Page<User> result = userRepository.search3(pageRequestDTO);
 
-        List<UserDTO> dtoList = result.get().map(User -> entityToDTO(User)).collect(Collectors.toList());
+        List<UserDTO> dtoList = result.get().map(user -> entityToDTO(user)).collect(Collectors.toList());
 
         UserResponseDTO<UserDTO> responseDTO =
                 UserResponseDTO.<UserDTO>withAll()

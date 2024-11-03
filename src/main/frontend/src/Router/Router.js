@@ -11,6 +11,7 @@ const Router = () => {
     const OrderList = lazy(() => import("../components/Order/ListPage"))
     const OrderRead = lazy(() => import("../components/Order/ReadPage"));
     const OrderAdd = lazy(() => import("../components/Order/AddPage"))
+    const ProductAdd = lazy(() => import("../components/Product/AddPage"))
     const OrderModify = lazy(() => import("../components/Order/ModifyPage"));
 
     return [
@@ -34,6 +35,9 @@ const Router = () => {
         },
         {
             path: "order/add", element: <Suspense fallback={Loading}><OrderAdd/></Suspense>
+        },
+        {
+            path: "product/add", element: <Suspense fallback={Loading}><ProductAdd/></Suspense>
         },
         {
             path: "order/modify/:id", element: <Suspense fallback={Loading}><OrderModify/></Suspense>

@@ -14,26 +14,21 @@ import java.util.List;
 public class UserSearchImpl extends QuerydslRepositorySupport implements UserSearch{
 
     public UserSearchImpl() {
-
         super(User.class);
     }
 
-
     @Override
     public Page<User> search3(PageRequestDTO pageRequestDTO) {
-
         log.info("UserSearchImpl search3............");
 
         QUser user = QUser.user;
 
         JPQLQuery<User> query = from(user);
 
-
-
         Pageable pageable = PageRequest.of(
-                pageRequestDTO.getPage()-1,
+                pageRequestDTO.getPage() - 1,
                 pageRequestDTO.getSize(),
-                Sort.by("user_Id").ascending());
+                Sort.by("user_Id").ascending()); // 올바른 필드 이름 사용
 
         this.getQuerydsl().applyPagination(pageable, query);
 

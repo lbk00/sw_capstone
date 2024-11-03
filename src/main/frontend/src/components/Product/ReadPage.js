@@ -4,12 +4,12 @@ import ReadComponent from "./ReadComponent";
 
 const ReadPage = () => {
 
-      const {userId} = useParams()
+      const {id} = useParams()
 
       return (
        <div className="font-extrabold w-full bg-white mt-6">
-       <div className="text-2xl "> Manager Read Page Component {userId} </div>
-        <ReadComponent userId={userId}></ReadComponent>
+       <div className="text-2xl "> Product Read Page Component {id} </div>
+        <ReadComponent id={id}></ReadComponent>
        </div>
       );
 }

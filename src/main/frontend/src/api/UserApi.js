@@ -3,7 +3,7 @@ import axios from "axios"
  export const API_SERVER_HOST = 'http://localhost:8080'
  const prefix = `${API_SERVER_HOST}/api/user`
  export const getOne = async (user_Id) => {
-  const res = await axios.get(`${prefix}/${user_Id}` )
+  const res = await axios.get(`${prefix}/${user_Id}`)
   return res.data
   }
 export const getList = async ( pageParam ) => {

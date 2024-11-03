@@ -16,56 +16,49 @@ public interface UserService {
 
     UserDTO get(Long user_Id);
 
-    Long register(UserDTO dto);
-
-
 
     void modify(UserDTO dto);
 
-    void remove(Long userid);
+    void remove(Long user_Id);
 
     User registerUser(UserDTO dto);
     Optional<User> findBycID(String cID);
 
 
-
-
-
-
     UserResponseDTO<UserDTO> getUserList(PageRequestDTO pageRequestDTO);
 
 
-    default UserDTO entityToDTO(User User){
+    default UserDTO entityToDTO(User user){
 
 
         return UserDTO.builder()
 
-                .user_Id(User.getUser_Id())
-                .cID(User.getCID())
-                .cPW(User.getCPW())
-                .cName(User.getCName())
-                .cGender(User.getCGender())
-                .ctel(User.getCtel())
-                .cEmail(User.getCEmail())
-                .cAdr(User.getCAdr())
-                .role(User.getRole())
+                .user_Id(user.getUser_Id())
+                .cID(user.getCID())
+                .cPW(user.getCPW())
+                .cName(user.getCName())
+                .cGender(user.getCGender())
+                .ctel(user.getCtel())
+                .cEmail(user.getCEmail())
+                .cAdr(user.getCAdr())
+                .role(user.getRole())
                 .build();
 
     }
 
-    default User dtoToEntity(UserDTO UserDTO){
+    default User dtoToEntity(UserDTO userDTO){
 
         return User.builder()
 
-                .user_Id(UserDTO.getUser_Id())
-                .cID(UserDTO.getCID())
-                .cPW(UserDTO.getCPW())
-                .cName(UserDTO.getCName())
-                .cGender(UserDTO.getCGender())
-                .ctel(UserDTO.getCtel())
-                .cEmail(UserDTO.getCEmail())
-                .cAdr(UserDTO.getCAdr())
-                .role(UserDTO.getRole())
+                .user_Id(userDTO.getUser_Id())
+                .cID(userDTO.getCID())
+                .cPW(userDTO.getCPW())
+                .cName(userDTO.getCName())
+                .cGender(userDTO.getCGender())
+                .ctel(userDTO.getCtel())
+                .cEmail(userDTO.getCEmail())
+                .cAdr(userDTO.getCAdr())
+                .role(userDTO.getRole())
                 .build();
 
     }

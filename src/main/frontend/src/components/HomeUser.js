@@ -136,6 +136,12 @@ export default function HomeUser() {
         fetchProducts();
     }, []);
 
+    const handleAvatarClick = () => {
+        // 네비게이션으로 /mypage 경로로 이동
+        navigate('/mypage', { state: { user } });
+    };
+
+
     // Axios 요청에 withCredentials 옵션 추가
     useEffect(() => {
         const fetchUser = async () => {
@@ -295,7 +301,9 @@ export default function HomeUser() {
 
 
                     {isLoggedIn ? (
-                        <Avatar>{user.cname.charAt(0)}</Avatar> // 사용자의 이름의 첫 글자를 Avatar에 표시
+                        <Avatar onClick={handleAvatarClick} style={{ cursor: 'pointer' }}>
+                            {user.cname.charAt(0)}
+                        </Avatar>// 사용자의 이름의 첫 글자를 Avatar에 표시
                     ) : (
                         <h1></h1>
                     )}

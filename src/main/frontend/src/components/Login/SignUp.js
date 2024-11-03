@@ -62,6 +62,7 @@ export default function SignUp() {
   const [open, setOpen] = useState(false);
   const [specialCode, setSpecialCode] = useState('');
   const [isSupplier, setIsSupplier] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -134,6 +135,28 @@ export default function SignUp() {
       setSupplier({ ...supplier, [name]: value });
     } else {
       setUser({ ...user, [name]: value });
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    if (isSupplier) {
+      setSupplier({ ...supplier, [name]: value });
+      setPasswordMatch(value === supplier.confirmPassword);
+    } else {
+      setUser({ ...user, [name]: value });
+      setPasswordMatch(value === user.confirmPassword);
+    }
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    const { name, value } = e.target;
+    if (isSupplier) {
+      setSupplier({ ...supplier, [name]: value });
+      setPasswordMatch(supplier.spw === value);
+    } else {
+      setUser({ ...user, [name]: value });
+      setPasswordMatch(user.cpw === value);
     }
   };
 
@@ -255,7 +278,7 @@ export default function SignUp() {
                       type="password"
                       id="spw"
                       autoComplete="new-password"
-                      onChange={handleChange}
+                      onChange={handlePasswordChange}
                     />
                     <Box mt={1}>
                       <Typography color="text.secondary">
@@ -272,11 +295,15 @@ export default function SignUp() {
                       type="password"
                       id="confirmPassword"
                       autoComplete="new-password"
-                      onChange={handleChange}
+                      onChange={handleConfirmPasswordChange}
                     />
                     <Box mt={1}>
                       <Typography color="text.secondary">
-                        다시 한번 비밀번호를 입력하세요.
+                        {passwordMatch === null
+                          ? '다시 한번 비밀번호를 입력하세요.'
+                          : passwordMatch
+                          ? '입력한 비밀번호가 동일합니다.'
+                          : '입력한 비밀번호가 같지 않습니다.'}
                       </Typography>
                     </Box>
                   </Grid>
@@ -407,7 +434,7 @@ export default function SignUp() {
                       type="password"
                       id="cpw"
                       autoComplete="new-password"
-                      onChange={handleChange}
+                      onChange={handlePasswordChange}
                     />
                     <Box mt={1}>
                       <Typography color="text.secondary">
@@ -424,11 +451,15 @@ export default function SignUp() {
                       type="password"
                       id="confirmPassword"
                       autoComplete="new-password"
-                      onChange={handleChange}
+                      onChange={handleConfirmPasswordChange}
                     />
                     <Box mt={1}>
                       <Typography color="text.secondary">
-                        다시 한번 비밀번호를 입력하세요.
+                        {passwordMatch === null
+                          ? '다시 한번 비밀번호를 입력하세요.'
+                          : passwordMatch
+                          ? '입력한 비밀번호가 동일합니다.'
+                          : '입력한 비밀번호가 같지 않습니다.'}
                       </Typography>
                     </Box>
                   </Grid>

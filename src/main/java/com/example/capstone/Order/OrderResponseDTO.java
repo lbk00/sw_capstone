@@ -3,8 +3,6 @@ package com.example.capstone.Order;
 //주문 응답 처리 DTO
 
 
-import com.example.capstone.Manager.Manager;
-
 import com.example.capstone.Product.ProductDTO;
 import lombok.Getter;
 
@@ -19,11 +17,11 @@ public class OrderResponseDTO {
     private OrderType orderType;
     private int totalAmount;
 
-    private Manager manager;
+    private long manager;
     //private Supplier supplier;
 
 
-    public OrderResponseDTO(Long id, List<ProductDTO> orderedProducts, Integer totalPrice, OrderType orderType , int totalAmount , Manager manager) {
+    public OrderResponseDTO(Long id, List<ProductDTO> orderedProducts, Integer totalPrice, OrderType orderType , int totalAmount , long manager) {
 
         this.id = id;
         this.orderedProducts = orderedProducts;

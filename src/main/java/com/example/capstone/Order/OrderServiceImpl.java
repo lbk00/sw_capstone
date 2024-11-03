@@ -1,6 +1,7 @@
 package com.example.capstone.Order;
 
 import com.example.capstone.Manager.Manager;
+import com.example.capstone.Manager.ManagerRepository;
 import com.example.capstone.Product.Product;
 import com.example.capstone.Product.ProductDTO;
 import com.example.capstone.Product.ProductRepository;
@@ -43,6 +44,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private JavaMailSender emailSender;
+    @Autowired
+    private ManagerRepository managerRepository;
     //임시 레포지토리
     //private final ListProductRepository productRepository;
 
@@ -98,7 +101,10 @@ public class OrderServiceImpl implements OrderService {
 
         // 상품 수량 find
         List<Integer> findProductAmounts = productRepository.findAllAmount();
-        Long[] productAmounts = findProductAmounts.stream()
+        //임시로 7개 요소만 자르기
+        List<Integer> firstSevenAmounts = findProductAmounts.subList(0, Math.min(7, findProductAmounts.size()));
+
+        Long[] productAmounts = firstSevenAmounts.stream()
                 .map(Integer::longValue)   // 각 Integer 값을 Long으로 변환
                 .toArray(Long[]::new);     // Long[] 배열로 수집
 
@@ -123,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
         String inputJson = gson.toJson(new InputWrapper(inputData));
 
         // Flask API 호출 (주소 동적으로 바뀜)
-        String apiUrl = "https://cf8e-35-199-20-23.ngrok-free.app//predict"; // ngrok URL
+        String apiUrl = "https://95b1-34-74-148-172.ngrok-free.app/predict"; // ngrok URL
         RestTemplate restTemplate = new RestTemplate();
 
         // 요청 헤더 설정
@@ -189,9 +195,9 @@ public class OrderServiceImpl implements OrderService {
         // 주문서 상태 주문중으로 변경
         order.setOrderType(OrderType.PROGRESS_ORDER);
         // 관리자 id 조회
-        Manager supplier = order.getUserId();
+        Optional<Manager> supplier = managerRepository.findByUserId(order.getUserId());
         // 발송해야하는 관리자 이메일
-        String Semail = supplier.getMEmail();
+        String Semail = supplier.get().getMEmail();
         // 공급업체 이메일 , 주문서
         sendHtmlEmail(Semail,order);
 
@@ -214,7 +220,8 @@ public class OrderServiceImpl implements OrderService {
         String formattedNow = now.format(formatter);
 
         // 이메일 제목
-        String subject = order.getUserId().getMName() + "님 " + formattedNow + " 납품서입니다." ;
+        Optional<Manager> supplier = managerRepository.findByUserId(order.getUserId());
+        String subject = supplier.get().getMName() + "님 " + formattedNow + " 납품서입니다." ;
 
         StringBuilder htmlMsg = new StringBuilder();
         // 주문 기본 정보 추가
@@ -228,10 +235,10 @@ public class OrderServiceImpl implements OrderService {
                 .append("<h3>주문정보</h3>")
                 .append("<hr style=\"border: 1px solid black; width: 450px; margin-left: 0;\">")
                 .append("<p>수신인 : ") // 공급업체 이름
-                .append(order.getUserId().getMName())
+                .append(supplier.get().getMName())
                 .append("</p>")
                 .append("<p>연락처 : ") // 공급업체 전화번호
-                .append(order.getUserId().getMtel())
+                .append(supplier.get().getMtel())
                 .append("</p>");
 
 

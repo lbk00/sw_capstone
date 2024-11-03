@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.engine.spi.Managed;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class OrderDTO {
 
     private Integer totalAmount;
 
-    private Supplier supplier;
+    private Managed supplier;
 
 
 }

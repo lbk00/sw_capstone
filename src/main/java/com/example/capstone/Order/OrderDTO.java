@@ -21,7 +21,7 @@ public class OrderDTO {
     private List<Product> orderedProducts;
     private Integer totalPrice;
     private OrderType orderType;
-
+    private Integer totalAmount;
     private Supplier supplier;
 
 

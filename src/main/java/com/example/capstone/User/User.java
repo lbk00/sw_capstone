@@ -21,7 +21,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_Id; // 사용자 ID, 기본 키
+    private Long userId; // 사용자 ID, 기본 키
 
     @Column(unique = true, nullable = true, length = 20, name = "cID")
     private String cID; // 관리자 ID

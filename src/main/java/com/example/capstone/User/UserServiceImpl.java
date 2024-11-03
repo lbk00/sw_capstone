@@ -48,13 +48,13 @@ public class UserServiceImpl implements UserService{
     }
 
     private PageRequest dtoToPageRequest(PageRequestDTO dto) {
-        return PageRequest.of(dto.getPage() - 1, dto.getSize(), Sort.by("user_Id"));
+        return PageRequest.of(dto.getPage() - 1, dto.getSize(), Sort.by("userId"));
     }
 
     @Override
-    public UserDTO get(Long user_Id) {
+    public UserDTO get(Long userId) {
 
-        Optional<User> result = userRepository.findById(user_Id);
+        Optional<User> result = userRepository.findById(userId);
 
         User user = result.orElseThrow();
 
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void modify(UserDTO dto) {
 
-        Optional<User> result = userRepository.findById(dto.getUser_Id());
+        Optional<User> result = userRepository.findById(dto.getUserId());
 
         User User = result.orElseThrow();
         User.changecID(dto.getCID());
@@ -82,9 +82,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void remove(Long user_Id) {
+    public void remove(Long userId) {
 
-        userRepository.deleteById(user_Id);
+        userRepository.deleteById(userId);
     }
 
     @Override

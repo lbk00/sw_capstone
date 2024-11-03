@@ -36,10 +36,10 @@ public class UserController {
     private final SessionManager sessionManager;
 
     //사용자 조회 api
-    @GetMapping("/{user_Id}")
-    public UserDTO get(@PathVariable("user_Id") Long user_Id) {
-        log.info("get............" + user_Id);
-        return userservice.get(user_Id);
+    @GetMapping("/{userId}")
+    public UserDTO get(@PathVariable("userId") Long userId) {
+        log.info("get............" + userId);
+        return userservice.get(userId);
     }
 
     //사용자 목록 조회 api
@@ -50,19 +50,19 @@ public class UserController {
     }
 
     //사용자 정보 수정 api
-    @PutMapping("/{user_Id}")
-    public Map<String, String> modify(@PathVariable("user_Id") Long user_Id,
+    @PutMapping("/{userId}")
+    public Map<String, String> modify(@PathVariable("userId") Long userId,
                                       @RequestBody UserDTO dto) {
-        log.info("modify............" + user_Id + " " + dto);
+        log.info("modify............" + userId + " " + dto);
         userservice.modify(dto);
         System.out.println(" = " +dto.toString());
         return Map.of("result", "success");
     }
     //사용자 삭제 api
-    @DeleteMapping("/{user_Id}")
-    public Map<String, String> remove(@PathVariable("user_Id") Long user_Id) {
-        log.info("remove............" + user_Id);
-        userservice.remove(user_Id);
+    @DeleteMapping("/{userId}")
+    public Map<String, String> remove(@PathVariable("userId") Long userId) {
+        log.info("remove............" + userId);
+        userservice.remove(userId);
         return Map.of("result", "success");
     }
 

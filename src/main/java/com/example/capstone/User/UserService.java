@@ -14,12 +14,12 @@ import java.util.Optional;
 public interface UserService {
 
 
-    UserDTO get(Long user_Id);
+    UserDTO get(Long userId);
 
 
     void modify(UserDTO dto);
 
-    void remove(Long user_Id);
+    void remove(Long userId);
 
     User registerUser(UserDTO dto);
     Optional<User> findBycID(String cID);
@@ -33,7 +33,7 @@ public interface UserService {
 
         return UserDTO.builder()
 
-                .user_Id(user.getUser_Id())
+                .userId(user.getUserId())
                 .cID(user.getCID())
                 .cPW(user.getCPW())
                 .cName(user.getCName())
@@ -50,7 +50,7 @@ public interface UserService {
 
         return User.builder()
 
-                .user_Id(userDTO.getUser_Id())
+                .userId(userDTO.getUserId())
                 .cID(userDTO.getCID())
                 .cPW(userDTO.getCPW())
                 .cName(userDTO.getCName())

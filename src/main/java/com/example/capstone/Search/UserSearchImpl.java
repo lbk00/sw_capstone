@@ -28,7 +28,7 @@ public class UserSearchImpl extends QuerydslRepositorySupport implements UserSea
         Pageable pageable = PageRequest.of(
                 pageRequestDTO.getPage() - 1,
                 pageRequestDTO.getSize(),
-                Sort.by("user_Id").ascending()); // 올바른 필드 이름 사용
+                Sort.by("userId").ascending()); // 올바른 필드 이름 사용
 
         this.getQuerydsl().applyPagination(pageable, query);
 

@@ -1,26 +1,31 @@
 package com.example.capstone.Product;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.capstone.DTO.PageRequestDTO;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class ProductListResponseDTO {
+@Data
+public class ProductListResponseDTO<E extends ProductDTO>{
 
-    public ProductListResponseDTO(List<ProductDTO> products) {
-        this.products = products;
-    }
-    private List<ProductDTO> products;
+    private List<E> dtoList;
 
-    // 각 주문서 stream으로 하나씩 상품DTO 생성 그후 toList
+    private List<ProductDTO> productList;
+
+    private List<Integer> pageNumList;
+
+    private PageRequestDTO pageRequestDTO;
+
+    private boolean prev,next;
+
+    private int totalCount, prevPage, nextPage, totalPage, current;
+
     public static ProductListResponseDTO toDTO(List<Product> productList) {
-
-
         List<ProductDTO> productDTOList = new ArrayList<>();
         for (Product product : productList) {
             ProductDTO productDTO = new ProductDTO();
@@ -28,19 +33,44 @@ public class ProductListResponseDTO {
             productDTO.setName(product.getName());
             productDTO.setPrice(product.getPrice());
             productDTO.setAmount(product.getAmount());
-            productDTO.setOrder(product.getOrder());
             productDTO.setSize(product.getSize());
             productDTO.setItemType(product.getItemType());
-            productDTO.setItemImage(product.getItemImage());
             productDTOList.add(productDTO);
         }
-        // ProductListResponseDTO 객체 생성
-        ProductListResponseDTO productListResponseDTO = new ProductListResponseDTO(productDTOList);
-        // 생성된 ProductListResponseDTO 객체 반환
-        return productListResponseDTO;
-
-
+        PageRequestDTO pageRequestDTO = new PageRequestDTO();
+        long total = productDTOList.size();
+        return new ProductListResponseDTO(productDTOList, productDTOList, pageRequestDTO, total);
     }
 
+    @Builder(builderMethodName = "withAll")
+    public ProductListResponseDTO(List<E> dtoList, List<ProductDTO> productList, PageRequestDTO pageRequestDTO, long total) {
+        this.dtoList = dtoList.stream()
+                .sorted(Comparator.comparingLong(ProductDTO::getId))
+                .collect(Collectors.toList());
 
+        this.productList = productList;
+        this.pageRequestDTO = pageRequestDTO;
+        this.totalCount = (int) total;
+        int start = Math.max(1, pageRequestDTO.getPage() - pageRequestDTO.getSize());
+        int end = Math.min((int) (Math.ceil(total / (double) pageRequestDTO.getSize())), pageRequestDTO.getPage() + pageRequestDTO.getSize());
+        this.pageNumList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+
+        end = (int) (Math.ceil(pageRequestDTO.getPage() / 10.0)) * 10;
+
+        start = end - 9;
+
+        int last = (int) (Math.ceil(totalCount / (double) pageRequestDTO.getSize()));
+
+        end = end > last ? last : end;
+
+        this.prev = start > 1;
+
+        this.next = totalCount > end * pageRequestDTO.getSize();
+
+        IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+
+        this.prevPage = prev ? start - 1 : 0;
+
+        this.nextPage = next ? end + 1 : 0;
+    }
 }

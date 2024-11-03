@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class UserDTO {
 
-    private Long user_Id; // 사용자 ID, 기본 키
+    private Long userId; // 사용자 ID, 기본 키
     private String cID; // 관리자 ID
     private String cPW; // 관리자 비밀번호
     private String cName; // 관리자 이름

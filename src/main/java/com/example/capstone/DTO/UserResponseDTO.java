@@ -22,13 +22,12 @@ public class UserResponseDTO<E extends UserDTO> {
     @Builder(builderMethodName = "withAll")
     public UserResponseDTO(List<E> dtoList, List<UserDTO> UserList, PageRequestDTO pageRequestDTO, long total) {
         this.dtoList = dtoList.stream()
-                .sorted(Comparator.comparingLong(UserDTO::getUser_Id))
+                .sorted(Comparator.comparingLong(UserDTO::getUserId))
                 .collect(Collectors.toList());
 
         this.UserList = UserList;
         this.pageRequestDTO = pageRequestDTO;
         this.totalCount = (int) total;
-
         int start = Math.max(1, pageRequestDTO.getPage() - pageRequestDTO.getSize());
         int end = Math.min((int) (Math.ceil(total / (double) pageRequestDTO.getSize())), pageRequestDTO.getPage() + pageRequestDTO.getSize());
         this.pageNumList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());

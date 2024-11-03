@@ -50,11 +50,9 @@ public class ManagerServiceImpl implements ManagerService{
         Optional<Manager> result = managerRepository.findById(dto.getUserId());
 
         Manager manager = result.orElseThrow();
-        manager.changemID(dto.getMID());
-        manager.changemPW(dto.getMPW());
+
         manager.changemName(dto.getMName());
-        manager.changemGender(dto.getMGender());
-        manager.changembirthDate(dto.getMbirthDate());
+
         manager.changemtel(dto.getMtel());
         manager.changemEmail(dto.getMEmail());
         manager.changeuAdr(dto.getUAdr());

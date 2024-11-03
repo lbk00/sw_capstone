@@ -27,11 +27,11 @@ public interface ManagerService {
         return ManagerDTO.builder()
 
                 .userId(manager.getUserId())
-                .mID(manager.getMID())
-                .mPW(manager.getMPW())
+
+
                 .mName(manager.getMName())
-                .mGender(manager.getMGender())
-                .mbirthDate(manager.getMbirthDate())
+
+
                 .mtel(manager.getMtel())
                 .mEmail(manager.getMEmail())
                 .uAdr(manager.getUAdr())
@@ -44,11 +44,11 @@ public interface ManagerService {
         return Manager.builder()
 
                 .userId(managerDTO.getUserId())
-                .mID(managerDTO.getMID())
-                .mPW(managerDTO.getMPW())
+
+
                 .mName(managerDTO.getMName())
-                .mGender(managerDTO.getMGender())
-                .mbirthDate(managerDTO.getMbirthDate())
+
+
                 .mtel(managerDTO.getMtel())
                 .mEmail(managerDTO.getMEmail())
                 .uAdr(managerDTO.getUAdr())

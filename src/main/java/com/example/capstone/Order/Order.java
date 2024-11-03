@@ -1,7 +1,6 @@
 package com.example.capstone.Order;
 
 
-import com.example.capstone.Manager.Manager;
 import com.example.capstone.Product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -38,9 +37,9 @@ public class Order {
 
 
     // 공급업체 id
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private Manager userId;
+    //@ManyToOne
+    //@JoinColumn(name = "userId")
+    private long userId;
 
 
     // 추가해야할 필드
@@ -52,7 +51,7 @@ public class Order {
         this.orderType = OrderType.BEFORE_ORDER;
         this.totalAmount = calculateTotalAmount();
 
-        this.userId = null; // 임시로 null
+        this.userId = 1L; // 임시로 null
 
     }
 

@@ -55,6 +55,7 @@ public class UserController {
                                       @RequestBody UserDTO dto) {
         log.info("modify............" + user_Id + " " + dto);
         userservice.modify(dto);
+        System.out.println(" = " +dto.toString());
         return Map.of("result", "success");
     }
     //사용자 삭제 api

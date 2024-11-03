@@ -293,7 +293,7 @@ export default function Dashboard() {
                         {/*statePage가 변경될때마다 구성내용 변경*/}
                         {statePage === 1 ? (
                             <OrderListPage/> // statePage가 1일 때
-                        ) : statePage === 3 ? (
+                        ) : statePage === 2 ? (
                             <ManagerListPage/> // statePage가 3일 때
                         ) : ( // statePage가 0일 때
                             <Explain/>

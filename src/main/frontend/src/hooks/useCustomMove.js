@@ -61,7 +61,11 @@ const useCustomMove = () => {
        })
      }
 
+     const moveToDashboard = () => {
+         navigate('/dashboard');
+       };
 
-     return {moveToList, moveToModify, moveToRead, page, size, refresh}
+
+     return {moveToList, moveToModify, moveToDashboard, moveToRead, page, size, refresh}
    }
 export default useCustomMove;

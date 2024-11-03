@@ -7,10 +7,10 @@ import useCustomMove from "../../hooks/useCustomMove";
 
 const initState = {
   userId:0,
-
+  mid:'',
   mname: '',
-
-
+  mpw: '',
+  mbirthDate: '',
   memail: '',
   mtel: '',
   uadr: '',
@@ -100,6 +100,33 @@ const ModifyComponent = ({userId, moveList, moveRead}) => {
                   onChange={handleChangeManager}
                 />
 
+        <TextField
+                  label="ID"
+                  variant="outlined"
+                  name="mid"
+                  value={manager.mid}
+                  onChange={handleChangeManager}
+                />
+
+        <TextField
+          label="Password"
+          variant="outlined"
+          name="mpw"
+          value={manager.mpw}
+          onChange={handleChangeManager}
+        />
+
+        <TextField
+                label="Birth Date"
+                variant="outlined"
+                name="mbirthDate"
+                value={manager.mbirthDate}
+                onChange={handleChangeManager}
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
 
         <TextField
                 label="Email"

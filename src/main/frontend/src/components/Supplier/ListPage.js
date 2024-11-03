@@ -13,7 +13,7 @@ import ListComponent from "./ListComponent";
     return (
     <div className="p-4 w-full bg-orange-200 ">
      <div className="text-3xl font-extrabold">
-       공급업체 목록
+       Manager List Page Component
      </div>
      <ListComponent/>
 

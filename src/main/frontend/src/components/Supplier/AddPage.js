@@ -6,7 +6,7 @@ const AddPage = () => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h3" component="h1" gutterBottom>
-        공급업체 등록 페이지
+        Supplier Add Page
       </Typography>
       <AddComponent />
     </Container>

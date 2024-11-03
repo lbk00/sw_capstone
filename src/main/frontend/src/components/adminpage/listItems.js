@@ -37,6 +37,7 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
   };
 
   const handleClickSupplier = () => {
+      setStatePage(2);
     setOpenSupplier(!openSupplier);
   };
 
@@ -46,10 +47,12 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
   };
 
   const handleClickInventory = () => {
+      setStatePage(4);
         setOpenInventory(!openInventory);
   };
 
   const handleClickProduct = () => {
+      setStatePage(5);
         setOpenProduct(!openProduct);
   };
 

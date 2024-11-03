@@ -21,6 +21,10 @@ public class OrderDTO {
     private List<Product> orderedProducts;
     private Integer totalPrice;
     private OrderType orderType;
+<<<<<<< HEAD
+=======
+    private Integer totalAmount;
+>>>>>>> ad6f76aab7299d6c0922de4508044ca5177cd4ce
     private Supplier supplier;
 
 

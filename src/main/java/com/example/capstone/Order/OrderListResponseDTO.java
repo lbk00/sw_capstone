@@ -32,6 +32,7 @@ public class OrderListResponseDTO<E extends OrderDTO>{
             orderDTO.setId(order.getId());
             orderDTO.setOrderedProducts(order.getOrderedProducts());
             orderDTO.setTotalPrice(order.getTotalPrice());
+            orderDTO.setTotalAmount(order.getTotalAmount());
             orderDTO.setOrderType(order.getOrderType());
             orderDTOList.add(orderDTO);
         }

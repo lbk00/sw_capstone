@@ -49,6 +49,7 @@ public class User {
     @Column(nullable = true, length = 20,   name = "cAdr")
     private String cAdr; // 사용자 주소
 
+    @Column(nullable = true)
     private int role; // 사용자 권한 1 = 일반 고객 , 2 = 쇼핑몰 관리자
 
     @CreationTimestamp

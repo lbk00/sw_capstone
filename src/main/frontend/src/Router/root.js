@@ -30,6 +30,10 @@ const root = createBrowserRouter([
     element: <Suspense fallback={Loading}><MainManager/></Suspense>
   },
 
+    {
+        path: "mypage",
+        element: <Suspense fallback={Loading}><Mypage/></Suspense>
+    },
   {
       path: "homeuser",
       element: <Suspense fallback={Loading}><MainUser/></Suspense>

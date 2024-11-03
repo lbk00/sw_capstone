@@ -26,6 +26,7 @@ const initState = {
 function ReadComponent({ id  }) {
 
     const [order, setOrder] = useState(initState);
+    const [supplier, setSupplier] = useState(initState);
     const [openModal, setOpenModal] = useState(false);
     const {moveToList, moveToModify} = useCustomMove();
 
@@ -44,6 +45,9 @@ function ReadComponent({ id  }) {
             try {
                 const response = await axios.get(`http://localhost:8080/api/orders/${id}`);
                 setOrder(response.data); // 주문서 데이터를 상태로 저장
+                const supplierResponse = await axios.get(`http://localhost:8080/api/manager/${response.data.manager}`);
+                setSupplier(supplierResponse.data); // 공급업체 데이터를 상태로 저장
+
             } catch (error) {
                 console.error('Error fetching the order details:', error);
             }
@@ -52,9 +56,10 @@ function ReadComponent({ id  }) {
         fetchOrderDetails(); // useEffect 호출 시 데이터를 가져옴
     }, [id]);
 
+
     let totalPrice = 0;
     // Check if order exists and orderedProducts is an array
-    if (!order || !Array.isArray(order.orderedProducts)) {
+    if (!order || !Array.isArray(ogirder.orderedProducts)) {
         return <div>Loading...</div>; // Handle loading or error state
     }
 
@@ -66,8 +71,8 @@ function ReadComponent({ id  }) {
                 <p>주문일자 : <b>{new Date().toLocaleString()}</b></p> {/* Display current date and time */}
                 <h3>주문정보</h3>
                 <hr style={{border: '1px solid black', width: '450px', marginLeft: 0}}/>
-                <p>수신인 : {order.manager.mname}</p>
-                <p>연락처 : {order.manager.mtel}</p>
+                <p>수신인 : {supplier.mname}</p>
+                <p>연락처 : {supplier.mtel}</p>
                 <h3>주문상품</h3>
 
                 {order.orderedProducts.map((product) => {

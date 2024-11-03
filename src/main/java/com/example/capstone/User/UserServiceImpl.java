@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService{
         User User = result.orElseThrow();
         User.changecID(dto.getCID());
         User.changecPW(dto.getCPW());
-        User.changecName(dto.getCGender());
+        User.changecName(dto.getCName());
         User.changecGender(dto.getCGender());
 
         User.changectel(dto.getCtel());

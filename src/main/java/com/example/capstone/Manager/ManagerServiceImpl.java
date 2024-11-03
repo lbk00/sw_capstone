@@ -65,9 +65,9 @@ public class ManagerServiceImpl implements ManagerService{
     }
 
     @Override
-    public void remove(Long userid) {
+    public void remove(Long userId) {
 
-        managerRepository.deleteById(userid);
+        managerRepository.deleteById(userId);
     }
 
     @Override

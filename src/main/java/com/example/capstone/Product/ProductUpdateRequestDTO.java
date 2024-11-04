@@ -18,9 +18,9 @@ public class ProductUpdateRequestDTO {
     private Order order;
     private String size;
     private String itemType;
-    private byte[] itemImage;
+    private String itemImage;
 
-    public ProductUpdateRequestDTO(String name, Integer price, Integer amount, Order order, String size, String itemType, byte[] itemImage) {
+    public ProductUpdateRequestDTO(String name, Integer price, Integer amount, Order order, String size, String itemType, String itemImage) {
         this.name = name;
         this.price = price;
         this.amount = amount;

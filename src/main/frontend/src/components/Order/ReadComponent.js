@@ -76,11 +76,6 @@ function ReadComponent({ id  }) {
                 <h3>주문상품</h3>
 
                 {order.orderedProducts.map((product) => {
-                    let imageBase64 = '';
-                    if (product.itemImage) {
-                        imageBase64 = btoa(String.fromCharCode(...new Uint8Array(product.itemImage))); // Assuming itemImage is a byte array
-                    }
-
                     // Update total price
                     totalPrice += product.price * product.amount;
 
@@ -88,8 +83,14 @@ function ReadComponent({ id  }) {
                         <div key={product.id}>
                             <hr style={{border: '0.1px groove gray', width: '450px', marginLeft: 0}}/>
                             <div style={{display: 'flex', alignItems: 'center', marginBottom: '10px'}}>
-                                <img src={`data:image/png;base64,${imageBase64}`} alt="상품 이미지"
-                                     style={{width: '100px', height: 'auto', marginRight: '10px'}}/>
+                                <img
+                                    src={product.itemImage
+                                        ? require(`../../sample/${product.itemImage}`)// 템플릿 리터럴을 사용하여 이미지 경로 설정
+                                        : require('../../sample/sample1.png')// 기본 이미지 경로
+                                    }
+                                    alt="상품 이미지"
+                                    style={{width: '100px', height: 'auto', marginRight: '10px'}}
+                                />
                                 <div style={{marginLeft: '10px'}}>
                                     <p style={{margin: 0}}>상품명 : {product.name}</p>
                                     <p style={{margin: 0}}>상품유형 : {product.itemType}</p>

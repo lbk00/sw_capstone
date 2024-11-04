@@ -17,9 +17,9 @@ public class ProductDTO {
     private Order order;
     private String size;
     private String itemType;
-    private byte[] itemImage;
+    private String itemImage;
 
-    public ProductDTO(Long id, String name, Integer price, Integer amount, Order order, String size, String itemType, byte[] itemImage) {
+    public ProductDTO(Long id, String name, Integer price, Integer amount, Order order, String size, String itemType, String itemImage) {
         this.id = id;
         this.name = name;
         this.price = price;

@@ -144,8 +144,8 @@ export default function HomeUser() {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get("http://localhost:8080/products/list");
-                setProducts(response.data.products);
-                setFilteredProducts(response.data.products); // 초기값으로 모든 상품 설정
+                setProducts(response.data.dtoList);
+                setFilteredProducts(response.data.dtoList); // 초기값으로 모든 상품 설정
             } catch (error) {
                 console.error("Error fetching product data:", error);
             }

@@ -10,26 +10,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import './swiper.css';
 import { useNavigate } from "react-router-dom"; // 페이지 이동을 위한 useNavigate 훅
-import defaultImage from "./sample/sample1.png"; // 기본 이미지
-import sample1 from "./sample/플리스 크루 스웨트.png";
-import sample18 from "./sample/3S 웜업 팬.png";
-import sample2 from "./sample/PL 티.jpg";
-import sample3 from "./sample/SI 워드 크루 스웨트.jpg";
-import sample4 from "./sample/다운 리젠 푸퍼.jpg";
-import sample5 from "./sample/락업 카키 트레포일 트랙탑 자켓.png";
-import sample6 from "./sample/리버서블 쉐르파 재킷.jpg";
-import sample7 from "./sample/보아 자켓.jpg";
-import sample8 from "./sample/쉐르파 롱코트.jpg";
-import sample9 from "./sample/아디컬러 에센셜 플리스 조거.png";
-import sample10 from "./sample/아디컬러 풀 집업 후디.png";
-import sample11 from "./sample/아르헨티나 아이콘 셔츠.png";
-import sample12 from "./sample/에센셜 패디드 퍼퍼 재킷.png";
-import sample13 from "./sample/우븐 SST 아노락.png";
-import sample14 from "./sample/우븐 78 팬츠.jpg";
-import sample15 from "./sample/클럽 쇼츠.png";
-import sample16 from "./sample/테렉스 쇼츠.jpg";
-import sample17 from "./sample/테렉스 아그라빅 쇼츠.png";
-
 
 
 import AppBar from '@mui/material/AppBar';
@@ -75,26 +55,7 @@ import { Link as RouterLink } from 'react-router-dom';
 export default function HomeUser() {
 
     {/*메뉴 이벤트 관리*/}
-    const images = [
-        sample1,
-        sample2,
-        sample3,
-        sample4,
-        sample5,
-        sample6,
-        sample7,
-        sample8,
-        sample9,
-        sample10,
-        sample11,
-        sample12,
-        sample13,
-        sample14,
-        sample15,
-        sample16,
-        sample17,
-        sample18,
-    ];
+
     const [anchorElUser, setAnchorElUser] = useState(null);
     const [anchorElProduct, setAnchorElProduct] = useState(null);
     const [anchorElOrdersheet, setAnchorElOrdersheet] = useState(null);
@@ -431,8 +392,8 @@ export default function HomeUser() {
                                             sx={{ height: 200 }}
                                             image={
                                                 product.itemImage
-                                                    ? `data:image/jpeg;base64,${product.itemImage}`
-                                                    : images[index % images.length]
+                                                    ? require(`../sample/${product.itemImage}`) // 템플릿 리터럴 사용 (백틱)
+                                                    : require('../sample/sample1.png') // 기본 이미지 경로
                                             }
                                             title={product.name}
                                         />
@@ -480,8 +441,8 @@ export default function HomeUser() {
                                         sx={{ height: 400 }}
                                         image={
                                             product.itemImage
-                                                ? `data:image/jpeg;base64,${product.itemImage}`
-                                                : images[index % images.length]
+                                                ? require(`../sample/${product.itemImage}`) // 템플릿 리터럴 사용 (백틱)
+                                                : require('../sample/sample1.png')  // 기본 이미지 경로
                                         }
                                         title={product.name}
                                     />

@@ -1,123 +1,86 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { deleteOne, getOne, putOne } from "../../api/OrderApi";
-import { TextField, Button, Box } from '@mui/material';
-
+import React, { useState } from "react";
+import { postAdd } from "../../api/OrderApi";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
+import { TextField, Button, Box } from '@mui/material';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const initState = {
-    id: 0,
-    orderType: '',
-    orderedProducts: '',
-    totalAmount: '',
-    totalPrice: '',
-    complete: false
+
+    orderType : '',
+    orderedProducts : '',
+    totalAmount : '',
+    totalPrice : '',
+
+
+
 }
 
-const ModifyComponent = ({ id, moveList }) => {
+const ModifyComponent = ({id}) => {
 
-    const [order, setOrder] = useState({ ...initState })
+    const navigate = useNavigate();
 
-    // 모달 창을 위한 상태
-    const [result, setResult] = useState(null)
-
-    // 이동을 위한 기능들
-    const { moveToList, OrdermoveToRead } = useCustomMove()
-
-    const handleClickModify = () => { // 버튼 클릭 시
-        putOne(order).then(data => {
-            console.log("modify result: " + data)
-            setResult('Modified')
-        })
-    }
-
-    const handleClickDelete = () => { // 버튼 클릭 시
-        deleteOne(id).then(data => {
-            console.log("delete result: " + data)
-            setResult('Deleted')
-        })
-    }
-
-    // 모달 창이 close될 때
-    const closeModal = () => {
-        if (result === 'Deleted') {
-            moveToList()
-        } else {
-            OrdermoveToRead(id)
-        }
-    }
-
-    useEffect(() => {
-        getOne(id).then(data => setOrder(data))
-    }, [id])
+    const [order, setOrder] = useState({
+        orderedProducts: '',  // 제품 ID들을 입력받을 필드
+        totalAmount: ''       // 수량을 입력받을 필드
+    });
 
     const handleChangeOrder = (e) => {
-        order[e.target.name] = e.target.value
-        setOrder({ ...order })
-    }
+        const { name, value } = e.target;
+        setOrder((prevOrder) => ({
+            ...prevOrder,
+            [name]: value,
+        }));
+    };
 
-    const handleChangeOrderComplete = (e) => {
-        const value = e.target.value
-        order.complete = (value === 'Y')
-        setOrder({ ...order })
+    const handleClickUpdate = async () => {
+        // 제품 ID와 수량을 배열로 변환
+        const productIds = order.orderedProducts.split(',').map(id => Number(id.trim()));
+        const amounts = order.totalAmount.split(',').map(amount => Number(amount.trim()));
+
+        const payload = {
+            id: productIds,      // 제품 ID 배열
+            amount: amounts      // 수량 배열
+        };
+
+        try {
+            // PUT 요청을 통해 서버로 수정된 주문 데이터 전송
+            const response = await axios.put(`http://localhost:8080/api/orders/${id}`, payload);
+            alert('주문서가 성공적으로 수정되었습니다.');
+            window.location.href = 'http://localhost:3000/dashboard';
+            console.log('Order successfully updated:', response.data);
+        } catch (error) {
+            console.error('There was an error updating the order!', error);
+        }
+    };
+    const [result, setResult] = useState(null)
+    const {moveToList} = useCustomMove()
+
+
+    const closeModal = () => {
+        setResult(null)
+        moveToList()
     }
 
     return (
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            {result ? <ResultModal title={'처리결과'} content={result} callbackFn={closeModal}></ResultModal> : <></>}
-
-            <TextField
-                label="Type"
-                variant="outlined"
-                name="orderType"
-                value={order.orderType}
-                onChange={handleChangeOrder}
-            />
-            <TextField
-                label="Product"
-                variant="outlined"
-                name="orderedProducts"
-                value={order.orderedProducts}
-                onChange={handleChangeOrder}
-            />
+            {result ? <ResultModal title={'Add Result'} content={`New ${result} Added`} callbackFn={closeModal}/>: <></>}
             <TextField
                 label="Amount"
                 variant="outlined"
                 name="totalAmount"
                 value={order.totalAmount}
                 onChange={handleChangeOrder}
+                placeholder="Enter amounts (e.g., 1, 5)"
+                fullWidth
+                margin="normal"
             />
-            <TextField
-                label="Price"
-                variant="outlined"
-                name="totalPrice"
-                value={order.totalPrice}
-                onChange={handleChangeOrder}
-            />
-            <TextField
-                label="COMPLETE"
-                variant="outlined"
-                name="complete"
-                value={order.complete ? 'Y' : 'N'}
-                onChange={handleChangeOrderComplete}
-                select
-                SelectProps={{
-                    native: true,
-                }}
-            >
-                <option value='Y'>Completed</option>
-                <option value='N'>Not Yet</option>
-            </TextField>
-
-            <Button variant="contained" color="secondary" onClick={handleClickDelete}>
-                Delete
-            </Button>
-
-            <Button variant="contained" color="primary" onClick={handleClickModify}>
-                Modify
+            <Button variant="contained" onClick={handleClickUpdate}>
+                수정
             </Button>
         </Box>
     );
-}
+};
 
 export default ModifyComponent;

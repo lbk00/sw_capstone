@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
         String inputJson = gson.toJson(new InputWrapper(inputData));
 
         // Flask API 호출 (주소 동적으로 바뀜)
-        String apiUrl = "https://95b1-34-74-148-172.ngrok-free.app/predict"; // ngrok URL
+        String apiUrl = "https://ff2c-35-231-129-176.ngrok-free.app/predict"; // ngrok URL
         RestTemplate restTemplate = new RestTemplate();
 
         // 요청 헤더 설정
@@ -247,14 +247,18 @@ public class OrderServiceImpl implements OrderService {
         htmlMsg.append("<h3>주문상품</h3>");
         // 반복문을 사용해 상품 정보 동적으로 추가
         for (Product product : order.getOrderedProducts()) {
-            String imageBase64 = "";
-            if (product.getItemImage() != null) {
-                imageBase64 = Base64.getEncoder().encodeToString(product.getItemImage());
+
+            if (product.getItemImage() != null && !product.getItemImage().isEmpty()) {
+                imagePath = "/sample/sample1.png";// 제품 이미지 경로
+                System.out.println("Image path set to: " + imagePath); // 로그 출력
+            } else {
+                imagePath = "/sample/sample1.png"; // 기본 이미지 경로
+                System.out.println("Using default image path: " + imagePath); // 로그 출력
             }
+
             htmlMsg.append("<hr style=\"border: 0.1px groove gray; width: 450px; margin-left: 0;\">")
                     .append("<div style=\"display: flex; align-items: center; margin-bottom: 10px;\">") // Flexbox로 정렬
-                    // 이미지 imageBase64 로 변경
-                    .append("<img src=\"data:image/png;base64,").append(base64Image).append("\" alt=\"상품 이미지\" style=\"width: 100px; height: auto; margin-right: 10px;\" />")
+                    .append("<img src=\"" + imagePath + "\" alt=\"상품 이미지\" style=\"width: 100px; height: auto; margin-right: 10px;\" />")
                     .append("<div style=\"margin-left: 10px;\">") // 이미지와 텍스트 간의 여백
                     .append("<p style=\"margin: 0;\">상품명 : ")
                     .append(product.getName())

@@ -51,7 +51,7 @@ public class Order {
         this.orderType = OrderType.BEFORE_ORDER;
         this.totalAmount = calculateTotalAmount();
 
-        this.userId = 1L; // 임시로 null
+        this.userId = 1L;
 
     }
 

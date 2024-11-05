@@ -31,7 +31,7 @@ import AddPage from "./AddPage";
             새로운 공급업체 등록
         </Button>
         <AddPage open={openModal} onClose={handleClose} />
-     <div>{page}</div>
+
 
     </div>
     );

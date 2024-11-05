@@ -26,7 +26,7 @@ public class QProduct extends EntityPathBase<Product> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ArrayPath<byte[], Byte> itemImage = createArray("itemImage", byte[].class);
+    public final StringPath itemImage = createString("itemImage");
 
     public final StringPath itemType = createString("itemType");
 
@@ -56,7 +56,7 @@ public class QProduct extends EntityPathBase<Product> {
 
     public QProduct(Class<? extends Product> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.order = inits.isInitialized("order") ? new com.example.capstone.Order.QOrder(forProperty("order"), inits.get("order")) : null;
+        this.order = inits.isInitialized("order") ? new com.example.capstone.Order.QOrder(forProperty("order")) : null;
     }
 
 }

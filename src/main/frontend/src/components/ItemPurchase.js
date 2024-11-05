@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import defaultImage from "./sample/sample1.png"; // 기본 이미지 설정
+import defaultImage from "../sample/sample1.png"; // 기본 이미지 설정
 
 import {
     Avatar,
@@ -411,7 +411,11 @@ export default function ItemPurchase() {
                                     width: 500
                                 }}
 
-                                image={product.itemImage ? `data:image/jpeg;base64,${product.itemImage}` : defaultImage}
+                                image={
+                                    product.itemImage
+                                        ? require(`../sample/${product.itemImage}`) // 템플릿 리터럴 사용 (백틱)
+                                        : require('../sample/sample1.png')  // 기본 이미지 경로
+                                }
                                 title={product.name}
                             />
                                 )}

@@ -63,7 +63,6 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>id</TableCell>
                   <TableCell align="right">주문 ID</TableCell>
                   <TableCell align="right">주문종류</TableCell>
                   <TableCell align="right">주문한 상품</TableCell>
@@ -83,10 +82,6 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
                         }}
                         style={{ cursor: 'pointer' }}
                     >
-
-                      <TableCell component="th" scope="row">
-                        {order.id}
-                      </TableCell>
                       <TableCell align="right">{order.id}</TableCell>
                       <TableCell align="right">{order.orderType}</TableCell>
                       <TableCell align="right">

@@ -35,6 +35,7 @@ public class ProductListResponseDTO<E extends ProductDTO>{
             productDTO.setAmount(product.getAmount());
             productDTO.setSize(product.getSize());
             productDTO.setItemType(product.getItemType());
+            productDTO.setItemImage(product.getItemImage());
             productDTOList.add(productDTO);
         }
         PageRequestDTO pageRequestDTO = new PageRequestDTO();

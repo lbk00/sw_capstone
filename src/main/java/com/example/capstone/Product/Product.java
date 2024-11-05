@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Product {
 
     //itemImage byte[] -> String으로 변경
-    public Product(String name, Integer price, Integer amount, Order order, String size, String itemType, byte[] itemImage) {
+    public Product(String name, Integer price, Integer amount, Order order, String size, String itemType, String itemImage) {
         //this.id = id;
         this.name = name;
         this.price = price;
@@ -45,8 +45,7 @@ public class Product {
 
     private String itemType;
 
-    @Lob
-    private byte[] itemImage;
+    private String itemImage;
 
     public Boolean sameId(Long id) {
         return this.id.equals(id);

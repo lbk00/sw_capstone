@@ -43,7 +43,5 @@ const Router = () => {
             path: "order/modify/:id", element: <Suspense fallback={Loading}><OrderModify/></Suspense>
         },
 
-    ]
-}
 
 export default Router;

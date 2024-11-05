@@ -1,0 +1,14 @@
+/* 네비게이션 버튼 스타일 */
+.swiper-button-next,
+.swiper-button-prev {
+    color: gray; /* 네비게이션 버튼을 회색으로 설정 */
+}
+
+/* 슬라이드 버튼 스타일 (페이징) */
+.swiper-pagination-bullet {
+    background-color: gray; /* 슬라이드 버튼을 회색으로 설정 */
+}
+
+.swiper-pagination-bullet-active {
+    background-color: darkgray; /* 활성화된 슬라이드 버튼을 조금 더 어두운 회색으로 설정 */
+}

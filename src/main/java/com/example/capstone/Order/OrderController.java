@@ -63,7 +63,9 @@ public class OrderController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody List<OrderProductRequestDTO> orderProductRequestDtos) {
         //상품 번호 리스트로 입력 받고 , 해당 정보를 가지고있는 주문서 생성
+        System.out.println("orderProductRequestDtos = " + orderProductRequestDtos);
         OrderResponseDTO orderResponseDto = ordersService.createOrder(orderProductRequestDtos);
+        System.out.println("orderResponseDto = " + orderResponseDto);
         return ResponseEntity.ok(orderResponseDto);
     }
 

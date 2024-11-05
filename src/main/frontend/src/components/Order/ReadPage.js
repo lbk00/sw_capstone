@@ -3,6 +3,8 @@ import {Link, useParams} from "react-router-dom";
 import ReadComponent from "./ReadComponent";
 import { Typography, Paper, Box, Modal, Button , Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import axios from 'axios';
+import AddPage from "./AddPage";
+import ModifyPage from "./ModifyPage";
 
 
 const initState = {
@@ -20,6 +22,36 @@ const ReadPage = ({ id }) => {
     const [order, setOrder] = useState(initState);
     const handleOpen = () => setOpen(true); // 모달창을 열기 위한 함수를 생성합니다.
     const handleClose = () => setOpen(false); // 모달창을 닫기 위한 함수를 생성합니다.
+    // 주문 확인 모달 상태 관리
+    const [confirmOpen, setConfirmOpen] = useState(false);
+
+    const handleConfirmOpen = () => setConfirmOpen(true);
+    const handleConfirmClose = () => setConfirmOpen(false);
+
+    // 주문하기 확인 후 처리
+    const handleConfirmOrder = () => {
+        orderAssign(id); // 주문 처리 함수 실행
+        setConfirmOpen(false); // 모달 닫기
+    };
+
+    const [modifyOpen, setModifyOpen] = useState(false);
+    const handleModifyOpen = () => setModifyOpen(true);
+    const handleModifyClose = () => setModifyOpen(false);
+
+    // 삭제 모달 상태 관리
+    const [deleteOpen, setDeleteOpen] = useState(false);
+
+    const modalStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
     const handleDelete = () => {
         orderDelete(id); // 삭제 함수 호출
@@ -33,6 +65,7 @@ const ReadPage = ({ id }) => {
           console.error('주문 중 오류가 발생했습니다:', error);
         }
       };
+
 
     const orderComplete = async (id) => {
         try {
@@ -77,15 +110,58 @@ const ReadPage = ({ id }) => {
       </Paper>
         {order.orderType === 'BEFORE_ORDER' && (
           <Box mt={2}> {/* 주문하기 버튼에 상단 마진을 추가합니다. */}
-                  <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2 , ml : 3 , mr : 3}}
-                      variant="contained" color="primary" onClick={() => orderAssign(id)}>
-                        주문하기
-                  </Button>
+              {/* 주문하기 버튼 */}
+              <Button
+                  sx={{ bgcolor: 'gray', color: 'white', '&:hover': { bgcolor: 'gray' }, mb: 4, mt: 2, ml: 3, mr: 3 }}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleConfirmOpen} // 모달 열기
+              >
+                  주문하기
+              </Button>
+
+              {/* 주문 확인 모달 */}
+              <Dialog
+                  open={confirmOpen}
+                  onClose={handleConfirmClose}
+                  aria-labelledby="confirm-dialog-title"
+                  aria-describedby="confirm-dialog-description"
+              >
+                  <DialogTitle id="confirm-dialog-title">주문 확인</DialogTitle>
+                  <DialogContent>
+                      <DialogContentText id="confirm-dialog-description">
+                          정말 주문하시겠습니까?
+                      </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                      <Button onClick={handleConfirmOrder} color="primary" autoFocus>
+                          예
+                      </Button>
+                      <Button onClick={handleConfirmClose} color="primary">
+                          아니오
+                      </Button>
+                  </DialogActions>
+              </Dialog>
                   <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2, ml : 3 , mr : 3}}
-                          variant="contained" color="primary" component={Link}
-                          to="/order/modify">
+                          variant="contained" color="primary"
+                          onClick={handleModifyOpen}
+                          type="button">
                       주문 수정
                   </Button>
+                  <Modal
+                      open={modifyOpen}
+                      onClose={handleModifyClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                  >
+                      <Box sx={modalStyle}>
+                          <h2 id="modal-modal-title">주문서 수정</h2>
+                          <p id="modal-modal-description">
+                              <ModifyPage id={id}/>
+                          </p>
+                          {/* 주문서 등록 폼이나 기타 내용 */}
+                      </Box>
+                  </Modal>
               <Button
                   sx={{
                       bgcolor: 'gray',

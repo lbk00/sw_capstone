@@ -116,7 +116,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
     // 현재 페이지를 나타내주는 변수 0 : 기본 / 1 : 주문서 관리 / 2:
-    const [statePage, setStatePage] = useState(0);
+    const [statePage, setStatePage] = useState(1);
 
 
 

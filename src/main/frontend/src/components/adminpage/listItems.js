@@ -29,6 +29,9 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
   const [openUser, setOpenUser] = React.useState(false);
   const [openInventory, setOpenInventory] = React.useState(false);
   const [openProduct, setOpenProduct] = React.useState(false);
+  const [openDeliveryProduct, setOpenDeliveryProduct] = React.useState(false);
+  const [openReturnProduct, setOpenReturnProduct] = React.useState(false);
+
 
 
   const handleClickOrder = () => {
@@ -54,6 +57,16 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
   const handleClickProduct = () => {
       setStatePage(5);
         setOpenProduct(!openProduct);
+  };
+
+  const handleClickDeliveryProduct = () => {
+        setStatePage(6);
+          setOpenDeliveryProduct(!openDeliveryProduct);
+  };
+
+  const handleClickReturnProduct = () => {
+        setStatePage(7);
+          setOpenReturnProduct(!openReturnProduct);
   };
 
   const [open, setOpen] = useState(false);
@@ -164,10 +177,10 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText primary="재고 확인 및 수정" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 4 }} onClick={handleClickReturnProduct}>
                   <ListItemText primary="반품 품목 확인" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton sx={{ pl: 4 }} onClick={handleClickDeliveryProduct}>
                   <ListItemText primary="납품 품목 확인" />
                 </ListItemButton>
 

@@ -34,12 +34,13 @@ import { Outlet } from 'react-router-dom';
 import Deposits from './Deposits';
 import Avatar from '@mui/material/Avatar';
 import ManagerRead from '../Manager/ReadPage';
-import ManagerList from '../Manager/ListPage';
+
 import AddPage from '../Manager/AddPage'; // AddPage 컴포넌트를 import 합니다.
 import SupplierListPage from '../Manager/ListPage';
 import UserListPage from '../User/ListPage';
 import OrderListPage from '../Order/ListPage';
 import ProductListPage from '../Product/ListPage';
+import ReturnProductListPage from '../Order/ReturnProductListComponent';
 import Explain from './Explain';
 import axios from "axios"; // ListPage 컴포넌트를 import 합니다.
 
@@ -301,6 +302,8 @@ export default function Dashboard() {
                             <UserListPage/> // statePage가 3일 때
                         ) : statePage === 5 ? (
                            <ProductListPage/> // statePage가 4일 때
+                        ) : statePage === 6 ? (
+                           <ReturnProductListPage/>
                         ) : ( // statePage가 0일 때
                             <Explain/>
                   )}

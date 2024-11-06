@@ -34,7 +34,7 @@ import { Outlet } from 'react-router-dom';
 import Deposits from './Deposits';
 import Avatar from '@mui/material/Avatar';
 import ManagerRead from '../Manager/ReadPage';
-import ManagerList from '../Manager/ListPage';
+
 import AddPage from '../Manager/AddPage'; // AddPage 컴포넌트를 import 합니다.
 import SupplierListPage from '../Manager/ListPage';
 import UserListPage from '../User/ListPage';

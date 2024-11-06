@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useParams } from 'react-router-dom';
-import { getList, getOne } from "../../api/OrderApi";
+import { useParams } from 'react-router-dom';
+import { getList } from "../../api/OrderApi";
 import useCustomMove from "../../hooks/useCustomMove";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,11 +11,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ReadComponent from './ReadComponent';
 import { useNavigate } from 'react-router-dom';
-import PageComponent from "../common/PageComponent";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import ReadPage from './ReadPage';
-
+import { Button, List, ListItem, ListItemText } from '@mui/material';
 
 const initState = {
   dtoList:[], pageNumList:[], pageRequestDTO: null, prev: false, next: false,
@@ -40,7 +39,6 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
     setOpenModal(false);
   };
 
-
   useEffect(() => {
     getList({page,size}).then(data => {
       console.log(data)
@@ -54,7 +52,15 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
         });
   }, [page,size, refresh]);
 
-
+  const movePage = (page) => {
+    getList({ page, size }).then(data => {
+      setServerData(data);
+      setOrder(data.dtoList);
+    }).catch(error => {
+      console.error('Error fetching data: ', error);
+      setOrder([]);
+    });
+  };
 
   return (
       <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
@@ -68,7 +74,6 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
                   <TableCell align="right">주문한 상품</TableCell>
                   <TableCell align="right">총 수량</TableCell>
                   <TableCell align="right">총가격</TableCell>
-
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -97,7 +102,30 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
             </Table>
           </TableContainer>
         </div>
-        <PageComponent serverData={serverData} movePage={moveToList} orderType={0} setOrder={setOrder}></PageComponent>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
+            {serverData.prev ?
+              <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)}>
+                Prev
+              </Button> : null}
+            {serverData.pageNumList.map(pageNum =>
+              <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)}>
+                {pageNum}
+              </Button>
+            )}
+            {serverData.next ?
+              <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)}>
+                Next
+              </Button> : null}
+          </Box>
+          <List>
+            {serverData.dtoList.map((item, index) => (
+              <ListItem key={index}>
+                <ListItemText primary={item.name} secondary={item.description} /> {/* Adjust according to your data structure */}
+              </ListItem>
+            ))}
+          </List>
+        </Box>
         <Modal
             open={openModal}
             onClose={handleCloseModal}

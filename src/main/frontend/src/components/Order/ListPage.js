@@ -107,7 +107,7 @@ import AddPage from "./AddPage";
                 </Box>
             </Modal>
         </Box>
-     <div>{page}</div>
+
 
     </div>
     );

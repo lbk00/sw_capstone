@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
-import { getList } from '../../api/ManagerApi';
+import { getList } from '../../api/ProductApi';
+
 
 const PageComponent = () => {
   const [serverData, setServerData] = useState({

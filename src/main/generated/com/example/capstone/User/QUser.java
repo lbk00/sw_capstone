@@ -39,7 +39,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final NumberPath<Integer> role = createNumber("role", Integer.class);
 
-    public final NumberPath<Long> user_Id = createNumber("user_Id", Long.class);
+    public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

@@ -11,7 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ReadComponent from './ReadComponent';
-import { Dialog, DialogTitle, DialogContent, Button, Box } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, Button, Box, List, ListItem, ListItemText } from '@mui/material';
 import PageComponent from "../common/PageComponent";
 import axios from "axios";
 import ModifyPage from './ModifyPage';
@@ -78,6 +78,16 @@ if (!products || products.length === 0) {
       console.error('삭제 중 오류가 발생했습니다:', error);
     }
   };
+
+  const movePage = (page) => {
+      getList({ page, size }).then(data => {
+        setServerData(data);
+        setProducts(data.dtoList);
+      }).catch(error => {
+        console.error('Error fetching data: ', error);
+        setProducts([]);
+      });
+    };
 
   return (
       <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
@@ -146,6 +156,13 @@ if (!products || products.length === 0) {
               <Button variant="contained" color="error" sx={{ml: 1}} onClick={() => productDelete(selectedId)}>상품
                 삭제</Button>
             </Box>
+            <List>
+                      {serverData.dtoList.map((item, index) => (
+                        <ListItem key={index}>
+                          <ListItemText primary={item.name} secondary={item.description} /> {}
+                        </ListItem>
+                      ))}
+                    </List>
           </DialogContent>
         </Dialog>
       </div>

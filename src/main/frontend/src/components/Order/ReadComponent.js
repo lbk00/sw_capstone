@@ -96,7 +96,7 @@ function ReadComponent({ id  }) {
                                     <p style={{margin: 0}}>상품유형 : {product.itemType}</p>
                                     <p style={{margin: 0}}>사이즈 : {product.size}</p>
                                     <p style={{margin: 0}}>주문수량 : {product.amount}</p>
-                                    <p style={{margin: 0}}>주문금액 : {product.price} 원</p>
+                                    <p style={{margin: 0}}>상품금액 : {product.price} 원</p>
                                 </div>
                             </div>
                         </div>

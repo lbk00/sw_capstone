@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { postAdd } from "../../api/OrderApi";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
 import { TextField, Button, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Typography from "@mui/material/Typography";
 
 const initState = {
 
@@ -20,32 +21,45 @@ const initState = {
 const ModifyComponent = ({id}) => {
 
     const navigate = useNavigate();
-
     const [order, setOrder] = useState({
-        orderedProducts: '',  // 제품 ID들을 입력받을 필드
-        totalAmount: ''       // 수량을 입력받을 필드
+        orderedProducts: []  // 제품 정보 배열로 초기화
     });
+    const [result, setResult] = useState(null);
+    const { moveToList } = useCustomMove();
 
-    const handleChangeOrder = (e) => {
-        const { name, value } = e.target;
-        setOrder((prevOrder) => ({
-            ...prevOrder,
-            [name]: value,
-        }));
+    // 주문 데이터 가져오기
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/orders/${id}`);
+                const products = response.data.orderedProducts.map(product => ({
+                    id: product.id,
+                    name: product.name,
+                    amount: product.amount // 초기 수량 값 설정
+                }));
+                setOrder({ orderedProducts: products });
+            } catch (error) {
+                console.error('Error fetching order data:', error);
+            }
+        };
+        fetchOrder();
+    }, [id]);
+
+    // 수량 입력 변경 핸들러
+    const handleAmountChange = (index, value) => {
+        const updatedProducts = [...order.orderedProducts];
+        updatedProducts[index].amount = Number(value);
+        setOrder({ orderedProducts: updatedProducts });
     };
 
+    // 수정 버튼 클릭 시
     const handleClickUpdate = async () => {
-        // 제품 ID와 수량을 배열로 변환
-        const productIds = order.orderedProducts.split(',').map(id => Number(id.trim()));
-        const amounts = order.totalAmount.split(',').map(amount => Number(amount.trim()));
-
         const payload = {
-            id: productIds,      // 제품 ID 배열
-            amount: amounts      // 수량 배열
+            id: order.orderedProducts.map(product => product.id),
+            amount: order.orderedProducts.map(product => product.amount)
         };
 
         try {
-            // PUT 요청을 통해 서버로 수정된 주문 데이터 전송
             const response = await axios.put(`http://localhost:8080/api/orders/${id}`, payload);
             alert('주문서가 성공적으로 수정되었습니다.');
             window.location.href = 'http://localhost:3000/dashboard';
@@ -54,28 +68,33 @@ const ModifyComponent = ({id}) => {
             console.error('There was an error updating the order!', error);
         }
     };
-    const [result, setResult] = useState(null)
-    const {moveToList} = useCustomMove()
 
-
+    // 모달 닫기
     const closeModal = () => {
-        setResult(null)
-        moveToList()
-    }
+        setResult(null);
+        moveToList();
+    };
 
     return (
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            {result ? <ResultModal title={'Add Result'} content={`New ${result} Added`} callbackFn={closeModal}/>: <></>}
-            <TextField
-                label="Amount"
-                variant="outlined"
-                name="totalAmount"
-                value={order.totalAmount}
-                onChange={handleChangeOrder}
-                placeholder="Enter amounts (e.g., 1, 5)"
-                fullWidth
-                margin="normal"
-            />
+            {result ? (
+                <ResultModal title={'Add Result'} content={`New ${result} Added`} callbackFn={closeModal} />
+            ) : null}
+            {order.orderedProducts.map((product, index) => (
+                <Box key={product.id} display="flex" alignItems="center" marginY={1}>
+                    <Typography variant="body1" sx={{ width: '70%' }}>
+                        {product.name}
+                    </Typography>
+                    <TextField
+                        label="주문 수량"
+                        variant="outlined"
+                        value={product.amount}
+                        onChange={(e) => handleAmountChange(index, e.target.value)}
+                        fullWidth
+                        margin="normal"
+                    />
+                </Box>
+            ))}
             <Button variant="contained" onClick={handleClickUpdate}>
                 수정
             </Button>

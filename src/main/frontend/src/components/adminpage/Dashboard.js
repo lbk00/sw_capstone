@@ -40,6 +40,7 @@ import SupplierListPage from '../Manager/ListPage';
 import UserListPage from '../User/ListPage';
 import OrderListPage from '../Order/ListPage';
 import ProductListPage from '../Product/ListPage';
+import DeliveryProductListPage from '../Order/DeliveryProductListComponent';
 import ReturnProductListPage from '../Order/ReturnProductListComponent';
 import Explain from './Explain';
 import axios from "axios"; // ListPage 컴포넌트를 import 합니다.
@@ -303,6 +304,8 @@ export default function Dashboard() {
                         ) : statePage === 5 ? (
                            <ProductListPage/> // statePage가 4일 때
                         ) : statePage === 6 ? (
+                           <DeliveryProductListPage/>
+                        ) : statePage === 7 ? (
                            <ReturnProductListPage/>
                         ) : ( // statePage가 0일 때
                             <Explain/>

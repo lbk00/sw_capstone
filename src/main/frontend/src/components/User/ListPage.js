@@ -27,9 +27,6 @@ import {Button} from "@mui/material";
      </div>
      <ListComponent/>
 
-
-     <div>{page}</div>
-
     </div>
     );
   }

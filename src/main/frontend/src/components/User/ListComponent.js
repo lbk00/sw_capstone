@@ -36,6 +36,16 @@ const ListComponent = () => {
     });
   }, [page, size, refresh]);
 
+  const movePage = (page) => {
+        getList({ page, size }).then(data => {
+          setServerData(data);
+          setUser(data.dtoList);
+        }).catch(error => {
+          console.error('Error fetching data: ', error);
+          setUser([]);
+        });
+      };
+
 
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
@@ -72,7 +82,24 @@ const ListComponent = () => {
           </Table>
         </TableContainer>
       </div>
-      <PageComponent serverData={serverData} movePage={moveToList} setUser={setUser}></PageComponent>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
+                        {serverData.prev ?
+                          <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1 }}>
+                            Prev
+                          </Button> : null}
+                        {serverData.pageNumList.map(pageNum =>
+                          <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1 }}>
+                            {pageNum}
+                          </Button>
+                        )}
+                        {serverData.next ?
+                          <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1 }}>
+                            Next
+                          </Button> : null}
+                      </Box>
+
+                      </Box>
 
 
     </div>

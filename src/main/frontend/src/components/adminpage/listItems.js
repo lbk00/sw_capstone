@@ -62,6 +62,11 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
       setOpenUser(!openUser);
   };
 
+  const handleClickUserList = () => {
+        setStatePage(3);
+
+    };
+
   const handleClickInventory = () => {
       setStatePage(4);
         setOpenInventory(!openInventory);
@@ -258,8 +263,8 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
         </ListItemButton>
         <Collapse in={openUser} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }} component={Link} to="/manager/list">
-                    <ListItemText primary="고객 조회" />
+                <ListItemButton sx={{ pl: 4 }} >
+                    <ListItemText primary="고객 조회" onClick={handleClickUserList} />
                 </ListItemButton>
 
 

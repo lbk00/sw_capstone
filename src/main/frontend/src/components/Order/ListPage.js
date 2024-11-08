@@ -49,7 +49,7 @@ const ListPage = () => {
       }
       data = await getCategoryOrders(categoryId);
     }
-    setOrders(data);
+    setOrders(data.dtoList);
   };
 
   const handleChange = (event) => {
@@ -60,7 +60,7 @@ const ListPage = () => {
 
   useEffect(() => {
     fetchOrders(orderType);
-  }, []);
+  }, [orderType]);
 
   const [queryParams] = useSearchParams();
   const page = queryParams.get("page") || 1;

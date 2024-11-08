@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
-import { getList } from "../../api/OrderApi";
+import { getCategoryOrders, getAllOrders } from "../../api/OrderApi";
 import useCustomMove from "../../hooks/useCustomMove";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';

@@ -46,8 +46,8 @@ const ListComponent = ({ onRowClick, orders }) => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="right">주문 ID</TableCell>
-                <TableCell align="right">주문종류</TableCell>
+                <TableCell align="left">주문 ID</TableCell>
+                <TableCell align="left">주문서 종류</TableCell>
                 <TableCell align="right">주문한 상품</TableCell>
                 <TableCell align="right">총 수량</TableCell>
                 <TableCell align="right">총가격</TableCell>
@@ -64,8 +64,23 @@ const ListComponent = ({ onRowClick, orders }) => {
                   }}
                   style={{ cursor: 'pointer' }}
                 >
-                  <TableCell align="right">{order.id}</TableCell>
-                  <TableCell align="right">{order.orderType}</TableCell>
+                  <TableCell align="left">{order.id}</TableCell>
+                  <TableCell align="left">
+                    {(() => {
+                      switch (order.orderType) {
+                        case 'BEFORE_ORDER':
+                          return '주문서 발송 전';
+                        case 'PROGRESS_ORDER':
+                          return '주문서 발송 완료';
+                        case 'COMPLETE_ORDER':
+                          return '납품 완료';
+                        case 'RETURNING':
+                          return '반품 진행 중';
+                        default:
+                          return '알 수 없는 상태';
+                      }
+                    })()}
+                  </TableCell>
                   <TableCell align="right">
                     {order.orderedProducts.map((product, index) => (
                       <p key={index}>{product.name}</p>

@@ -73,61 +73,61 @@ const ListPage = () => {
   return (
     <div className="p-4 w-full bg-orange-200 ">
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="text-3xl font-extrabold">
-          주문서 관리
+        {/* 왼쪽 정렬: 납품 주문서 관리 */}
+        <div className="text-6xl font-extrabold">
+          납품 주문서 관리
         </div>
-        <Button
-          sx={{ bgcolor: 'gray', color: 'white', '&:hover': { bgcolor: 'gray' } }}
-          variant="contained"
-          onClick={handleOpen}
-        >
-          주문서 등록
-        </Button>
+        {/* 오른쪽 정렬: 주문서 종류와 주문서 등록 */}
+        <Box sx={{display: 'flex', alignItems: 'center' }}>
+          <FormControl fullWidth variant="outlined" sx={{ minWidth: 110, height : 50, '&:hover': { bgcolor: 'gray' }, ml: 60 }}>
+            <InputLabel sx={{
+              '&.Mui-focused': {
+                color: 'black', // 포커스 시 라벨 색상
+              },
+            }}>주문서 종류</InputLabel>
+            <Select
+                value={orderType}
+                onChange={handleChange}
+                label="주문서 종류"
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      marginTop: '-160px',
+                      '& .MuiMenuItem-root': {},
+                    },
+                  },
+                }}
+                sx={{
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'gray',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'gray',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    color: 'black',
+                    borderColor: 'gray', // 포커스 시 테두리 색상 유지
+                  },
+                }}
+            >
+              <MenuItem value="option1">전체</MenuItem>
+              <MenuItem value="option2">주문서 발송 전</MenuItem>
+              <MenuItem value="option3">주문서 발송 완료</MenuItem>
+              <MenuItem value="option4">납품 완료</MenuItem>
+              <MenuItem value="option5">반품 진행 중</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Button
+              sx={{ ml : 5 , minWidth: 110, height : 50 ,bgcolor: 'gray', color: 'white', '&:hover': { bgcolor: 'gray' } }}
+              variant="contained"
+              onClick={handleOpen}
+          >
+            주문서 등록
+          </Button>
+        </Box>
       </Box>
       <ListComponent onRowClick={handleRowClick} orders={orders} />
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, gap: 2 }}>
-        <FormControl fullWidth variant="outlined" sx={{ width: '8%', '&:hover': { bgcolor: 'gray' }, ml: 60 }}>
-          <InputLabel sx={{
-            '&.Mui-focused': {
-              color: 'black', // 포커스 시 라벨 색상
-            },
-          }}>주문서 종류</InputLabel>
-          <Select
-            value={orderType}
-            onChange={handleChange}
-            label="주문서 종류"
-            MenuProps={{
-              PaperProps: {
-                sx: {
-                  marginTop: '-160px',
-                  '& .MuiMenuItem-root': {
-                  },
-                },
-              },
-            }}
-            sx={{
-              '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'gray',
-              },
-              '&:hover .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'gray',
-              },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                color : 'black',
-                borderColor: 'gray', // 포커스 시 테두리 색상 유지
-              },
-              '& .MuiSvgIcon-root': {
-              },
-            }}
-          >
-            <MenuItem value="option1">전체</MenuItem>
-            <MenuItem value="option2">주문 전</MenuItem>
-            <MenuItem value="option3">주문 중</MenuItem>
-            <MenuItem value="option4">주문 완료</MenuItem>
-            <MenuItem value="option5">반품 처리</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
       <Modal
         open={open}
         onClose={handleClose}

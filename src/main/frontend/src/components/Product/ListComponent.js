@@ -122,7 +122,25 @@ if (!products || products.length === 0) {
             </Table>
           </TableContainer>
         </div>
-        <PageComponent serverData={serverData} movePage={moveToList} setProducts={setProducts}></PageComponent>
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
+                  {serverData.prev ?
+                    <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1 }}>
+                      Prev
+                    </Button> : null}
+                  {serverData.pageNumList.map(pageNum =>
+                    <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1 }}>
+                      {pageNum}
+                    </Button>
+                  )}
+                  {serverData.next ?
+                    <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1 }}>
+                      Next
+                    </Button> : null}
+                </Box>
+
+                </Box>
 
         <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth PaperProps={{ style: { height: '80vh' } }}>
           <DialogTitle>상품 </DialogTitle>

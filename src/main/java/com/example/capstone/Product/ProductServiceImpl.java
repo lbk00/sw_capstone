@@ -1,16 +1,30 @@
 // com.example.capstone.Item.ItemService.java
 package com.example.capstone.Product;
 
+import com.example.capstone.DTO.ManagerResponseDTO;
+import com.example.capstone.DTO.PageRequestDTO;
+import com.example.capstone.Product.ProductListResponseDTO;
+import com.example.capstone.DTO.PageRequestDTO;
+import com.example.capstone.Manager.Manager;
+import com.example.capstone.Manager.ManagerDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
 
     private final ProductRepository productRepository;
+
+    private PageRequest dtoToPageRequest(PageRequestDTO dto) {
+        return PageRequest.of(dto.getPage() - 1, dto.getSize(), Sort.by("id"));
+    }
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -33,7 +47,7 @@ public class ProductServiceImpl implements ProductService{
         } else { // 없으면 새로운 상품 생성
 
             Product newProduct = new Product(
-
+                    productDTO.getId(),
                     productDTO.getName(),
                     productDTO.getPrice(),
                     productDTO.getAmount(),
@@ -95,6 +109,23 @@ public class ProductServiceImpl implements ProductService{
         //특정 카테고리의 상품 리스트 출력
         List<Product> product = productRepository.findByItemType(category);
         ProductListResponseDTO productListResponseDTO = ProductListResponseDTO.toDTO(product);
+
+        return productListResponseDTO;
+    }
+
+
+    public ProductListResponseDTO<ProductDTO> productList(PageRequestDTO pageRequestDTO) {
+        PageRequest pageable = dtoToPageRequest(pageRequestDTO);
+        Page<Product> result = productRepository.search4(pageRequestDTO);
+
+        List<ProductDTO> dtoList = result.get().map(product -> entityToDTO(product)).collect(Collectors.toList());
+
+        ProductListResponseDTO<ProductDTO> productListResponseDTO =
+                ProductListResponseDTO.<ProductDTO>withAll()
+                        .dtoList(dtoList)
+                        .pageRequestDTO(pageRequestDTO)
+                        .total(result.getTotalElements())
+                        .build();
 
         return productListResponseDTO;
     }

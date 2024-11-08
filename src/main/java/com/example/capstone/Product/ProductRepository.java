@@ -1,13 +1,14 @@
 package com.example.capstone.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.capstone.Search.ProductSearch;
 
 import org.springframework.data.jpa.repository.Query;
 
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, ProductSearch {
     Product findByNameAndItemTypeAndSize(String name, String itemType, String size);
     List<Product> findByItemType(String itemType);
 

@@ -1,6 +1,10 @@
 // com.example.capstone.Item.ItemController.java
 package com.example.capstone.Product;
 
+import com.example.capstone.DTO.ManagerResponseDTO;
+import com.example.capstone.DTO.PageRequestDTO;
+import com.example.capstone.Manager.ManagerDTO;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Log4j2
 @RequestMapping("/products")
+
 public class ProductController {
 
     private final ProductServiceImpl productService;
@@ -43,10 +49,10 @@ public class ProductController {
         return new ResponseEntity<>("product deleted successfully", HttpStatus.OK);
     }
     //상품 목록 조회 api
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public ResponseEntity<ProductListResponseDTO> productList() {
-        ProductListResponseDTO productListResponseDTO = productService.productList();
-        return ResponseEntity.ok(productListResponseDTO);
+    @GetMapping(value = "/list")
+    public ProductListResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO ) {
+        log.info(pageRequestDTO);
+        return productService.productList(pageRequestDTO);
     }
 
     //특정 상품 정보 조회 api

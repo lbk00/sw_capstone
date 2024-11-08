@@ -1,6 +1,7 @@
 package com.example.capstone.Product;
 
 import com.example.capstone.Order.Order;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
 public class ProductDTO {
 
     private Long id;
@@ -32,7 +34,7 @@ public class ProductDTO {
 
 
     public static ProductDTO toDTO(Product product) {
-        ProductDTO productDto = new ProductDTO(
+        ProductDTO productDTO = new ProductDTO(
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
@@ -43,6 +45,6 @@ public class ProductDTO {
                 product.getItemImage()
         );
 
-        return productDto;
+        return productDTO;
     }
 }

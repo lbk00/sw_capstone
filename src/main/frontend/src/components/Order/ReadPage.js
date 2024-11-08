@@ -28,10 +28,32 @@ const ReadPage = ({ id }) => {
     const handleConfirmOpen = () => setConfirmOpen(true);
     const handleConfirmClose = () => setConfirmOpen(false);
 
+    const [completeOpen, setCompleteOpen] = useState(false);
+
+    const handleCompleteOpen = () => setCompleteOpen(true);
+    const handleCompleteClose = () => setCompleteOpen(false);
+
+    const [returnOpen, setReturnOpen] = useState(false);
+
+    const handleReturnOpen = () => setReturnOpen(true);
+    const handleReturnClose = () => setReturnOpen(false);
+
     // 주문하기 확인 후 처리
     const handleConfirmOrder = () => {
         orderAssign(id); // 주문 처리 함수 실행
         setConfirmOpen(false); // 모달 닫기
+    };
+
+    // 납품하기 확인 후 처리
+    const handleCompleteOrder = () => {
+        orderComplete(id); // 주문 처리 함수 실행
+        setCompleteOpen(false); // 모달 닫기
+    };
+
+    // 반품하기 확인 후 처리
+    const handleReturnOrder = () => {
+        orderReturn(id); // 주문 처리 함수 실행
+        setReturnOpen(false); // 모달 닫기
     };
 
     const [modifyOpen, setModifyOpen] = useState(false);
@@ -61,6 +83,7 @@ const ReadPage = ({ id }) => {
         try {
           await axios.get(`http://localhost:8080/api/orders/order/${id}`); // 백엔드 서버의 주소와 경로를 적절히 수정해야 합니다.
           alert('주문이 완료되었습니다.');
+            window.location.href = 'http://localhost:3000/dashboard';
         } catch (error) {
           console.error('주문 중 오류가 발생했습니다:', error);
         }
@@ -71,8 +94,19 @@ const ReadPage = ({ id }) => {
         try {
             await axios.get(`http://localhost:8080/api/orders/complete/${id}`); // 백엔드 서버의 주소와 경로를 적절히 수정해야 합니다.
             alert('납품이 완료되었습니다.');
+            window.location.href = 'http://localhost:3000/dashboard';
         } catch (error) {
             console.error('납품 중 오류가 발생했습니다:', error);
+        }
+    };
+
+    const orderReturn = async (id) => {
+        try {
+            await axios.get(`http://localhost:8080/api/orders/return/${id}`); // 백엔드 서버의 주소와 경로를 적절히 수정해야 합니다.
+            alert('반품이 완료되었습니다.');
+            window.location.href = 'http://localhost:3000/dashboard';
+        } catch (error) {
+            console.error('반품 중 오류가 발생했습니다:', error);
         }
     };
 
@@ -95,6 +129,7 @@ const ReadPage = ({ id }) => {
         try {
             await axios.delete(`http://localhost:8080/api/orders/${id}`);
             alert('삭제가 완료되었습니다.');
+            window.location.href = 'http://localhost:3000/dashboard';
         } catch (error) {
             console.error('삭제 중 오류가 발생했습니다:', error);
         }
@@ -201,21 +236,124 @@ const ReadPage = ({ id }) => {
         {order.orderType === 'PROGRESS_ORDER' && (
             <Box mt={2}>
                 <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2 , ml : 3 , mr : 3}}
-                        variant="contained" color="primary" onClick={() => orderComplete(id)}>
+                        variant="contained" color="primary" onClick={handleCompleteOpen}>
                     납품 처리
                 </Button>
+                <Dialog
+                    open={completeOpen}
+                    onClose={handleCompleteClose}
+                    aria-labelledby="confirm-dialog-title"
+                    aria-describedby="confirm-dialog-description"
+                >
+                    <DialogTitle id="confirm-dialog-title">납품 확인</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="confirm-dialog-description">
+                            납품하시겠습니까?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCompleteOrder} color="primary" autoFocus>
+                            예
+                        </Button>
+                        <Button onClick={handleCompleteClose} color="primary">
+                            아니오
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
                 <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2 , ml : 3 , mr : 3}}
-                        variant="contained" color="primary">
+                        variant="contained" color="primary" onClick={handleReturnOpen}>
                     반품 처리
                 </Button>
+                <Dialog
+                    open={returnOpen}
+                    onClose={handleReturnClose}
+                    aria-labelledby="confirm-dialog-title"
+                    aria-describedby="confirm-dialog-description"
+                >
+                    <DialogTitle id="confirm-dialog-title">반품 확인</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="confirm-dialog-description">
+                            반품하시겠습니까?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleReturnOrder} color="primary" autoFocus>
+                            예
+                        </Button>
+                        <Button onClick={handleReturnClose} color="primary">
+                            아니오
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
             </Box>
         )}
         {order.orderType === 'RETURNING' && (
             <Box mt={2}>
                 <Button sx={{ bgcolor: 'gray', color: 'white','&:hover': { bgcolor: 'gray' },mb : 4, mt : 2 , ml : 3 , mr : 3}}
-                        variant="contained" color="primary" onClick={() => orderComplete(id)}>
+                        variant="contained" color="primary" onClick={handleCompleteOpen}>
                     납품 처리
                 </Button>
+                <Dialog
+                    open={completeOpen}
+                    onClose={handleCompleteClose}
+                    aria-labelledby="confirm-dialog-title"
+                    aria-describedby="confirm-dialog-description"
+                >
+                    <DialogTitle id="confirm-dialog-title">납품 확인</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="confirm-dialog-description">
+                            납품하시겠습니까?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCompleteOrder} color="primary" autoFocus>
+                            예
+                        </Button>
+                        <Button onClick={handleCompleteClose} color="primary">
+                            아니오
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            </Box>
+        )}
+        {order.orderType === 'COMPLETE_ORDER' && (
+            <Box mt={2}>
+                <Button
+                    sx={{
+                        bgcolor: 'gray',
+                        color: 'white',
+                        '&:hover': { bgcolor: 'gray' },
+                        mb: 4,
+                        mt: 2,
+                        ml: 3,
+                        mr: 3
+                    }}
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOpen} // 모달 열기
+                >
+                    주문 삭제
+                </Button>
+
+                {/* 삭제 확인 모달 */}
+                <Dialog open={open} onClose={handleClose}>
+                    <DialogTitle>주문 삭제</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            정말 삭제하시겠습니까?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleDelete} color="primary" autoFocus>
+                            예
+                        </Button>
+                        <Button onClick={handleClose} color="primary">
+                            아니오
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
         )}
     </Box>

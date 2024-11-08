@@ -94,35 +94,21 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
                 <DashboardIcon />
       </ListItemIcon>
         <ListItemText primary="납품 주문서 관리" />
-          {/*
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-          >
-            <Box sx={{
-                p: 4,
-                width: '80vw',
-                height: '80vh',
-                overflow: 'auto',
-                backgroundColor: 'white',
-                position: 'absolute', // Add position here
-                top: '50%', // Add top here
-                left: '50%', // Add left here
-                transform: 'translate(-50%, -50%)' // Add transform here
-            }}>
-              <ListPage />
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                <Button variant="contained" component={Link} to="/order/add">주문서 등록</Button>
-                <Button variant="contained" component={Link} to="/order/modify">주문서 수정</Button>
-                <Button variant="contained">주문서 삭제</Button>
-              </Box>
-            </Box>
-          </Modal>
-          */}
-
+          {openOrder ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+        <Collapse in={openOrder} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary="주문서 등록" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary="주문서 조회" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary="주문서 수정 및 삭제" />
+                </ListItemButton>
+            </List>
+        </Collapse>
 
       <ListItemButton onClick={handleClickSupplier}>
         <ListItemIcon>

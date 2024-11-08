@@ -37,7 +37,7 @@ public interface ProductService {
                 .size(product.getSize())
                 .price(product.getPrice())
                 .amount(product.getAmount())
-
+                .itemImage(product.getItemImage())
                 .build();
 
     }
@@ -52,7 +52,7 @@ public interface ProductService {
                 .size(productDTO.getSize())
                 .price(productDTO.getPrice())
                 .amount(productDTO.getAmount())
-
+                .itemImage(productDTO.getItemImage())
                 .build();
 
     }

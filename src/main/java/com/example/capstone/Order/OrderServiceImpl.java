@@ -121,7 +121,7 @@ public class OrderServiceImpl implements OrderService {
                 {19.0f, 16.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
                 {20.0f, 20.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
                 {21.0f, 9.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f}
-        }
+            }
         };
 
         // Gson을 사용하여 inputData를 JSON 형식으로 변환
@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
         String inputJson = gson.toJson(new InputWrapper(inputData));
 
         // Flask API 호출 (주소 동적으로 바뀜)
-        String apiUrl = "https://ff2c-35-231-129-176.ngrok-free.app/predict"; // ngrok URL
+        String apiUrl = "https://18c1-34-123-135-43.ngrok-free.app/predict"; // ngrok URL
         RestTemplate restTemplate = new RestTemplate();
 
         // 요청 헤더 설정

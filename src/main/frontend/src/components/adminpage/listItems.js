@@ -93,7 +93,7 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
       <ListItemIcon>
                 <DashboardIcon />
       </ListItemIcon>
-        <ListItemText primary="주문서 관리" />
+        <ListItemText primary="납품 주문서 관리" />
           {/*
         <Modal
             open={open}
@@ -140,43 +140,22 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
             <ListItemText primary="공급업체 조회" />
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 수정" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 삭제" />
+            <ListItemText primary="공급업체 수정 및 삭제" />
           </ListItemButton>
         </List>
       </Collapse>
 
-      <ListItemButton onClick={handleClickUser}>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary="사용자 관리" />
-              {openUser ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            <Collapse in={openUser} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }} component={Link} to="/manager/list">
-                  <ListItemText primary="사용자 목록" />
-                </ListItemButton>
 
-
-              </List>
-            </Collapse>
 
       <ListItemButton onClick={handleClickInventory}>
               <ListItemIcon>
                 <Inventory />
               </ListItemIcon>
-              <ListItemText primary="재고 관리" />
+              <ListItemText primary="납품 관리" />
               {openInventory ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openInventory} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="재고 확인 및 수정" />
-                </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }} onClick={handleClickReturnProduct}>
                   <ListItemText primary="반품 품목 확인" />
                 </ListItemButton>
@@ -191,7 +170,7 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
                     <ListItemIcon>
                       <Store />
                     </ListItemIcon>
-                    <ListItemText primary="상품 관리" />
+                    <ListItemText primary="재고 관리" />
                     {openProduct ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
                   <Collapse in={openProduct} timeout="auto" unmountOnExit>
@@ -203,13 +182,28 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
                         <ListItemText primary="상품 조회" />
                       </ListItemButton>
                       <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="상품 수정" />
-                      </ListItemButton>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="상품 삭제" />
+                        <ListItemText primary="상품 수정 및 삭제" />
                       </ListItemButton>
                     </List>
                   </Collapse>
+
+        <ListItemButton onClick={handleClickUser}>
+            <ListItemIcon>
+                <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="고객 관리" />
+            {openUser ? <ExpandLess /> : <ExpandMore />}
+        </ListItemButton>
+        <Collapse in={openUser} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }} component={Link} to="/manager/list">
+                    <ListItemText primary="고객 조회" />
+                </ListItemButton>
+
+
+            </List>
+        </Collapse>
+
     </React.Fragment>
   );
 };

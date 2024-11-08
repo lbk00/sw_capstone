@@ -23,6 +23,7 @@ import ListPage from '../Order/ListPage';
 import Button from '@mui/material/Button';
 import AddPage from "../Order/AddPage";
 import AddPageSupplier from "../Manager/AddPage";
+import AddPageProduct from "../Product/AddPage";
 
 export const MainListItems = ({ user ,statePage, setStatePage }) => {
   const [openOrder, setOpenOrder] = React.useState(false);
@@ -94,6 +95,10 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
     const [openSupplierAdd, setOpenSupplierAdd] = useState(false);
     const handleOpenSupplierAdd = () => setOpenSupplierAdd(true); // setOpenSupplierAdd로 변경
     const handleCloseSupplierAdd = () => setOpenSupplierAdd(false);
+
+    const [openProductAdd, setOpenProductAdd] = useState(false);
+    const handleOpenProductAdd = () => setOpenProductAdd(true); // setOpenSupplierAdd로 변경
+    const handleCloseProductAdd = () => setOpenProductAdd(false);
 
     const modalStyle = {
         position: 'absolute',
@@ -192,7 +197,6 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
       </Collapse>
 
 
-
       <ListItemButton onClick={handleClickInventory}>
               <ListItemIcon>
                 <Inventory />
@@ -221,9 +225,21 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
                   </ListItemButton>
                   <Collapse in={openProduct} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemButton sx={{ pl: 4 }} onClick={handleOpenProductAdd} >
                         <ListItemText primary="상품 등록" />
                       </ListItemButton>
+                        <Modal
+                            open={openProductAdd}
+                            onClose={handleCloseProductAdd}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box>
+                                <p id="modal-modal-description">
+                                    <AddPageProduct open={openProductAdd} onClose={handleCloseProductAdd}/>
+                                </p>
+                            </Box>
+                        </Modal>
                       <ListItemButton sx={{ pl: 4 }}>
                         <ListItemText primary="상품 조회" />
                       </ListItemButton>

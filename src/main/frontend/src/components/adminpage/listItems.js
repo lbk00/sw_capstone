@@ -21,7 +21,8 @@ import { Link } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import ListPage from '../Order/ListPage';
 import Button from '@mui/material/Button';
-
+import AddPage from "../Order/AddPage";
+import AddPageSupplier from "../Manager/AddPage";
 
 export const MainListItems = ({ user ,statePage, setStatePage }) => {
   const [openOrder, setOpenOrder] = React.useState(false);
@@ -39,10 +40,21 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
       setOpenOrder(!openOrder);
   };
 
+  // 납품 주문서 관리 서브메뉴 주문서 조회 클릭
+    const handleClickOrderList = () => {
+        setStatePage(1);
+    };
+
+
   const handleClickSupplier = () => {
       setStatePage(2);
     setOpenSupplier(!openSupplier);
   };
+
+    // 공급업체 관리 서브메뉴 공급업체 조회 클릭
+    const handleClickSupplierList = () => {
+        setStatePage(2);
+    };
 
   const handleClickUser = () => {
       setStatePage(3);
@@ -74,6 +86,27 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // 주문서 등록을 위한 모달
+    const [openOrderAdd, setOpenOrderAdd] = useState(false);
+    const handleOpenOrderAdd = () => setOpenOrderAdd(true); // setOpenOrderAdd로 변경
+    const handleCloseOrderAdd = () => setOpenOrderAdd(false); // setOpenOrderAdd로 변경
+
+    const [openSupplierAdd, setOpenSupplierAdd] = useState(false);
+    const handleOpenSupplierAdd = () => setOpenSupplierAdd(true); // setOpenSupplierAdd로 변경
+    const handleCloseSupplierAdd = () => setOpenSupplierAdd(false);
+
+    const modalStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
   return (
     <React.Fragment>
       <ListItemButton sx={{ justifyContent: 'flex-start', marginLeft: 5 }}>
@@ -99,10 +132,24 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
         <Collapse in={openOrder} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText primary="주문서 등록" />
+                    <ListItemText primary="주문서 등록" onClick={handleOpenOrderAdd} />
                 </ListItemButton>
+                <Modal
+                    open={openOrderAdd}
+                    onClose={handleCloseOrderAdd}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={modalStyle}>
+                        <h2 id="modal-modal-title">주문서 등록</h2>
+                        <p id="modal-modal-description">
+                            <AddPage/>
+                        </p>
+                    </Box>
+                </Modal>
+
                 <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText primary="주문서 조회" />
+                    <ListItemText primary="주문서 조회" onClick={handleClickOrderList} />
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }}>
                     <ListItemText primary="주문서 수정 및 삭제" />
@@ -120,10 +167,23 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
       <Collapse in={openSupplier} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 등록" />
+            <ListItemText primary="공급업체 등록" onClick={handleOpenSupplierAdd} />
           </ListItemButton>
+            <Modal
+                open={openSupplierAdd}
+                onClose={handleCloseSupplierAdd}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box>
+                    <p id="modal-modal-description">
+                        <AddPageSupplier open={openSupplierAdd} onClose={handleCloseSupplierAdd}/>
+                    </p>
+                </Box>
+            </Modal>
+
           <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 조회" />
+            <ListItemText primary="공급업체 조회"  onClick={handleClickSupplierList}/>
           </ListItemButton>
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemText primary="공급업체 수정 및 삭제" />

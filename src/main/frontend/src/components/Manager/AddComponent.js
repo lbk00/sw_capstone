@@ -35,7 +35,7 @@ const AddComponent = () => {
   }
 
   return (
-    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+    <Box sx={{'& > :not(style)': { m: 2 } }}>
       {result ? <ResultModal title={'Add Result'} content={`등록이 완료되었습니다`} callbackFn={closeModal} /> : <></>}
       <TextField
         label="Name"

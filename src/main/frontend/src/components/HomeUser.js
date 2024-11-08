@@ -387,9 +387,22 @@ export default function HomeUser() {
                                     onClick={() => handleCardClick(product.id)} // 클릭 시 페이지 이동
                                     sx={{ cursor: 'pointer' }} // 커서를 포인터로 변경
                                 >
-                                    <CardContent>
+                                    <CardContent
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center'
+                                        }}
+                                    >
                                         <CardMedia
-                                            sx={{ height: 200 }}
+                                            sx={{
+                                                height: 300,
+                                                width: 300,
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                objectFit: 'cover'
+                                            }}
                                             image={
                                                 product.itemImage
                                                     ? require(`../sample/${product.itemImage}`) // 템플릿 리터럴 사용 (백틱)
@@ -438,7 +451,7 @@ export default function HomeUser() {
                             >
                                 <CardContent>
                                     <CardMedia
-                                        sx={{ height: 400 }}
+                                        sx={{ height: 500 ,width : 500 }}
                                         image={
                                             product.itemImage
                                                 ? require(`../sample/${product.itemImage}`) // 템플릿 리터럴 사용 (백틱)

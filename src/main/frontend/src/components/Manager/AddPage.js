@@ -5,7 +5,7 @@ import AddComponent from './AddComponent';
 const AddPage = ({ open, onClose }) => {
     return (
         <Dialog open={open} onClose={onClose}>
-            <Typography variant="h3" component="h1" gutterBottom>
+            <Typography variant="h5" component="h1" gutterBottom>
                 공급업체 등록 페이지
             </Typography>
             <AddComponent />

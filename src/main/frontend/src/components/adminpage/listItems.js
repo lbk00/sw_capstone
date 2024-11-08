@@ -129,10 +129,10 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, marginBottom: 5 }}>
           <ListItemAvatar>
             <Avatar
-              alt="Admin Name"
-              src="/sample/sample1.jpg"
               sx={{ borderRadius: '50%', width: 100, height: 100 }} // 크기를 조절
-            />
+            >
+                {user?.cname.charAt(0) || "Lee"}
+            </Avatar>
           </ListItemAvatar>
             <ListItemText primary={user?.cname || "Unknown"} />
         </Box>
@@ -273,13 +273,13 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="고객 관리" />
+            <ListItemText primary="사용자 관리" />
             {openUser ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={openUser} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }} >
-                    <ListItemText primary="고객 조회" onClick={handleClickUserList} />
+                    <ListItemText primary="사용자 조회" onClick={handleClickUserList} />
                 </ListItemButton>
 
 

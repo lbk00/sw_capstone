@@ -1,5 +1,5 @@
+// src/main/frontend/src/api/OrderApi.js
 import axios from "axios"
-
 
 export const API_SERVER_HOST = 'http://localhost:8080'
 const prefix = `${API_SERVER_HOST}/api/orders`
@@ -34,5 +34,15 @@ export const putOne = async (order) => {
     pageRequestDTO: order.pageRequestDTO,
     total: order.total
   })
+  return res.data
+}
+
+export const getCategoryOrders = async (id) => {
+  const res = await axios.get(`${prefix}/category/${id}`)
+  return res.data
+}
+
+export const getAllOrders = async () => {
+  const res = await axios.get(`${prefix}/list`)
   return res.data
 }

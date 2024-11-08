@@ -97,7 +97,6 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
             </Table>
           </TableContainer>
         </div>
-        <PageComponent serverData={serverData} movePage={moveToList} orderType={0} setOrder={setOrder}></PageComponent>
         <Modal
             open={openModal}
             onClose={handleCloseModal}

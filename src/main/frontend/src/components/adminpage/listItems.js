@@ -68,14 +68,20 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
     };
 
   const handleClickInventory = () => {
-      setStatePage(4);
+      setStatePage(6);
         setOpenInventory(!openInventory);
   };
+
+
 
   const handleClickProduct = () => {
       setStatePage(5);
         setOpenProduct(!openProduct);
   };
+
+    const handleClickProductList = () => {
+        setStatePage(5);
+    };
 
   const handleClickDeliveryProduct = () => {
         setStatePage(6);
@@ -161,7 +167,10 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
                 <ListItemButton sx={{ pl: 4 }}>
                     <ListItemText primary="주문서 조회" onClick={handleClickOrderList} />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton
+                    sx={{ pl: 4 }}
+                    onClick={() => alert('수정 및 삭제할 주문서를 선택하세요.')}
+                >
                     <ListItemText primary="주문서 수정 및 삭제" />
                 </ListItemButton>
             </List>
@@ -195,9 +204,12 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemText primary="공급업체 조회"  onClick={handleClickSupplierList}/>
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="공급업체 수정 및 삭제" />
-          </ListItemButton>
+            <ListItemButton
+                sx={{ pl: 4 }}
+                onClick={() => alert('수정 및 삭제할 공급업체를 선택하세요.')}
+            >
+                <ListItemText primary="공급업체 수정 및 삭제" />
+            </ListItemButton>
         </List>
       </Collapse>
 
@@ -246,11 +258,14 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
                             </Box>
                         </Modal>
                       <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="상품 조회" />
+                        <ListItemText primary="상품 조회" onClick={handleClickProductList}/>
                       </ListItemButton>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary="상품 수정 및 삭제" />
-                      </ListItemButton>
+                        <ListItemButton
+                            sx={{ pl: 4 }}
+                            onClick={() => alert('수정 및 삭제할 상품을 선택하세요.')}
+                        >
+                            <ListItemText primary="상품 수정 및 삭제" />
+                        </ListItemButton>
                     </List>
                   </Collapse>
 

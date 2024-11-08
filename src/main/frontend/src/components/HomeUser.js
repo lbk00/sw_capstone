@@ -19,7 +19,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-
+import StoreIcon from '@mui/icons-material/Store';
 
 
 import {
@@ -116,7 +116,7 @@ export default function HomeUser() {
     const [sortOrder, setSortOrder] = useState('default'); // 기본 정렬 상태
     const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
     const [filteredProducts, setFilteredProducts] = useState([]); // 필터링된 상품 상태
-    const productsPerPage = 6; // 페이지당 상품 수
+    const productsPerPage = 8; // 페이지당 상품 수
     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 선언
     const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
@@ -232,7 +232,19 @@ export default function HomeUser() {
         setCurrentPage(1); // 검색 후 페이지를 1로 초기화
     };
 
+    // 상품 종류 필터
+    const handleType = (type) => {
+        const results = type
+            ? products.filter(product => product.itemType === type) // 특정 타입일 때 필터링
+            : products; // 타입이 없을 경우 모든 상품 표시
 
+        setFilteredProducts(results);
+        setCurrentPage(1); // 검색 후 페이지를 1로 초기화
+    };
+
+    const handleGoToMainPage = () => {
+        navigate('/homeuser'); // 메인 페이지 경로로 설정
+    };
 
     {/*상품 메뉴 옆 Drawer*/}
     const [open, setOpen] = React.useState(false);
@@ -244,7 +256,7 @@ export default function HomeUser() {
             <List>
                 {['전체보기'].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => handleType('')}>
                             <ListItemIcon>
                                 <MenuIcon />
                             </ListItemIcon>
@@ -255,11 +267,17 @@ export default function HomeUser() {
             </List>
             <Divider />
             <List>
-                {['상의','아우터','바지'].map((text, index) => (
+                {['상의', '아우터', '바지'].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton
+                            onClick={() => handleType(
+                                text === '상의' ? 'clothes' :
+                                    text === '아우터' ? 'outer' :
+                                        text === '바지' ? 'pant' : ''
+                            )}
+                        >
                             <ListItemIcon>
-                                {index % 2 === 0 ? <MenuIcon /> : <MenuIcon />}
+                                <MenuIcon />
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
@@ -288,11 +306,10 @@ export default function HomeUser() {
             <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
                 {/*상단페이지*/}
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                        <Icon sx={{ mr: 1 }} />
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleGoToMainPage}>
+                        <StoreIcon sx={{ mr: 1 ,fontSize: 32}} />
                     </IconButton>
                     <Typography align="left" variant="h6" sx={{ flexGrow: 1 }}>
-                        메인페이지
                     </Typography>
                     {user && user.role === 2 && (
                         <Button color="inherit" sx={{ mr: 2 }} onClick={openManagerList}>
@@ -334,11 +351,11 @@ export default function HomeUser() {
                         </Drawer>
                     </div>
 
-                    <Button sx={{ width : 90, color: 'black' }}>상의</Button>
+                    <Button sx={{ width : 90, color: 'black' }} onClick={() => handleType("clothes")}>상의</Button>
                     <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>아우터</Button>
+                    <Button sx={{ width : 90, color: 'black' }} onClick={() => handleType("outer")}>아우터</Button>
                     <Divider orientation="vertical" variant="middle" flexItem />
-                    <Button sx={{ width : 90, color: 'black' }}>바지</Button>
+                    <Button sx={{ width : 90, color: 'black' }} onClick={() => handleType("pant")}>바지</Button>
                     <Divider orientation="vertical" variant="middle" flexItem />
                     <Box sx={{ flexGrow: 1 }} />
                     <form noValidate autoComplete="off">
@@ -375,17 +392,17 @@ export default function HomeUser() {
             </AppBar>
             {/*상품 배너*/}
             <Box sx={{ bgcolor: 'lightgray', p: 2 }}>
-                <Swiper autoplay={true} pagination={true} navigation={true} modules={[Navigation , SwiperPagination , Autoplay]} className="mySwiper">
-                    {bannerProducts.length === 0 ? (
+                <Swiper autoplay={true} pagination={true} navigation={true} modules={[Navigation, SwiperPagination, Autoplay]} className="mySwiper">
+                    {(bannerProducts.slice(0, 6).length === 0) ? (
                         <Typography variant="h6" color="text.secondary" sx={{ marginLeft: 4 }}>
                             일치하는 상품이 없습니다.
                         </Typography>
                     ) : (
-                        bannerProducts.map((product , index) => (
-                            <SwiperSlide>
+                        bannerProducts.slice(0, 6).map((product, index) => (
+                            <SwiperSlide key={index}> {/* 각 슬라이드에 고유한 키 추가 */}
                                 <Card
-                                    onClick={() => handleCardClick(product.id)} // 클릭 시 페이지 이동
-                                    sx={{ cursor: 'pointer' }} // 커서를 포인터로 변경
+                                    onClick={() => handleCardClick(product.id)}
+                                    sx={{ cursor: 'pointer' }}
                                 >
                                     <CardContent
                                         sx={{
@@ -405,8 +422,8 @@ export default function HomeUser() {
                                             }}
                                             image={
                                                 product.itemImage
-                                                    ? require(`../sample/${product.itemImage}`) // 템플릿 리터럴 사용 (백틱)
-                                                    : require('../sample/sample1.png') // 기본 이미지 경로
+                                                    ? require(`../sample/${product.itemImage}`)
+                                                    : require('../sample/sample1.png')
                                             }
                                             title={product.name}
                                         />
@@ -437,33 +454,53 @@ export default function HomeUser() {
                 </ToggleButtonGroup>
             </Box>
             {/*하단의 상품 정렬 페이지*/}
-            <Grid container spacing={2}>
+            <Grid container spacing={3} justifyContent="center">
                 {currentProducts.length === 0 ? (
                     <Typography variant="h6" color="text.secondary" sx={{ marginLeft: 4 }}>
                         일치하는 상품이 없습니다.
                     </Typography>
                 ) : (
-                    currentProducts.map((product, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={product.id}>
+                    currentProducts.map((product) => (
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
                             <Card
                                 onClick={() => handleCardClick(product.id)} // 클릭 시 페이지 이동
-                                sx={{ cursor: 'pointer' }} // 커서를 포인터로 변경
+                                sx={{
+                                    cursor: 'pointer',
+                                    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
+                                    transition: 'transform 0.2s ease-in-out',
+                                    '&:hover': { transform: 'scale(1.05)' },
+                                    borderRadius: 2,
+                                    overflow: 'hidden',
+                                }}
                             >
-                                <CardContent>
-                                    <CardMedia
-                                        sx={{ height: 500 ,width : 500 }}
-                                        image={
-                                            product.itemImage
-                                                ? require(`../sample/${product.itemImage}`) // 템플릿 리터럴 사용 (백틱)
-                                                : require('../sample/sample1.png')  // 기본 이미지 경로
-                                        }
-                                        title={product.name}
-                                    />
-                                    <Typography gutterBottom variant="h5" component="div">
+                                <CardMedia
+                                    component="img"
+                                    sx={{
+                                        height: 350,
+                                        width: '100%',
+                                        objectFit: 'cover',
+                                    }}
+                                    image={
+                                        product.itemImage
+                                            ? require(`../sample/${product.itemImage}`)
+                                            : require('../sample/sample1.png')
+                                    }
+                                    title={product.name}
+                                />
+                                <CardContent
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        p: 2,
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
                                         {product.name}
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        가격: {product.price}원
+                                    <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
+                                        가격: {product.price.toLocaleString()}원
                                     </Typography>
                                 </CardContent>
                             </Card>

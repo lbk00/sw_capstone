@@ -37,6 +37,7 @@ import {
     Snackbar,
     Alert
 } from '@mui/material';
+import StoreIcon from "@mui/icons-material/Store";
 
 
 export default function ItemPurchase() {
@@ -302,6 +303,9 @@ export default function ItemPurchase() {
             setQuantity(value);
         }
     };
+    const handleGoToMainPage = () => {
+        navigate('/homeuser'); // 메인 페이지 경로로 설정
+    };
 
     // 상품이 로드되기 전에는 product가 null이므로 초기 상태를 설정. 데이터가 준비되기 전에 로딩메시지를 표시하도록
     if (!product) {
@@ -313,11 +317,10 @@ export default function ItemPurchase() {
             <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
                 {/*상단페이지*/}
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                        <Icon sx={{ mr: 1 }} />
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleGoToMainPage}>
+                        <StoreIcon sx={{ mr: 1 ,fontSize: 32}} />
                     </IconButton>
                     <Typography align="left" variant="h6" sx={{ flexGrow: 1 }}>
-                        메인페이지
                     </Typography>
                     {user && user.role === 2 && (
                         <Button color="inherit" sx={{ mr: 2 }} onClick={openManagerList}>

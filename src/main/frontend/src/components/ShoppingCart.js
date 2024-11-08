@@ -30,6 +30,7 @@ import {
     OutlinedInput,
     Snackbar
 } from '@mui/material';
+import StoreIcon from "@mui/icons-material/Store";
 
 
 export default function ShoppingCart() {
@@ -185,22 +186,24 @@ export default function ShoppingCart() {
                     amount: item.amount // 수량도 여기서 가져오기
                 }));
 
+            console.log("전송할 데이터:", JSON.stringify(purchaseData)); // 예상 입력값 확인
+
             if (purchaseData.length === 0) {
-                alert('구매할 상품을 선택해주세요.'); // 아무것도 선택되지 않았을 경우 알림
+                alert('구매할 상품을 선택해주세요.');
                 return;
             }
-            // 3. POST 요청 보내기
-            const response = await axios.post('http://localhost:8080/orders/purchase', purchaseData);
+            // POST 요청 보내기
+            const response = await axios.post('http://localhost:8080/api/orders/purchase', purchaseData);
             console.log('구매가 완료되었습니다:', response.data);
-            setSnackbarOpen(true); // Snackbar 열기
+            setSnackbarOpen(true);
+
             // 장바구니에서 구매한 상품 제거
             const updatedCartItems = cartItems.filter(item => !selectedItems.includes(item.id));
             setCartItems(updatedCartItems);
-            sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); // 로컬 스토리지 업데이트
-            setSelectedItems((prev) => prev.filter(id => !selectedItems.includes(id)));
+            sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+            setSelectedItems(prev => prev.filter(id => !selectedItems.includes(id)));
 
         } catch (error) {
-            // 에러 처리
             console.error('구매 중 오류가 발생했습니다:', error);
         }
     };
@@ -215,6 +218,10 @@ export default function ShoppingCart() {
         }, 0);
     };
 
+    const handleGoToMainPage = () => {
+        navigate('/homeuser'); // 메인 페이지 경로로 설정
+    };
+
     const totalPrice = calculateTotalPrice(cartItems); // 최종 가격 계산
 
     return (
@@ -222,11 +229,10 @@ export default function ShoppingCart() {
             <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
                 {/*상단페이지*/}
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                        <Icon sx={{ mr: 1 }} />
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleGoToMainPage}>
+                        <StoreIcon sx={{ mr: 1 ,fontSize: 32}} />
                     </IconButton>
                     <Typography align="left" variant="h6" sx={{ flexGrow: 1 }}>
-                        메인페이지
                     </Typography>
                     {user && user.role === 2 && (
                         <Button color="inherit" sx={{ mr: 2 }} onClick={openManagerList}>

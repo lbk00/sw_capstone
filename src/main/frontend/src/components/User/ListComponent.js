@@ -55,6 +55,7 @@ const ListComponent = () => {
             <TableHead>
               <TableRow>
                 <TableCell>userId</TableCell>
+                <TableCell align="right">권한</TableCell>
                 <TableCell align="right">이름</TableCell>
                 <TableCell align="right">성별</TableCell>
                 <TableCell align="right">id</TableCell>
@@ -68,6 +69,9 @@ const ListComponent = () => {
                 <TableRow>
                   <TableCell component="th" scope="row">
                     {user.userId}
+                  </TableCell>
+                  <TableCell align="right">
+                    {user.role === 1 ? "customer" : user.role === 2 ? "admin" : "unknown"}
                   </TableCell>
                   <TableCell align="right">{user.cname}</TableCell>
                   <TableCell align="right">{user.cgender}</TableCell>

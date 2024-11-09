@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { putOne, deleteOne, getOne } from "../../api/ProductApi";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Typography from "@mui/material/Typography";
 
 const initState = {
     id: '',
@@ -17,22 +16,32 @@ const initState = {
 
 const ModifyComponent = ({ id }) => {
     const navigate = useNavigate();
-    const [product, setProduct] = useState({ ...initState });
+    const [product, setProduct] = useState({...initState});
     const [result, setResult] = useState(null);
-    const { moveToList } = useCustomMove();
+    const { moveToList, productiveToRead } = useCustomMove();
+    const [openDialog, setOpenDialog] = useState(false);
 
-    // 제품 데이터 가져오기
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const response = await getOne(id);
-                setProduct(response.data);
-            } catch (error) {
-                console.error('Error fetching product data:', error);
-            }
-        };
-        fetchProduct();
-    }, [id]);
+
+        getOne(id).then(data =>  setProduct(data))
+
+      },[id])
+
+      const handleChangeProduct = (e) => {
+
+        product[e.target.name] = e.target.value
+
+        setProduct({...product})
+      }
+
+      const handleChangeProductComplete = (e) => {
+
+        const value = e.target.value
+
+        product.complete = (value === 'Y')
+
+        setProduct({...product})
+      }
 
     // 입력 변경 핸들러
     const handleChange = (e) => {
@@ -44,25 +53,17 @@ const ModifyComponent = ({ id }) => {
     };
 
     // 수정 버튼 클릭 시
-    const handleClickUpdate = async () => {
-        const payload = {
-            id: product.id,
-            name: product.name,
-            itemType: product.itemType,
-            price: product.price,
-            size: product.size,
-            amount: product.amount
-        };
+    const handleClickModify = () => { //버튼 클릭시
 
-        try {
-            const response = await putOne(payload);
-            alert('제품이 성공적으로 수정되었습니다.');
-            window.location.href = 'http://localhost:3000/dashboard';
-            console.log('Product successfully updated:', response);
-        } catch (error) {
-            console.error('There was an error updating the product!', error);
-        }
-    };
+        //console.log(manager)
+
+        putOne(product).then(data => {
+          console.log("modify result: " + data)
+          setResult('수정이 완료되었습니다')
+        })
+      }
+
+
 
     // 삭제 버튼 클릭 시
     const handleClickDelete = async () => {
@@ -70,6 +71,7 @@ const ModifyComponent = ({ id }) => {
             await deleteOne(id);
             alert('제품이 성공적으로 삭제되었습니다.');
             setResult('Deleted');
+            setOpenDialog(false);
         } catch (error) {
             console.error('There was an error deleting the product!', error);
         }
@@ -79,67 +81,98 @@ const ModifyComponent = ({ id }) => {
     const closeModal = () => {
         if (result === 'Deleted') {
             moveToList();
-        } else {
-            navigate(`/product/read/${id}`);
         }
     };
 
+    // 다이얼로그 닫기
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            {result ? (
-                <ResultModal title={'Operation Result'} content={`Product ${result}`} callbackFn={closeModal} />
-            ) : null}
-            <TextField
-                label="Name"
-                name="name"
-                variant="outlined"
-                value={product.name}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-            />
-            <TextField
-                label="Item Type"
-                name="itemType"
-                variant="outlined"
-                value={product.itemType}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-            />
-            <TextField
-                label="Price"
-                name="price"
-                variant="outlined"
-                value={product.price}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-            />
-            <TextField
-                label="Size"
-                name="size"
-                variant="outlined"
-                value={product.size}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-            />
-            <TextField
-                label="Amount"
-                name="amount"
-                variant="outlined"
-                value={product.amount}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-            />
-            <Button variant="contained" onClick={handleClickUpdate}>
-                수정
-            </Button>
-            <Button variant="contained" color="error" onClick={handleClickDelete}>
-                삭제
-            </Button>
+         <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                {result ? <ResultModal title={'처리결과'} content={result} callbackFn={closeModal}></ResultModal>  :<></>}
+
+
+
+                <TextField
+                                label="id"
+                                variant="outlined"
+                                value={product.id}
+                                disabled
+                              />
+                    <TextField
+                        label="Name"
+                        name="name"
+                        variant="outlined"
+                        value={product.name}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Item Type"
+                        name="itemType"
+                        variant="outlined"
+                        value={product.itemType}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Price"
+                        name="price"
+                        variant="outlined"
+                        value={product.price}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Size"
+                        name="size"
+                        variant="outlined"
+                        value={product.size}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Amount"
+                        name="amount"
+                        variant="outlined"
+                        value={product.amount}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <TextField
+                              label="COMPLETE"
+                              variant="outlined"
+                              name="complete"
+                              value={product.complete ? 'Y' : 'N'}
+                              onChange={handleChangeProductComplete}
+                              select
+                              SelectProps={{
+                                native: true,
+                              }}
+                            >
+                              <option value='Y'>Completed</option>
+                              <option value='N'>Not Yet</option>
+                            </TextField>
+
+
+                    <Button variant="contained" onClick={handleClickModify}>
+                        수정
+                    </Button>
+                    <Button variant="contained" color="error" onClick={handleClickDelete}>
+                        삭제
+                    </Button>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        닫기
+                    </Button>
+
+
         </Box>
     );
 };

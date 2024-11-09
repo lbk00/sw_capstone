@@ -41,6 +41,9 @@ const ReadComponent = ({ id }) => {
   return (
     <Box sx={{ p: 2 }}>
       <Grid container spacing={2}>
+      <Grid item xs={12}>
+                    <img src={`../../sample/${product.item_image}`} alt={product.name} style={{ width: '100%', height: 'auto' }} />
+                  </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" fontWeight="bold">{product.id}</Typography>
         </Grid>

@@ -86,7 +86,7 @@ function ReadComponent({ id  }) {
                                 <img
                                     src={product.itemImage
                                         ? require(`../../sample/${product.itemImage}`)// 템플릿 리터럴을 사용하여 이미지 경로 설정
-                                        : require('../../sample/sample1.png')// 기본 이미지 경로
+                                        : require('../../sample/리버서블 쉐르파 재킷.jpg')// 기본 이미지 경로
                                     }
                                     alt="상품 이미지"
                                     style={{width: '100px', height: 'auto', marginRight: '10px'}}

@@ -35,7 +35,7 @@ const AddComponent = () => {
   }
 
   return (
-    <Box sx={{'& > :not(style)': { m: 2 } }}>
+    <Box sx={{ position: 'relative', '& > :not(style)': { m: 2 } }}>
       {result ? <ResultModal title={'Add Result'} content={`등록이 완료되었습니다`} callbackFn={closeModal} /> : <></>}
       <TextField
         label="Name"
@@ -71,9 +71,11 @@ const AddComponent = () => {
         inputProps={{ pattern: "[a-zA-Z0-9\\s,]+" }}
         helperText="Format: Street, City, State, Country"
       />
-      <Button variant="contained" onClick={handleClickAdd}>
-        등록
-      </Button>
+      <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
+        <Button variant="contained" onClick={handleClickAdd}>
+          등록
+        </Button>
+      </Box>
     </Box>
   );
 };

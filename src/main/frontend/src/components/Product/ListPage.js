@@ -25,7 +25,7 @@ import AddPage from "./AddPage";
         <div className="p-4 w-full bg-orange-200">
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div className="text-3xl font-extrabold">
-              공급업체 목록
+              상품 목록
             </div>
             <Button variant="contained" color="primary" onClick={handleOpen}>
               새로운 상품 등록

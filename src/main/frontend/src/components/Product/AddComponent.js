@@ -10,7 +10,6 @@ const initState = {
     item_type : '',
     size : '',
     price : '',
-    size : '',
     amount : '',
 
 

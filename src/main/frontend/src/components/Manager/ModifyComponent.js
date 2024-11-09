@@ -17,7 +17,7 @@ const initState = {
   complete: false
 }
 
-const ModifyComponent = ({userId, moveList, moveRead}) => {
+const ModifyComponent = ({userId}) => {
 
   const [manager, setManager] = useState({...initState})
 

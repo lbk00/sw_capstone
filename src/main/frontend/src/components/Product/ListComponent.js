@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getList } from "../../api/ProductApi";
@@ -64,10 +63,9 @@ const ListComponent = () => {
     navigate(`/product/modify/${id}`);
   };
 
-if (!products || products.length === 0) {
+  if (!products || products.length === 0) {
     return <div>No data available</div>;
   }
-
 
   const productDelete = async (id) => {
     try {
@@ -80,110 +78,101 @@ if (!products || products.length === 0) {
   };
 
   const movePage = (page) => {
-      getList({ page, size }).then(data => {
-        setServerData(data);
-        setProducts(data.dtoList);
-      }).catch(error => {
-        console.error('Error fetching data: ', error);
-        setProducts([]);
-      });
-    };
+    getList({ page, size }).then(data => {
+      setServerData(data);
+      setProducts(data.dtoList);
+    }).catch(error => {
+      console.error('Error fetching data: ', error);
+      setProducts([]);
+    });
+  };
 
   return (
-      <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
-        <div className="flex flex-wrap mx-auto justify-center p-6">
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>userId</TableCell>
-                  <TableCell align="right">이름</TableCell>
-                  <TableCell align="right">상품종류</TableCell>
-                  <TableCell align="right">사이즈</TableCell>
-                  <TableCell align="right">가격</TableCell>
-                  <TableCell align="right">수량</TableCell>
-
+    <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
+      <div className="flex flex-wrap mx-auto justify-center p-6">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>userId</TableCell>
+                <TableCell align="right">이름</TableCell>
+                <TableCell align="right">상품종류</TableCell>
+                <TableCell align="right">사이즈</TableCell>
+                <TableCell align="right">가격</TableCell>
+                <TableCell align="right">수량</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {products.length > 0 ? products.map(product =>
+                <TableRow key={product.id} onClick={() => handleRowClick(product.id)}>
+                  <TableCell component="th" scope="row">
+                    {product.id}
+                  </TableCell>
+                  <TableCell align="right">{product.name}</TableCell>
+                  <TableCell align="right">{product.itemType}</TableCell>
+                  <TableCell align="right">{product.size}</TableCell>
+                  <TableCell align="right">{product.price}</TableCell>
+                  <TableCell align="right">{product.amount}</TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {products.length > 0 ? products.map(product =>
-                    <TableRow key={product.id} onClick={() => handleRowClick(product.id)}>
-                      <TableCell component="th" scope="row">
-                        {product.id}
-                      </TableCell>
-                      <TableCell align="right">{product.name}</TableCell>
-                      <TableCell align="right">{product.itemType}</TableCell>
-                      <TableCell align="right">{product.size}</TableCell>
-                      <TableCell align="right">{product.price}</TableCell>
-                      <TableCell align="right">{product.amount}</TableCell>
-                    </TableRow>
-                ) : <TableRow><TableCell colSpan={9}>No data</TableCell></TableRow>}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
-                <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
-                  {serverData.prev ?
-                    <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1 }}>
-                      Prev
-                    </Button> : null}
-                  {serverData.pageNumList.map(pageNum =>
-                    <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1 }}>
-                      {pageNum}
-                    </Button>
-                  )}
-                  {serverData.next ?
-                    <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1 }}>
-                      Next
-                    </Button> : null}
-                </Box>
-
-                </Box>
-
-        <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth PaperProps={{ style: { height: '80vh' } }}>
-          <DialogTitle>상품 </DialogTitle>
-          <DialogContent>
-            {selectedId && <ReadComponent id={selectedId} />}
-            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center', position: 'absolute', bottom: 100, left: '50%', transform: 'translateX(-50%)' }}>
-              {/* 수정 버튼 */}
-              <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{ ml: 1 }}
-                  onClick={() => handleOpen(selectedId)}
-              >
-                상품 수정
-              </Button>
-              {/* 모달 컴포넌트 */}
-              <Modal open={openModal} onClose={handleModalClose}>
-                <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      height: '20vh', // 부모 요소 높이를 전체 화면 높이로 설정
-                      backgroundColor: '#f0f0f0', // 배경색을 추가하여 더 잘 보이게
-                      marginTop : 300,
-                    }}
-                >
-                  <ModifyPage id={selectedId} onClose={handleClose}/>
-                </div>
-              </Modal>
-              <Button variant="contained" color="error" sx={{ml: 1}} onClick={() => productDelete(selectedId)}>상품
-                삭제</Button>
-            </Box>
-            <List>
-                      {serverData.dtoList.map((item, index) => (
-                        <ListItem key={index}>
-                          <ListItemText primary={item.name} secondary={item.description} /> {}
-                        </ListItem>
-                      ))}
-                    </List>
-          </DialogContent>
-        </Dialog>
+              ) : <TableRow><TableCell colSpan={9}>No data</TableCell></TableRow>}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
+
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
+          {serverData.prev ?
+            <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1 }}>
+              Prev
+            </Button> : null}
+          {serverData.pageNumList.map(pageNum =>
+            <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1 }}>
+              {pageNum}
+            </Button>
+          )}
+          {serverData.next ?
+            <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1 }}>
+              Next
+            </Button> : null}
+        </Box>
+      </Box>
+
+      <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth PaperProps={{ style: { height: '80vh' } }}>
+        <DialogTitle>상품 </DialogTitle>
+        <DialogContent>
+          {selectedId && <ReadComponent id={selectedId} />}
+          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center', position: 'absolute', bottom: 100, left: '50%', transform: 'translateX(-50%)' }}>
+            {/* 수정 버튼 */}
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ ml: 1 }}
+              onClick={() => handleOpen(selectedId)}
+            >
+              상품 수정
+            </Button>
+            {/* 모달 컴포넌트 */}
+            <Modal open={openModal} onClose={handleModalClose}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '20vh', // 부모 요소 높이를 전체 화면 높이로 설정
+                  backgroundColor: '#f0f0f0', // 배경색을 추가하여 더 잘 보이게
+                  marginTop: 300,
+                }}
+              >
+                <ModifyPage id={selectedId}  />
+              </div>
+            </Modal>
+            <Button variant="contained" color="error" sx={{ ml: 1 }} onClick={() => productDelete(selectedId)}>상품 삭제</Button>
+          </Box>
+
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
 

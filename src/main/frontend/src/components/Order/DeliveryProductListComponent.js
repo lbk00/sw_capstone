@@ -71,8 +71,8 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
                   <TableCell align="right">주문 ID</TableCell>
                   <TableCell align="right">주문종류</TableCell>
                   <TableCell align="right">주문한 상품</TableCell>
-                  <TableCell align="right">총 수량</TableCell>
-                  <TableCell align="right">총가격</TableCell>
+                  <TableCell align="right">수량</TableCell>
+                  <TableCell align="right">가격</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -86,15 +86,23 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
                         }}
                         style={{ cursor: 'pointer' }}
                     >
-                      <TableCell align="right">{order.id}</TableCell>
+                      <TableCell align="right">{order.orderedProducts.name}</TableCell>
                       <TableCell align="right">{order.orderType}</TableCell>
                       <TableCell align="right">
                         {order.orderedProducts.map((product, index) => (
                             <p key={index}>{product.name}</p>
                         ))}
                       </TableCell>
-                      <TableCell align="right">{order.totalAmount}</TableCell>
-                      <TableCell align="right">{order.totalPrice}</TableCell>
+                      <TableCell align="right">
+                                                                    {order.orderedProducts.map((product, index) => (
+                                                                        <p key={index}>{product.amount}</p>
+                                                                    ))}
+                                                                  </TableCell>
+                                            <TableCell align="right">
+                                                                                          {order.orderedProducts.map((product, index) => (
+                                                                                              <p key={index}>{product.price}</p>
+                                                                                          ))}
+                                                                                        </TableCell>
                     </TableRow>
                 ) : <TableRow><TableCell colSpan={9}>No data</TableCell></TableRow>}
               </TableBody>

@@ -207,12 +207,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     // 메일 전송 양식 생성 메서드
-    public void sendHtmlEmail(String to, Order order) throws MessagingException, IOException {
+
+
+    // 이미지 파일 -> Base64로 변환
+    public static String encodeImageToBase64(String imagePath) throws IOException {
+        File file = new File(imagePath);
+        byte[] fileContent = Files.readAllBytes(file.toPath());
+        return Base64.getEncoder().encodeToString(fileContent);
+    }public void sendHtmlEmail(String to, Order order) throws MessagingException, IOException {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-
-        String imagePath = "D:\\Dev\\IDE\\capstone\\src\\main\\frontend\\src\\components\\sample\\sample1.jpg"; // 임시 이미지 경로
-        String base64Image = encodeImageToBase64(imagePath); // 임시 이미지 base64
 
         // 현재 시간과 날짜를 포맷
         LocalDateTime now = LocalDateTime.now();
@@ -248,17 +252,14 @@ public class OrderServiceImpl implements OrderService {
         // 반복문을 사용해 상품 정보 동적으로 추가
         for (Product product : order.getOrderedProducts()) {
 
-            if (product.getItemImage() != null && !product.getItemImage().isEmpty()) {
-                imagePath = "/sample/sample1.png";// 제품 이미지 경로
-                System.out.println("Image path set to: " + imagePath); // 로그 출력
-            } else {
-                imagePath = "/sample/sample1.png"; // 기본 이미지 경로
-                System.out.println("Using default image path: " + imagePath); // 로그 출력
-            }
+            String imagePath = "D:\\Dev\\IDE\\sw_capstone\\src\\main\\frontend\\src\\sample\\" + product.getItemImage();
+            System.out.println("imagePath = " + imagePath);
+            String base64Image = encodeImageToBase64(imagePath); // 이미지 Base64 인코딩
 
             htmlMsg.append("<hr style=\"border: 0.1px groove gray; width: 450px; margin-left: 0;\">")
                     .append("<div style=\"display: flex; align-items: center; margin-bottom: 10px;\">") // Flexbox로 정렬
-                    .append("<img src=\"" + imagePath + "\" alt=\"상품 이미지\" style=\"width: 100px; height: auto; margin-right: 10px;\" />")
+                    .append("<img src=\"data:image/png;base64,").append(base64Image)
+                    .append("\" alt=\"상품 이미지\" style=\"width: 100px; height: auto; margin-right: 10px;\" />")
                     .append("<div style=\"margin-left: 10px;\">") // 이미지와 텍스트 간의 여백
                     .append("<p style=\"margin: 0;\">상품명 : ")
                     .append(product.getName())
@@ -296,13 +297,6 @@ public class OrderServiceImpl implements OrderService {
 
         // 이메일 전송
         emailSender.send(mimeMessage);
-    }
-
-    // 이미지 파일 -> Base64로 변환
-    public static String encodeImageToBase64(String imagePath) throws IOException {
-        File file = new File(imagePath);
-        byte[] fileContent = Files.readAllBytes(file.toPath());
-        return Base64.getEncoder().encodeToString(fileContent);
     }
 
 

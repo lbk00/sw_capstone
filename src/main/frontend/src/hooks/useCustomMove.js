@@ -61,11 +61,20 @@ const useCustomMove = () => {
        })
      }
 
+     const productiveToRead = (id) => {
+            console.log('id:', id); // userId 파라미터 로깅
+            console.log(queryDefault)
+            navigate({
+              pathname: `../read/${id}`,
+              search: queryDefault
+            })
+          }
+
      const moveToDashboard = () => {
          navigate('/dashboard');
        };
 
 
-     return {moveToList, moveToModify, moveToDashboard, moveToRead, page, size, refresh}
+     return {moveToList, moveToModify, moveToDashboard,productiveToRead, moveToRead, page, size, refresh}
    }
 export default useCustomMove;

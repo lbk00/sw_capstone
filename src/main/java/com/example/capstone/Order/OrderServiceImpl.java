@@ -7,6 +7,7 @@ import com.example.capstone.Product.ProductDTO;
 import com.example.capstone.Product.ProductRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -91,97 +93,54 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponseDTO forecasting() {
-        // 3D 배열 생성
-        //float[][][] inputData = new float[1][7][7]; // 1개의 샘플, 7일, 7개의 특성
 
-        // 상품 id find
-        List<Long> findProductIds = productRepository.findAllId();
-        Long[] productIds = findProductIds.stream()
-                .toArray(Long[]::new); // Long[] 배열로 수집
 
-        // 상품 수량 find
+
         List<Integer> findProductAmounts = productRepository.findAllAmount();
-        //임시로 7개 요소만 자르기
-        List<Integer> firstSevenAmounts = findProductAmounts.subList(0, Math.min(7, findProductAmounts.size()));
 
-        Long[] productAmounts = firstSevenAmounts.stream()
-                .map(Integer::longValue)   // 각 Integer 값을 Long으로 변환
-                .toArray(Long[]::new);     // Long[] 배열로 수집
+        String result = findProductAmounts.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
 
-        // 상품 ID
-        //Long[] productIds = {22L, 23L, 24L , 25L , 26L ,27L, 28L};
-        //Integer[] productIds = {22, 23, 24 , 25 , 26 ,27, 28};
-        //임시 고정값
-        float[][][] inputData = {{
-                // 제품 id , 판매량 , 추가적 특성
-                {4.0f, 12.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
-                {5.0f, 6.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
-                {6.0f, 3.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
-                {7.0f, 7.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
-                {19.0f, 16.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
-                {20.0f, 20.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f},
-                {21.0f, 9.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f}
-            }
-        };
+        // 호출될때마다 주차 +1 로 넘겨주기
+        int week_number = 52; //예시로 3주차 설정
 
-        // Gson을 사용하여 inputData를 JSON 형식으로 변환
-        Gson gson = new Gson();
-        String inputJson = gson.toJson(new InputWrapper(inputData));
+        String inputJson = String.format("{\"amounts\": \"%s\", \"week_number\": %d}", result, week_number);
 
-        // Flask API 호출 (주소 동적으로 바뀜)
-        String apiUrl = "https://18c1-34-123-135-43.ngrok-free.app/predict"; // ngrok URL
+        String apiUrl = "https://2f46-34-41-149-85.ngrok-free.app/predict"; // ngrok URL
         RestTemplate restTemplate = new RestTemplate();
 
-        // 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // HttpEntity 생성
         HttpEntity<String> entity = new HttpEntity<>(inputJson, headers);
+        System.out.println("inputJson = " + inputJson);
 
-        // POST 요청 보내기
         String response = restTemplate.postForObject(apiUrl, entity, String.class);
         System.out.println("Response from Flask API: " + response);
 
-        // JsonArray로 응답 파싱
         JsonArray jsonArray = JsonParser.parseString(response).getAsJsonArray();
-        JsonArray firstElement = jsonArray.get(0).getAsJsonArray(); // 첫 번째 배열
+        System.out.println("jsonArray = " + jsonArray);
 
-        // 정수 배열 생성
-        int[] intAmounts = new int[firstElement.size()];
-
-        // 주문서에 추가해야할 상품 수량
-        for (int i = 0; i < firstElement.size(); i++) {
-            double amount = firstElement.get(i).getAsDouble();
-            intAmounts[i] = (int) Math.round(amount); // 반올림하여 정수로 변환
-        }
-
-        // 결과 JSON 배열을 List<OrderProductRequestDTO>로 변환
         List<OrderProductRequestDTO> orderProductRequestDtos = new ArrayList<>();
 
-        for (int i = 0; i < productAmounts.length; i++) {
-            if (intAmounts[i] >= 1) { // 음수가 아닌 경우만 추가
-                OrderProductRequestDTO dto = new OrderProductRequestDTO();
-                dto.setId(productIds[i]); // 상품의 id
-                dto.setAmount(intAmounts[i]); // 상품의 수량
-                orderProductRequestDtos.add(dto);
-            }
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject obj = jsonArray.get(i).getAsJsonObject();
+
+            int productId = obj.get("id").getAsInt();
+            int requiredQuantity = obj.get("amount").getAsInt();
+
+            OrderProductRequestDTO dto = new OrderProductRequestDTO();
+            dto.setId((long) productId);
+            dto.setAmount(requiredQuantity);
+
+            orderProductRequestDtos.add(dto);
         }
 
-        // 생성된 주문서 반환
         OrderResponseDTO orderResponseDTO = createOrder(orderProductRequestDtos);
         return orderResponseDTO;
-        // 결과
 
 
-    }
-
-    static class InputWrapper {
-        float[][][] input;
-
-        InputWrapper(float[][][] input) {
-            this.input = input;
-        }
     }
 
 

@@ -42,17 +42,24 @@ const ReadComponent = ({ id }) => {
     <Box sx={{ p: 2 }}>
       <Grid container spacing={2}>
       <Grid item xs={12}>
-                    <img src={`../../sample/${product.item_image}`} alt={product.name} style={{ width: '100%', height: 'auto' }} />
-                  </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h5" fontWeight="bold">{product.id}</Typography>
-        </Grid>
-        <Divider sx={{ width: '100%', my: 2 }} />
-        <Grid item xs={6}>
-          <Typography variant="body1" fontSize="1.1rem"><strong>Name:</strong> {product.name}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body1" fontSize="1.1rem"><strong>ItemType:</strong> {product.itemType}</Typography>
+          <img
+              src={product.itemImage
+                  ? require(`../../sample/${product.itemImage}`)// 템플릿 리터럴을 사용하여 이미지 경로 설정
+                  : require('../../sample/sample1.png')// 기본 이미지 경로
+              }
+              alt="상품 이미지"
+              style={{width: '100px', height: 'auto', marginRight: '10px'}}
+          />
+      </Grid>
+          <Grid item xs={12}>
+              <Typography variant="h5" fontWeight="bold">{product.id}</Typography>
+          </Grid>
+          <Divider sx={{width: '100%', my: 2}}/>
+          <Grid item xs={6}>
+              <Typography variant="body1" fontSize="1.1rem"><strong>Name:</strong> {product.name}</Typography>
+          </Grid>
+          <Grid item xs={6}>
+              <Typography variant="body1" fontSize="1.1rem"><strong>ItemType:</strong> {product.itemType}</Typography>
         </Grid>
         <Divider sx={{ width: '100%', my: 1 }} />
         <Grid item xs={6}>

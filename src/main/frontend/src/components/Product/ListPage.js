@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ListComponent from "./ListComponent";
-import {Button} from "@mui/material";
+import { Button, Box } from "@mui/material";
 import AddPage from "./AddPage";
 
 
@@ -22,19 +22,19 @@ import AddPage from "./AddPage";
 
 
     return (
-    <div className="p-4 w-full bg-orange-200 ">
-     <div className="text-3xl font-extrabold">
-       상품
-     </div>
-     <ListComponent/>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
-            새로운 상품 등록
-        </Button>
-        <AddPage open={openModal} onClose={handleClose} />
-     <div>{page}</div>
-
-    </div>
-    );
+        <div className="p-4 w-full bg-orange-200">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className="text-3xl font-extrabold">
+              공급업체 목록
+            </div>
+            <Button variant="contained" color="primary" onClick={handleOpen}>
+              새로운 상품 등록
+            </Button>
+          </Box>
+          <ListComponent />
+          <AddPage open={openModal} onClose={handleClose} />
+        </div>
+      );
   }
 export default ListPage;
 

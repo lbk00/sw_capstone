@@ -15,6 +15,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import ReadPage from './ReadPage';
 import { Button, List, ListItem, ListItemText } from '@mui/material';
+import axios from "axios";
 
 const initState = {
   dtoList:[], pageNumList:[], pageRequestDTO: null, prev: false, next: false,
@@ -68,11 +69,14 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="right">주문 ID</TableCell>
+                  <TableCell align="left">주문 ID</TableCell>
+                  <TableCell align="right">상품 ID</TableCell>
                   <TableCell align="right">주문종류</TableCell>
                   <TableCell align="right">주문한 상품</TableCell>
                   <TableCell align="right">수량</TableCell>
-                  <TableCell align="right">가격</TableCell>
+                  <TableCell align="right">단가</TableCell>
+                  <TableCell align="right">총 가격</TableCell>
+                  <TableCell align="right">총 주문금액</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -80,29 +84,40 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
                     <TableRow
                         key={order.id}
                         onClick={() => {
-                          handleRowClick(order);
+                          //handleRowClick(order);
                           console.log(`Row clicked with id: ${order.id}`); // 로깅하여 확인
-                          onRowClick(order.id);
+                          //onRowClick(order.id);
                         }}
-                        style={{ cursor: 'pointer' }}
+                        //style={{ cursor: 'pointer' }}
                     >
-                      <TableCell align="right">{order.id}</TableCell>
-                      <TableCell align="right">{order.orderType}</TableCell>
+                      <TableCell align="left">{order.id}</TableCell>
+                      <TableCell align="right">
+                        {order.orderedProducts.map((product, index) => (
+                            <p key={index}>{product.id}</p>
+                        ))}
+                      </TableCell>
+                      <TableCell align="right">반품 진행 중</TableCell>
                       <TableCell align="right">
                         {order.orderedProducts.map((product, index) => (
                             <p key={index}>{product.name}</p>
                         ))}
                       </TableCell>
                       <TableCell align="right">
-                                              {order.orderedProducts.map((product, index) => (
-                                                  <p key={index}>{product.amount}</p>
-                                              ))}
-                                            </TableCell>
+                        {order.orderedProducts.map((product, index) => (
+                            <p key={index}>{product.amount}</p>
+                        ))}
+                      </TableCell>
                       <TableCell align="right">
-                                                                    {order.orderedProducts.map((product, index) => (
-                                                                        <p key={index}>{product.price}</p>
-                                                                    ))}
-                                                                  </TableCell>
+                        {order.orderedProducts.map((product, index) => (
+                            <p key={index}>{product.price}</p>
+                        ))}
+                      </TableCell>
+                      <TableCell align="right">
+                        {order.orderedProducts.map((product, index) => (
+                            <p key={index}>{product.price * product.amount }</p>
+                        ))}
+                      </TableCell>
+                      <TableCell align="right">{order.totalPrice}</TableCell>
                     </TableRow>
                 ) : <TableRow><TableCell colSpan={9}>No data</TableCell></TableRow>}
               </TableBody>

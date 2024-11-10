@@ -126,9 +126,22 @@ export default function HomeUser() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/products/list");
-                setProducts(response.data.dtoList);
-                setFilteredProducts(response.data.dtoList); // 초기값으로 모든 상품 설정
+                const response1 = await axios.get("http://localhost:8080/products/list", {
+                    params: {
+                        page: 1,   // 첫 번째 페이지 번호
+                        size: 10   // 페이지 크기
+                    }
+                });
+
+                const response2 = await axios.get("http://localhost:8080/products/list", {
+                    params: {
+                        page: 2,   // 두 번째 페이지 번호
+                        size: 10   // 페이지 크기
+                    }
+                });
+                const combinedProducts = [...response1.data.dtoList, ...response2.data.dtoList];
+                setProducts(combinedProducts);
+                setFilteredProducts(combinedProducts); // 초기값으로 모든 상품 설정
             } catch (error) {
                 console.error("Error fetching product data:", error);
             }

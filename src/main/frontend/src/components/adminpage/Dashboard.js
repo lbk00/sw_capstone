@@ -320,7 +320,7 @@ export default function Dashboard() {
                         <Route path="*" element={<Outlet />} />
                       </Routes>
                       */}
-                <Copyright sx={{ pt: 4 }} />
+
               </Container>
             </Box>
           </Box>

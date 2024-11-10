@@ -93,7 +93,7 @@ const ListComponent = () => {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>userId</TableCell>
+                <TableCell>상품 ID</TableCell>
                 <TableCell align="right">이름</TableCell>
                 <TableCell align="right">상품종류</TableCell>
                 <TableCell align="right">사이즈</TableCell>

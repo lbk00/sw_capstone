@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { getList } from "../../api/OrderApi";
 import useCustomMove from "../../hooks/useCustomMove";
@@ -63,9 +63,12 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
 
   return (
       <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
+        <div className="text-3xl font-extrabold">
+          납품 상품 목록
+        </div>
         <div className="flex flex-wrap mx-auto justify-center p-6">
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{minWidth: 650}} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="left">주문 ID</TableCell>
@@ -113,7 +116,7 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
                       </TableCell>
                       <TableCell align="right">
                         {order.orderedProducts.map((product, index) => (
-                            <p key={index}>{product.price * product.amount }</p>
+                            <p key={index}>{product.price * product.amount}</p>
                         ))}
                       </TableCell>
                       <TableCell align="right">{order.totalPrice}</TableCell>
@@ -123,27 +126,33 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
             </Table>
           </TableContainer>
         </div>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1}}>
+          <Box sx={{display: 'flex', justifyContent: 'center', m: 1, p: 1}}>
             {serverData.prev ?
-              <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+                <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)}
+                        sx={{mx: 1, bgcolor: 'gray', '&:hover': {bgcolor: 'darkgray'}}}>
                   Prev
                 </Button> : null}
-              {serverData.pageNumList.map(pageNum =>
-                <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+            {serverData.pageNumList.map(pageNum =>
+                <Button key={pageNum} variant="contained"
+                        color={serverData.current === pageNum ? 'secondary' : 'primary'}
+                        onClick={() => movePage(pageNum)}
+                        sx={{mx: 1, bgcolor: 'gray', '&:hover': {bgcolor: 'darkgray'}}}>
                   {pageNum}
                 </Button>
-              )}
-              {serverData.next ?
-                <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+            )}
+            {serverData.next ?
+                <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)}
+                        sx={{mx: 1, bgcolor: 'gray', '&:hover': {bgcolor: 'darkgray'}}}>
                   Next
                 </Button> : null}
           </Box>
           <List>
             {serverData.dtoList.map((item, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={item.name} secondary={item.description} /> {/* Adjust according to your data structure */}
-              </ListItem>
+                <ListItem key={index}>
+                  <ListItemText primary={item.name}
+                                secondary={item.description}/> {/* Adjust according to your data structure */}
+                </ListItem>
             ))}
           </List>
         </Box>
@@ -161,7 +170,7 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
             overflow: 'auto',
             bgcolor: 'background.paper',
           }}>
-            {selectedId && <ReadPage id={selectedId} />}
+            {selectedId && <ReadPage id={selectedId}/>}
           </Box>
         </Modal>
       </div>

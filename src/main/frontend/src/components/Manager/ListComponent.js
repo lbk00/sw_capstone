@@ -139,7 +139,7 @@ const ListComponent = () => {
           ))}
         </List>
       </Box>
-      <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth PaperProps={{ style: { height: '80vh' } }}>
+      <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth PaperProps={{ style: { height: '55vh' ,width : '80vh'} }}>
         <DialogTitle>공급업체 </DialogTitle>
         <DialogContent>
           {selectedUserId && <ReadComponent userId={selectedUserId} />}

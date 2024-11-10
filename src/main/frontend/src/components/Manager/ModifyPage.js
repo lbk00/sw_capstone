@@ -12,9 +12,10 @@ const ModifyPage = ({ userId, onClose }) => {
               textAlign: 'center',
               padding: '2rem',         // Optional: add padding for inner spacing
               boxSizing: 'border-box', // Ensure padding doesn’t affect width
+              //width : '60vh',
+              maxWidth : '60vh'
           }}
       >
-
           <ModifyComponent userId={userId}/>
       </div>
   );

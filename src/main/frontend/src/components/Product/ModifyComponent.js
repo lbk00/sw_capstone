@@ -83,7 +83,7 @@ const ModifyComponent = ({ id, onClose }) => {
              </Box>
             <Grid container spacing={3}>
 
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={2} sm={5}>
                     <TextField
                         label="ID"
                         variant="outlined"
@@ -92,7 +92,7 @@ const ModifyComponent = ({ id, onClose }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={5}>
                     <TextField
                         label="Name"
                         name="name"
@@ -102,7 +102,7 @@ const ModifyComponent = ({ id, onClose }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={5}>
                     <TextField
                         label="Item Type"
                         name="itemType"
@@ -112,7 +112,7 @@ const ModifyComponent = ({ id, onClose }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={5}>
                     <TextField
                         label="Price"
                         name="price"
@@ -122,7 +122,7 @@ const ModifyComponent = ({ id, onClose }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={5}>
                     <TextField
                         label="Size"
                         name="size"
@@ -132,7 +132,7 @@ const ModifyComponent = ({ id, onClose }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={5}>
                     <TextField
                         label="Amount"
                         name="amount"
@@ -142,7 +142,7 @@ const ModifyComponent = ({ id, onClose }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={5}>
                     <TextField
                         label="COMPLETE"
                         variant="outlined"

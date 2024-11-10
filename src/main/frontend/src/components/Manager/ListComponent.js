@@ -14,6 +14,8 @@ import { Dialog, DialogTitle, DialogContent, Button, Box, List, ListItem, ListIt
 import axios from "axios";
 import ModifyPage from './ModifyPage';
 import Modal from "@mui/material/Modal";
+import ModifyComponent from './ModifyComponent';
+
 
 const initState = {
   dtoList:[], pageNumList:[], pageRequestDTO: null, prev: false, next: false,
@@ -152,20 +154,20 @@ const ListComponent = () => {
             >
               공급업체 수정
             </Button>
-            <Modal open={openModal} onClose={handleModalClose}>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '40vh',
-                  backgroundColor: '#f0f0f0',
-                  marginTop: 300,
-                }}
-              >
-                <ModifyPage userId={selectedUserId} onClose={handleClose} />
-              </div>
-            </Modal>
+             <Dialog open={openModal} onClose={handleModalClose} maxWidth="lg" fullWidth PaperProps={{ style: { height: '60vh', width: '120vh' } }}>
+                           <DialogContent
+                             style={{
+                               display: 'flex',
+                               justifyContent: 'center',
+                               alignItems: 'center',
+                               height: '20vh',
+                               backgroundColor: '#f0f0f0',
+
+                             }}
+                           >
+                             <ModifyComponent id={selectedUserId} onClose={handleModalClose} />
+                           </DialogContent>
+                         </Dialog>
             <Button variant="contained" color="error" sx={{ ml: 1 }} onClick={() => supplierDelete(selectedUserId)}>공급업체 삭제</Button>
           </Box>
         </DialogContent>

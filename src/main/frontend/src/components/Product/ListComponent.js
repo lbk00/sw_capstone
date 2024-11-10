@@ -154,20 +154,20 @@ const ListComponent = () => {
               상품 수정
             </Button>
             {/* 모달 컴포넌트 */}
-            <Modal open={openModal} onClose={handleModalClose}>
-              <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '50vh',
-                    backgroundColor: '#f0f0f0',
-                    marginTop: 300,
-                  }}
+             <Dialog open={openModal} onClose={handleModalClose} maxWidth="lg" fullWidth PaperProps={{ style: { height: '60vh', width: '80vh' } }}>
+              <DialogContent
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '20vh',
+                  backgroundColor: '#f0f0f0',
+
+                }}
               >
                 <ModifyComponent id={selectedId} onClose={handleModalClose} />
-              </div>
-            </Modal>
+              </DialogContent>
+            </Dialog>
             <Button variant="contained" color="error" sx={{ ml: 1, width: '150px', height: '50px' }} onClick={() => productDelete(selectedId)}>상품 삭제</Button>
           </Box>
 

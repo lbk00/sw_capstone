@@ -63,7 +63,7 @@ const ModifyComponent = ({ userId }) => {
                                    공급업체 수정 페이지
                                </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <TextField
             label="userId"
             variant="outlined"
@@ -72,7 +72,7 @@ const ModifyComponent = ({ userId }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <TextField
             label="Name"
             variant="outlined"
@@ -82,7 +82,7 @@ const ModifyComponent = ({ userId }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <TextField
             label="Email"
             variant="outlined"
@@ -94,7 +94,7 @@ const ModifyComponent = ({ userId }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <TextField
             label="Address"
             variant="outlined"
@@ -106,7 +106,7 @@ const ModifyComponent = ({ userId }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <TextField
             label="Phone Number"
             variant="outlined"
@@ -118,7 +118,7 @@ const ModifyComponent = ({ userId }) => {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <TextField
             label="COMPLETE"
             variant="outlined"
@@ -137,9 +137,12 @@ const ModifyComponent = ({ userId }) => {
         </Grid>
       </Grid>
 
-      <Button variant="contained" color="primary" onClick={handleClickModify}>
-        수정
-      </Button>
+      <Box display="flex" justifyContent="center" marginTop={2}>
+                      <Button variant="contained" color="primary" onClick={handleClickModify}>
+                          수정
+                      </Button>
+                  </Box>
+
     </Box>
   );
 }

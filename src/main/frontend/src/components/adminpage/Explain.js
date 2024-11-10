@@ -10,7 +10,9 @@ import {
     Grid,
     ThemeProvider,
     createTheme,
-    IconButton
+    IconButton,
+    Paper,
+    CardMedia
 } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -51,204 +53,87 @@ export default function Explain() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container>
+            <Container sx={{ backgroundColor: '#f5f5f5', py: 5 }}>
                 <Typography variant="h4" gutterBottom align="center">
                     관리자 메뉴 내비게이션
                 </Typography>
                 <Divider sx={{ mb: 3 }} />
                 <Grid container spacing={4}>
-                    <Grid item xs={12} md={6}>
-                        <Card
-                            variant="outlined"
+                    <Grid item xs={12}>
+                        <Paper
+                            elevation={hoveredCard === 0 ? 6 : 3}
                             sx={{
-                                boxShadow: 3,
-                                height: 300,
-                                backgroundColor: hoveredCard === 0 ? '#f0f0f0' : 'white',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.3s',
+                                height: 700,
+
+
+
+                                p: 3
                             }}
                             onMouseEnter={() => handleMouseEnter(0)}
                             onMouseLeave={handleMouseLeave}
                         >
-                            <Box sx={{ p: 3 }}>
-                                <Stack direction="column" spacing={2}>
-                                    <Stack direction="row" justifyContent="space-between">
-                                        <Typography variant="h5" component="div">주문서 관리</Typography>
-                                        <IconButton sx={{ p: 0 }}>
-                                            <AssignmentIcon sx={{ fontSize: 30 }} />
-                                        </IconButton>
-                                    </Stack>
-                                    <Divider textAlign="left">기능</Divider>
-                                    <Typography variant="body1">
-                                        모든 주문서 조회 및 특정 상태의 주문서 조회 / 주문서 수정 / 주문서 삭제 / 주문서 주문
-                                    </Typography>
+                            <Stack direction="column" spacing={2}>
+                                <Stack direction="row" justifyContent="space-between">
+                                    <Typography variant="h5" component="div">주문서 관리</Typography>
+                                    <IconButton sx={{ p: 0 }}>
+                                        <AssignmentIcon sx={{ fontSize: 30 }} />
+                                    </IconButton>
                                 </Stack>
-                            </Box>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Card
-                            variant="outlined"
-                            sx={{
-                                boxShadow: 3,
-                                height: 300,
-                                backgroundColor: hoveredCard === 1 ? '#f0f0f0' : 'white',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.3s',
-                            }}
-                            onMouseEnter={() => handleMouseEnter(1)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <Box sx={{ p: 3 }}>
-                                <Stack direction="column" spacing={2}>
-                                    <Stack direction="row" justifyContent="space-between">
-                                        <Typography variant="h5" component="div">공급업체 관리</Typography>
-                                        <IconButton sx={{ p: 0 }}>
-                                            <BusinessIcon sx={{ fontSize: 30 }} />
-                                        </IconButton>
-                                    </Stack>
-                                    <Divider textAlign="left">기능</Divider>
-                                    <Typography variant="body1">
-                                        공급업체 등록 : 새로운 공급업체 정보 입력 및 등록
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        공급업체 조회 : 모든 공급업체 정보 조회
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        공급업체 수정 : 선택한 공급업체 정보 수정
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        공급업체 삭제 : 선택한 공급업체 정보 삭제
-                                    </Typography>
-                                </Stack>
-                            </Box>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Card
-                            variant="outlined"
-                            sx={{
-                                boxShadow: 3,
-                                height: 300,
-                                backgroundColor: hoveredCard === 2 ? '#f0f0f0' : 'white',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.3s',
-                            }}
-                            onMouseEnter={() => handleMouseEnter(2)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <Box sx={{ p: 3 }}>
-                                <Stack direction="column" spacing={2}>
-                                    <Stack direction="row" justifyContent="space-between">
-                                        <Typography variant="h5" component="div">사용자 관리</Typography>
-                                        <IconButton sx={{ p: 0 }}>
-                                            <PeopleIcon sx={{ fontSize: 30 }} />
-                                        </IconButton>
-                                    </Stack>
-                                    <Divider textAlign="left">기능</Divider>
-                                    <Typography variant="body1">
-                                        사용자 목록 : 현재 쇼핑몰의 관리자 정보 조회
-                                    </Typography>
-                                </Stack>
-                            </Box>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Card
-                            variant="outlined"
-                            sx={{
-                                boxShadow: 3,
-                                height: 300,
-                                backgroundColor: hoveredCard === 3 ? '#f0f0f0' : 'white',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.3s',
-                            }}
-                            onMouseEnter={() => handleMouseEnter(3)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <Box sx={{ p: 3 }}>
-                                <Stack direction="column" spacing={2}>
-                                    <Stack direction="row" justifyContent="space-between">
-                                        <Typography variant="h5" component="div">재고 관리</Typography>
-                                        <IconButton sx={{ p: 0 }}>
-                                            <InventoryIcon sx={{ fontSize: 30 }} />
-                                        </IconButton>
-                                    </Stack>
-                                    <Divider textAlign="left">기능</Divider>
+                                <Divider textAlign="left">기능</Divider>
+                                <CardMedia
+                                    component="img"
+                                    sx={{
 
-                                    <Typography variant="body1">
-                                        반품 품목 확인 : 반품 처리된 상품들의 리스트 조회
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        납품 품목 확인 : 납품 처리된 상품들의 리스트 조회
-                                    </Typography>
-                                </Stack>
-                            </Box>
-                        </Card>
+                                        width: '100%',
+                                        objectFit: 'cover',
+                                    }}
+                                    image={require('../../sample/주문서.png')}
+                                    title="주문서 관리"
+                                />
+                                <Typography variant="body1" component="div" whiteSpace="pre-line">
+                                    주문서 등록 : 새로운 주문서 정보 입력 및 등록{"\n"}
+                                    주문서 조회 : 모든 주문서 정보 조회{"\n"}
+                                    주문서 수정 : 선택한 주문서 정보 수정{"\n"}
+                                    주문서 삭제 : 선택한 주문서 정보 삭제
+                                </Typography>
+                            </Stack>
+                        </Paper>
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Card
-                            variant="outlined"
-                            sx={{
-                                boxShadow: 3,
-                                height: 300,
-                                backgroundColor: hoveredCard === 4 ? '#f0f0f0' : 'white',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.3s',
-                            }}
-                            onMouseEnter={() => handleMouseEnter(4)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <Box sx={{ p: 3 }}>
+                    {[
+                        { title: "공급업체 관리", icon: <BusinessIcon sx={{ fontSize: 30 }} />, description: "공급업체 등록 : 새로운 공급업체 정보 입력 및 등록\n공급업체 조회 : 모든 공급업체 정보 조회\n공급업체 수정 : 선택한 공급업체 정보 수정\n공급업체 삭제 : 선택한 공급업체 정보 삭제" },
+                        { title: "사용자 관리", icon: <PeopleIcon sx={{ fontSize: 30 }} />, description: "사용자 목록 : 현재 쇼핑몰의 관리자 정보 조회" },
+                        { title: "재고 관리", icon: <InventoryIcon sx={{ fontSize: 30 }} />, description: "반품 품목 확인 : 반품 처리된 상품들의 리스트 조회\n납품 품목 확인 : 납품 처리된 상품들의 리스트 조회" },
+                        { title: "상품 관리", icon: <ShoppingCartIcon sx={{ fontSize: 30 }} />, description: "상품 등록 : 새로운 상품 정보 입력 및 등록\n상품 조회 : 모든 상품 정보 조회\n상품 수정 : 선택한 상품 정보 수정\n상품 삭제 : 선택한 상품 정보 삭제" },
+                        { title: "알림", icon: null, description: "주문서는 수요일 밤 12:00 에 갱신됩니다.\n수요예측시 현재 상품의 재고를 입력값으로 사용합니다." }
+                    ].map((item, index) => (
+                        <Grid item xs={12} md={6} key={index + 1}>
+                            <Paper
+                                elevation={hoveredCard === index + 1 ? 6 : 3}
+                                sx={{
+                                    height: item.icon ? 300 : 150,
+
+                                    p: 3
+                                }}
+                                onMouseEnter={() => handleMouseEnter(index + 1)}
+                                onMouseLeave={handleMouseLeave}
+                            >
                                 <Stack direction="column" spacing={2}>
-                                    <Stack direction="row" justifyContent="space-between">
-                                        <Typography variant="h5" component="div">상품 관리</Typography>
-                                        <IconButton sx={{ p: 0 }}>
-                                            <ShoppingCartIcon sx={{ fontSize: 30 }} />
-                                        </IconButton>
-                                    </Stack>
+                                    {item.icon && (
+                                        <Stack direction="row" justifyContent="space-between">
+                                            <Typography variant="h5" component="div">{item.title}</Typography>
+                                            <IconButton sx={{ p: 0 }}>
+                                                {item.icon}
+                                            </IconButton>
+                                        </Stack>
+                                    )}
                                     <Divider textAlign="left">기능</Divider>
-                                    <Typography variant="body1">
-                                        상품 등록 : 새로운 상품 정보 입력 및 등록
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        상품 조회 : 모든 상품 정보 조회
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        상품 수정 : 선택한 상품 정보 수정
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        상품 삭제 : 선택한 상품 정보 삭제
+                                    <Typography variant="body1" component="div" whiteSpace="pre-line">
+                                        {item.description}
                                     </Typography>
                                 </Stack>
-                            </Box>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Card
-                            variant="outlined"
-                            sx={{
-                                boxShadow: 3,
-                                height: 150,
-                                backgroundColor: hoveredCard === 5 ? '#f0f0f0' : 'white',
-                                cursor: 'pointer',
-                                transition: 'background-color 0.3s',
-                            }}
-                            onMouseEnter={() => handleMouseEnter(5)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <Box sx={{ p: 3 }}>
-                                <Stack direction="column" spacing={2}>
-                                    <Typography variant="body2" align="center">
-                                        주문서는 수요일 밤 12:00 에 갱신됩니다.
-                                    </Typography>
-                                    <Typography variant="body2" align="center">
-                                        수요예측시 현재 상품의 재고를 입력값으로 사용합니다.
-                                    </Typography>
-                                </Stack>
-                            </Box>
-                        </Card>
-                    </Grid>
+                            </Paper>
+                        </Grid>
+                    ))}
                 </Grid>
             </Container>
         </ThemeProvider>

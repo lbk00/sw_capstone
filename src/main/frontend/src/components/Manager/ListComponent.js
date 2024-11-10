@@ -118,18 +118,18 @@ const ListComponent = () => {
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
           {serverData.prev ?
-            <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1 }}>
-              Prev
-            </Button> : null}
-          {serverData.pageNumList.map(pageNum =>
-            <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1 }}>
-              {pageNum}
-            </Button>
-          )}
-          {serverData.next ?
-            <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1 }}>
-              Next
-            </Button> : null}
+            <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+                Prev
+              </Button> : null}
+            {serverData.pageNumList.map(pageNum =>
+              <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+                {pageNum}
+              </Button>
+            )}
+            {serverData.next ?
+              <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+                Next
+              </Button> : null}
         </Box>
         <List>
           {serverData.dtoList.map((item, index) => (

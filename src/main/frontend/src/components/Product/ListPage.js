@@ -27,9 +27,13 @@ import AddPage from "./AddPage";
             <div className="text-3xl font-extrabold">
               상품 목록
             </div>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-              새로운 상품 등록
-            </Button>
+            <Button
+                        variant="contained"
+                        sx={{ ml: 5, minWidth: 110, height: 50, bgcolor: 'gray', color: 'white', '&:hover': { bgcolor: 'gray' } }}
+                        onClick={handleOpen}
+                    >
+                        새로운 상품 등록
+                    </Button>
           </Box>
           <ListComponent />
           <AddPage open={openModal} onClose={handleClose} />

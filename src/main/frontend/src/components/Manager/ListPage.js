@@ -29,7 +29,7 @@ import AddPage from "./AddPage";
      </div>
         <Button
             variant="contained"
-            color="primary"
+            sx={{ ml: 5, minWidth: 110, height: 50, bgcolor: 'gray', color: 'white', '&:hover': { bgcolor: 'gray' } }}
             onClick={handleOpen}
         >
             새로운 공급업체 등록

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { deleteOne, getOne, putOne } from "../../api/ManagerApi";
-import { TextField, Button, Box, Grid } from '@mui/material';
+import { TextField, Button, Box, Grid, Typography } from '@mui/material';
 
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
@@ -59,7 +59,9 @@ const ModifyComponent = ({ userId }) => {
   return (
     <Box sx={{ '& > :not(style)': { m: 1 } }}>
       {result ? <ResultModal title={'처리결과'} content={result} callbackFn={closeModal} /> : <></>}
-
+      <Typography variant="h5" component="h1" gutterBottom>
+                                   공급업체 수정 페이지
+                               </Typography>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField

@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { putOne, deleteOne, getOne } from "../../api/ProductApi";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
-import {TextField, Button, Box, Grid} from '@mui/material';
+import {TextField, Button, Box, Grid, Typography} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const initState = {
@@ -76,7 +76,13 @@ const ModifyComponent = ({ id, onClose }) => {
     return (
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
             {result ? <ResultModal title={'처리결과'} content={result} callbackFn={closeModal}></ResultModal> : <></>}
+             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                 <Typography variant="h5" component="h1" gutterBottom>
+                     상품 수정 페이지
+                 </Typography>
+             </Box>
             <Grid container spacing={3}>
+
                 <Grid item xs={12} sm={6}>
                     <TextField
                         label="ID"
@@ -154,6 +160,7 @@ const ModifyComponent = ({ id, onClose }) => {
                     </TextField>
                 </Grid>
             </Grid>
+
             <Box display="flex" justifyContent="center" marginTop={2}>
                 <Button variant="contained" color="primary" onClick={handleClickModify}>
                     수정

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import ModifyComponent from "./ModifyComponent";
 
-const ModifyPage = ({id}) => {
+const ModifyPage = ({id, onClose}) => {
 
     return (
         <div
@@ -12,9 +12,7 @@ const ModifyPage = ({id}) => {
                 boxSizing: 'border-box', // Ensure padding doesn’t affect width
             }}
         >
-            <div className="text-3xl font-extrabold">
-                상품 수정 페이지
-            </div>
+
             <ModifyComponent id={id}/>
         </div>
 

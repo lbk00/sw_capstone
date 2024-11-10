@@ -98,7 +98,9 @@ const ListComponent = () => {
             </TableHead>
             <TableBody>
               {managers.length > 0 ? managers.map(manager =>
-                <TableRow key={manager.userId} onClick={() => handleRowClick(manager.userId)}>
+                <TableRow key={manager.userId} onClick={() => handleRowClick(manager.userId)}
+                sx={{ '&:hover': { cursor: 'pointer' } }}
+                >
                   <TableCell component="th" scope="row">
                     {manager.userId}
                   </TableCell>
@@ -110,6 +112,7 @@ const ListComponent = () => {
               ) : <TableRow><TableCell colSpan={9}>No data</TableCell></TableRow>}
             </TableBody>
           </Table>
+
         </TableContainer>
       </div>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>

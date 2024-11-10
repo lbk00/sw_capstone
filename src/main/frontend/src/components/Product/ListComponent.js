@@ -103,7 +103,9 @@ const ListComponent = () => {
             </TableHead>
             <TableBody>
               {products.length > 0 ? products.map(product =>
-                <TableRow key={product.id} onClick={() => handleRowClick(product.id)}>
+                <TableRow key={product.id} onClick={() => handleRowClick(product.id)}
+                sx={{ '&:hover': { cursor: 'pointer' } }}
+                >
                   <TableCell component="th" scope="row">
                     {product.id}
                   </TableCell>

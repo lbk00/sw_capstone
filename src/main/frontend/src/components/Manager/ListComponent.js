@@ -155,7 +155,7 @@ const ListComponent = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: '20vh',
+                  height: '40vh',
                   backgroundColor: '#f0f0f0',
                   marginTop: 300,
                 }}

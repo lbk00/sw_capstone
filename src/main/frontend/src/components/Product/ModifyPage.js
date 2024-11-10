@@ -9,7 +9,6 @@ const ModifyPage = ({id}) => {
 
 
 
-
             <ModifyComponent id={id}/>
 
 

@@ -73,9 +73,9 @@ const AddComponent = () => {
                 value={product.price}
                 onChange={handleChangeProduct}
             />
-            />
+
             <Button variant="contained" onClick={handleClickAdd}>
-                ADD
+                상품 추가하기
             </Button>
         </Box>
     );

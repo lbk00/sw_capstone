@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const ResultModal = ({ title, content, callbackFn }) => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    callbackFn();
+    navigate('/dashboard'); // Navigate to the dashboard
+  };
+
   return (
     <Dialog
-      open={true}
-      onClose={callbackFn}
+      open={open}
+      onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -16,8 +26,8 @@ const ResultModal = ({ title, content, callbackFn }) => {
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={callbackFn} color="primary" autoFocus>
-          Close Modal
+        <Button onClick={handleClose} color="primary" autoFocus>
+          창 닫기
         </Button>
       </DialogActions>
     </Dialog>

@@ -10,10 +10,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ReadComponent from './ReadComponent';
-import { Dialog, DialogTitle, DialogContent, Button, Box, List, ListItem, ListItemText } from '@mui/material';
-import PageComponent from "../common/PageComponent";
+import { Dialog, DialogTitle, DialogContent, Button, Box } from '@mui/material';
 import axios from "axios";
-import ModifyPage from './ModifyPage';
+import ModifyComponent from './ModifyComponent';
 import Modal from "@mui/material/Modal";
 
 const initState = {
@@ -142,12 +141,12 @@ const ListComponent = () => {
         <DialogTitle>상품 </DialogTitle>
         <DialogContent>
           {selectedId && <ReadComponent id={selectedId} />}
-          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center', position: 'absolute', bottom: 100, left: '50%', transform: 'translateX(-50%)' }}>
+          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end', position: 'absolute', bottom: 16, right: 16 }}>
             {/* 수정 버튼 */}
             <Button
               variant="contained"
               color="secondary"
-              sx={{ ml: 1 }}
+              sx={{ ml: 1, width: '150px', height: '50px' }}
               onClick={() => handleOpen(selectedId)}
             >
               상품 수정
@@ -159,15 +158,15 @@ const ListComponent = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  height: '20vh', // 부모 요소 높이를 전체 화면 높이로 설정
+                  height: '50vh', // 부모 요소 높이를 전체 화면 높이로 설정
                   backgroundColor: '#f0f0f0', // 배경색을 추가하여 더 잘 보이게
                   marginTop: 300,
                 }}
               >
-                <ModifyPage id={selectedId}  />
+                <ModifyComponent id={selectedId} onClose={handleModalClose} />
               </div>
             </Modal>
-            <Button variant="contained" color="error" sx={{ ml: 1 }} onClick={() => productDelete(selectedId)}>상품 삭제</Button>
+            <Button variant="contained" color="error" sx={{ ml: 1, width: '150px', height: '50px' }} onClick={() => productDelete(selectedId)}>상품 삭제</Button>
           </Box>
 
         </DialogContent>

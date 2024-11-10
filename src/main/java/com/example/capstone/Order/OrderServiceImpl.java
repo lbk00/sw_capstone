@@ -107,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
 
         String inputJson = String.format("{\"amounts\": \"%s\", \"week_number\": %d}", result, week_number);
 
-        String apiUrl = "https://2f46-34-41-149-85.ngrok-free.app/predict"; // ngrok URL
+        String apiUrl = "https://d587-34-171-64-107.ngrok-free.app/predict"; // ngrok URL
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -425,7 +425,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderResponseDTO orderUpdate(Long id, OrderUpdateRequestDTO orderUpdateRequestDTO ) {
         //수정할 주문서 조회
-
+        Long supplier = orderUpdateRequestDTO.getSupplier();
         Order order = ordersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 주문이 존재하지 않습니다: " + id));
         // 주문서 상태가 주문 전일때만 수정가능
@@ -465,6 +465,7 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderedProducts(orderList);
             // 수정된 객체
             // json 객체만 변경 후 save 할시 DB에 반영안됨
+            order.changeSupplier(supplier);
             order.changeOrderedProducts(order.getOrderedProducts());
             order.changeTotalAmount(order.calculateTotalAmount());
             order.changeTotalPrice(order.getTotalPrice());

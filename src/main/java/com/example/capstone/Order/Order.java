@@ -59,7 +59,7 @@ public class Order {
     public void changeTotalPrice(Integer totalPrice) {this.totalPrice = calculateTotalPrice(this.orderedProducts);}
     public void changeOrderType(OrderType orderType) {this.orderType = orderType;}
     public void changeTotalAmount(Integer totalAmount) {this.totalAmount = totalAmount;}
-
+    public void changeSupplier(Long userId) {this.userId = userId;}
 
     // 주문 생성 시 총 수량 계산
     public int calculateTotalAmount() {

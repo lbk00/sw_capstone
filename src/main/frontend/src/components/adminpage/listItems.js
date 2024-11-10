@@ -68,7 +68,7 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
     };
 
   const handleClickInventory = () => {
-        setStatePage(4);
+        setStatePage(7);
         setOpenInventory(!openInventory);
     };
 

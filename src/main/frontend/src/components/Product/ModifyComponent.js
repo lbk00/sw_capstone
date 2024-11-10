@@ -76,93 +76,89 @@ const ModifyComponent = ({ id, onClose }) => {
     return (
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
             {result ? <ResultModal title={'처리결과'} content={result} callbackFn={closeModal}></ResultModal> : <></>}
-        <Grid container spacing={2}>
-            <Grid item xs={6}>
-            <TextField
-                label="id"
-                variant="outlined"
-                value={product.id}
-                disabled
-            />
+            <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="ID"
+                        variant="outlined"
+                        value={product.id}
+                        disabled
+                        fullWidth
+                    />
                 </Grid>
-                <Grid item xs={6}>
-            <TextField
-                label="Name"
-                name="name"
-                variant="outlined"
-                value={product.name}
-                onChange={handleChangeProduct}
-                fullWidth
-                margin="normal"
-            />
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="Name"
+                        name="name"
+                        variant="outlined"
+                        value={product.name}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                    />
                 </Grid>
-                <Grid item xs={6}>
-            <TextField
-                label="Item Type"
-                name="itemType"
-                variant="outlined"
-                value={product.itemType}
-                onChange={handleChangeProduct}
-                fullWidth
-                margin="normal"
-            />
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="Item Type"
+                        name="itemType"
+                        variant="outlined"
+                        value={product.itemType}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                    />
                 </Grid>
-                <Grid item xs={6}>
-            <TextField
-                label="Price"
-                name="price"
-                variant="outlined"
-                value={product.price}
-                onChange={handleChangeProduct}
-                fullWidth
-                margin="normal"
-            />
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="Price"
+                        name="price"
+                        variant="outlined"
+                        value={product.price}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                    />
                 </Grid>
-                <Grid item xs={6}>
-            <TextField
-                label="Size"
-                name="size"
-                variant="outlined"
-                value={product.size}
-                onChange={handleChangeProduct}
-                fullWidth
-                margin="normal"
-            />
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="Size"
+                        name="size"
+                        variant="outlined"
+                        value={product.size}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                    />
                 </Grid>
-                <Grid item xs={6}>
-            <TextField
-                label="Amount"
-                name="amount"
-                variant="outlined"
-                value={product.amount}
-                onChange={handleChangeProduct}
-                fullWidth
-                margin="normal"
-            />
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="Amount"
+                        name="amount"
+                        variant="outlined"
+                        value={product.amount}
+                        onChange={handleChangeProduct}
+                        fullWidth
+                    />
                 </Grid>
-                <Grid item xs={6}>
-            <TextField
-                label="COMPLETE"
-                variant="outlined"
-                name="complete"
-                value={product.complete ? 'Y' : 'N'}
-                onChange={handleChangeProductComplete}
-                select
-                SelectProps={{
-                    native: true,
-                }}
-            >
-                <option value='Y'>Completed</option>
-                <option value='N'>Not Yet</option>
-            </TextField>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        label="COMPLETE"
+                        variant="outlined"
+                        name="complete"
+                        value={product.complete ? 'Y' : 'N'}
+                        onChange={handleChangeProductComplete}
+                        select
+                        SelectProps={{
+                            native: true,
+                        }}
+                        fullWidth
+                    >
+                        <option value="Y">Completed</option>
+                        <option value="N">Not Yet</option>
+                    </TextField>
                 </Grid>
             </Grid>
-            <Button variant="contained" onClick={handleClickModify}>
-                수정
-            </Button>
-            <Button onClick={handleCloseDialog} color="primary">
-                닫기
-            </Button>
+            <Box display="flex" justifyContent="center" marginTop={2}>
+                <Button variant="contained" color="primary" onClick={handleClickModify}>
+                    수정
+                </Button>
+            </Box>
         </Box>
     );
 };

@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { putOne, deleteOne, getOne } from "../../api/ProductApi";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
-import { TextField, Button, Box } from '@mui/material';
+import {TextField, Button, Box, Grid} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const initState = {
@@ -76,13 +76,16 @@ const ModifyComponent = ({ id, onClose }) => {
     return (
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
             {result ? <ResultModal title={'처리결과'} content={result} callbackFn={closeModal}></ResultModal> : <></>}
-
+        <Grid container spacing={2}>
+            <Grid item xs={6}>
             <TextField
                 label="id"
                 variant="outlined"
                 value={product.id}
                 disabled
             />
+                </Grid>
+                <Grid item xs={6}>
             <TextField
                 label="Name"
                 name="name"
@@ -92,6 +95,8 @@ const ModifyComponent = ({ id, onClose }) => {
                 fullWidth
                 margin="normal"
             />
+                </Grid>
+                <Grid item xs={6}>
             <TextField
                 label="Item Type"
                 name="itemType"
@@ -101,6 +106,8 @@ const ModifyComponent = ({ id, onClose }) => {
                 fullWidth
                 margin="normal"
             />
+                </Grid>
+                <Grid item xs={6}>
             <TextField
                 label="Price"
                 name="price"
@@ -110,6 +117,8 @@ const ModifyComponent = ({ id, onClose }) => {
                 fullWidth
                 margin="normal"
             />
+                </Grid>
+                <Grid item xs={6}>
             <TextField
                 label="Size"
                 name="size"
@@ -119,6 +128,8 @@ const ModifyComponent = ({ id, onClose }) => {
                 fullWidth
                 margin="normal"
             />
+                </Grid>
+                <Grid item xs={6}>
             <TextField
                 label="Amount"
                 name="amount"
@@ -128,6 +139,8 @@ const ModifyComponent = ({ id, onClose }) => {
                 fullWidth
                 margin="normal"
             />
+                </Grid>
+                <Grid item xs={6}>
             <TextField
                 label="COMPLETE"
                 variant="outlined"
@@ -142,11 +155,11 @@ const ModifyComponent = ({ id, onClose }) => {
                 <option value='Y'>Completed</option>
                 <option value='N'>Not Yet</option>
             </TextField>
-
+                </Grid>
+            </Grid>
             <Button variant="contained" onClick={handleClickModify}>
                 수정
             </Button>
-
             <Button onClick={handleCloseDialog} color="primary">
                 닫기
             </Button>

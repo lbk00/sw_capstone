@@ -156,14 +156,14 @@ const ListComponent = () => {
             {/* 모달 컴포넌트 */}
             <Modal open={openModal} onClose={handleModalClose}>
               <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '50vh', // 부모 요소 높이를 전체 화면 높이로 설정
-                  backgroundColor: '#f0f0f0', // 배경색을 추가하여 더 잘 보이게
-                  marginTop: 300,
-                }}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '50vh',
+                    backgroundColor: '#f0f0f0',
+                    marginTop: 300,
+                  }}
               >
                 <ModifyComponent id={selectedId} onClose={handleModalClose} />
               </div>

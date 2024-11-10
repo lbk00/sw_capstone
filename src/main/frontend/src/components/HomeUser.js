@@ -259,6 +259,11 @@ export default function HomeUser() {
         navigate('/homeuser'); // 메인 페이지 경로로 설정
     };
 
+    const goToMainPage = () => {
+        window.location.href = 'http://localhost:3000/homeuser';// 메인 페이지 경로로 설정
+    };
+
+
     {/*상품 메뉴 옆 Drawer*/}
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = (newOpen) => () => {
@@ -319,7 +324,7 @@ export default function HomeUser() {
             <AppBar position="static" sx={{ bgcolor: 'white', color: 'black' }}>
                 {/*상단페이지*/}
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleGoToMainPage}>
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={goToMainPage}>
                         <StoreIcon sx={{ mr: 1 ,fontSize: 32}} />
                     </IconButton>
                     <Typography align="left" variant="h6" sx={{ flexGrow: 1 }}>

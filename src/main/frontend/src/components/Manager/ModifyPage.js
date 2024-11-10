@@ -8,6 +8,10 @@ const ModifyPage = ({ userId, onClose }) => {
   return (
 
 
+
+
+
+
           <ModifyComponent userId={userId}/>
 
   );

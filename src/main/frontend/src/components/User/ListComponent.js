@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getList } from "../../api/UserApi";
 import useCustomMove from "../../hooks/useCustomMove";
@@ -50,8 +50,11 @@ const ListComponent = () => {
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       <div className="flex flex-wrap mx-auto justify-center p-6">
+        <div className="text-3xl font-extrabold">
+          사용자 목록
+        </div>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{minWidth: 650}} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>userId</TableCell>
@@ -66,41 +69,41 @@ const ListComponent = () => {
             </TableHead>
             <TableBody>
               {user.length > 0 ? user.map(user =>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    {user.userId}
-                  </TableCell>
-                  <TableCell align="right">
-                    {user.role === 1 ? "customer" : user.role === 2 ? "admin" : "unknown"}
-                  </TableCell>
-                  <TableCell align="right">{user.cname}</TableCell>
-                  <TableCell align="right">{user.cgender}</TableCell>
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      {user.userId}
+                    </TableCell>
+                    <TableCell align="right">
+                      {user.role === 1 ? "customer" : user.role === 2 ? "admin" : "unknown"}
+                    </TableCell>
+                    <TableCell align="right">{user.cname}</TableCell>
+                    <TableCell align="right">{user.cgender}</TableCell>
                     <TableCell align="right">{user.cid}</TableCell>
 
-                  <TableCell align="right">{user.ctel}</TableCell>
-                  <TableCell align="right">{user.cemail}</TableCell>
-                  <TableCell align="right">{user.cadr}</TableCell>
-                </TableRow>
+                    <TableCell align="right">{user.ctel}</TableCell>
+                    <TableCell align="right">{user.cemail}</TableCell>
+                    <TableCell align="right">{user.cadr}</TableCell>
+                  </TableRow>
               ) : <TableRow><TableCell colSpan={9}>No data</TableCell></TableRow>}
             </TableBody>
           </Table>
         </TableContainer>
       </div>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
                       <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
                         {serverData.prev ?
-                          <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1 }}>
-                            Prev
-                          </Button> : null}
+                            <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+                              Prev
+                            </Button> : null}
                         {serverData.pageNumList.map(pageNum =>
-                          <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1 }}>
-                            {pageNum}
-                          </Button>
+                            <Button key={pageNum} variant="contained" color={serverData.current === pageNum ? 'secondary' : 'primary'} onClick={() => movePage(pageNum)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+                              {pageNum}
+                            </Button>
                         )}
                         {serverData.next ?
-                          <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1 }}>
-                            Next
-                          </Button> : null}
+                            <Button variant="contained" color="primary" onClick={() => movePage(serverData.nextPage)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>
+                              Next
+                            </Button> : null}
                       </Box>
 
                       </Box>

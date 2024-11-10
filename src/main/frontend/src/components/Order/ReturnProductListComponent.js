@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { getList } from "../../api/OrderApi";
 import useCustomMove from "../../hooks/useCustomMove";
@@ -65,8 +65,11 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
   return (
       <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
         <div className="flex flex-wrap mx-auto justify-center p-6">
+          <div className="text-3xl font-extrabold">
+            반품 상품 목록
+          </div>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{minWidth: 650}} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="left">주문 ID</TableCell>
@@ -114,7 +117,7 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
                       </TableCell>
                       <TableCell align="right">
                         {order.orderedProducts.map((product, index) => (
-                            <p key={index}>{product.price * product.amount }</p>
+                            <p key={index}>{product.price * product.amount}</p>
                         ))}
                       </TableCell>
                       <TableCell align="right">{order.totalPrice}</TableCell>
@@ -124,7 +127,7 @@ const ListComponent = ({ onRowClick , orderType, setOrderType}) => {
             </Table>
           </TableContainer>
         </div>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', m: 1, p: 1 }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', m: 1, p: 1 }}>
             {serverData.prev ?
               <Button variant="contained" color="primary" onClick={() => movePage(serverData.prevPage)} sx={{ mx: 1, bgcolor: 'gray', '&:hover': { bgcolor: 'darkgray' } }}>

@@ -136,7 +136,7 @@ const ModifyComponent = ({ userId }) => {
       </Grid>
 
       <Button variant="contained" color="primary" onClick={handleClickModify}>
-        Modify
+        수정
       </Button>
     </Box>
   );

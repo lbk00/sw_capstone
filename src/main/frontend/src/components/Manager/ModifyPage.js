@@ -17,9 +17,7 @@ const ModifyPage = ({ userId, onClose }) => {
           <div className="text-3xl font-extrabold">
              공급업체 수정 페이지
           </div>
-
           <ModifyComponent userId={userId}/>
-
       </div>
   );
 }

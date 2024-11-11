@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import ModifyComponent from "./ModifyComponent";
 
-const ModifyPage = ({ userId, onClose }) => {
+const ModifyPage = ({  onClose }) => {
 
-  //const {userId} = useParams()
+  const {userId} = useParams()
 
   return (
 

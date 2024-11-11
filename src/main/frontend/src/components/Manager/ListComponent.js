@@ -165,7 +165,7 @@ const ListComponent = () => {
 
                              }}
                            >
-                             <ModifyComponent id={selectedUserId} onClose={handleModalClose} />
+                             <ModifyComponent userId={selectedUserId} onClose={handleModalClose} />
                            </DialogContent>
                          </Dialog>
             <Button variant="contained" color="error" sx={{ ml: 1 }} onClick={() => supplierDelete(selectedUserId)}>공급업체 삭제</Button>

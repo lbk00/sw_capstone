@@ -1,4 +1,4 @@
-  import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { deleteOne, getOne, putOne } from "../../api/ManagerApi";
 import { TextField, Button, Box, Grid, Typography } from '@mui/material';
 
@@ -12,26 +12,32 @@ const initState = {
   mtel: '',
   uadr: '',
   complete: false
-}
+};
 
 const ModifyComponent = ({ userId }) => {
-  const [manager, setManager] = useState({ ...initState });
+  const [manager, setManager] = useState(initState);
   const [result, setResult] = useState(null);
   const { moveToList, moveToRead } = useCustomMove();
 
   const handleClickModify = () => {
     putOne(manager).then(data => {
       console.log("modify result: " + data);
-      setResult('Modified');
+      setResult('수정이 완료되었습니다');
+    }).catch(error => {
+      console.error('Error modifying data: ', error);
+      setResult('Error: ' + error.message);
     });
-  }
+  };
 
   const handleClickDelete = () => {
     deleteOne(userId).then(data => {
       console.log("delete result: " + data);
       setResult('Deleted');
+    }).catch(error => {
+      console.error('Error deleting data: ', error);
+      setResult('Error: ' + error.message);
     });
-  }
+  };
 
   const closeModal = () => {
     if (result === 'Deleted') {
@@ -39,7 +45,7 @@ const ModifyComponent = ({ userId }) => {
     } else {
       moveToRead(userId);
     }
-  }
+  };
 
   useEffect(() => {
     if (userId) {
@@ -50,22 +56,27 @@ const ModifyComponent = ({ userId }) => {
   }, [userId]);
 
   const handleChangeManager = (e) => {
-    manager[e.target.name] = e.target.value;
-    setManager({ ...manager });
-  }
+    const { name, value } = e.target;
+    setManager(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
   const handleChangeManagerComplete = (e) => {
     const value = e.target.value;
-    manager.complete = (value === 'Y');
-    setManager({ ...manager });
-  }
+    setManager(prevState => ({
+      ...prevState,
+      complete: (value === 'Y')
+    }));
+  };
 
   return (
     <Box sx={{ '& > :not(style)': { m: 1 } }}>
       {result ? <ResultModal title={'처리결과'} content={result} callbackFn={closeModal} /> : <></>}
       <Typography variant="h5" component="h1" gutterBottom>
-                                   공급업체 수정 페이지
-                               </Typography>
+        공급업체 수정 페이지
+      </Typography>
       <Grid container spacing={2}>
         <Grid item xs={5}>
           <TextField
@@ -142,13 +153,12 @@ const ModifyComponent = ({ userId }) => {
       </Grid>
 
       <Box display="flex" justifyContent="center" marginTop={2}>
-                      <Button variant="contained" color="primary" onClick={handleClickModify}>
-                          수정
-                      </Button>
-                  </Box>
-
+        <Button variant="contained" color="primary" onClick={handleClickModify}>
+          수정
+        </Button>
+      </Box>
     </Box>
   );
-}
+};
 
 export default ModifyComponent;

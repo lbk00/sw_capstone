@@ -59,44 +59,38 @@ export default function Mypage() {
     const handleOpen = () => setOpen(true); // 모달창을 열기 위한 함수를 생성합니다.
     const handleClose = () => setOpen(false); // 모달창을 닫기 위한 함수를 생성합니다.
 
+    // user 객체가 있는지 확인
+    useEffect(() => {
+        if (!user) {
+            console.warn("User data not found in location.state.");
+        } else {
+            console.log("User data:", user);
+        }
+    }, [user]);
+
     const handleUpdate = async (event) => {
         event.preventDefault();
 
         // 폼 데이터를 가져오기
         const formData = new FormData(event.currentTarget);
-        // 객체의 순서를 유지하기 위해 배열을 사용
+
         const updatedUserInfo = {
-            user_Id: user.user_Id, // user_Id
-            cid: formData.get('id') || user.cid, // cid
-            cpw: formData.get('password') || user.cpw, // cpw
-            cname: formData.get('name') || user.cname, // cname
-            cgender: formData.get('gender') || user.cgender, // cgender
-            cbirthDate: formData.get('birthDate') || user.cbirthDate, // cbirthDate
-            ctel: formData.get('phonePrefix') + formData.get('phone'), // ctel
-            cemail: formData.get('email') || user.cemail, // cemail
-            cadr: formData.get('fullAddress') || user.cadr, // cadr
-            cprofileImage: profileImage || user.cprofileImage, // cprofileImage
-            role: user.role // role
+            userId: user.userId,              // userId로 수정
+            cID: formData.get('id') || user.cID,       // cID로 수정
+            cPW: formData.get('password') || user.cPW, // cPW로 수정
+            cName: formData.get('name') || user.cName, // cName로 수정
+            cGender: formData.get('gender') || user.cGender, // cGender로 수정
+            ctel: formData.get('phonePrefix') + formData.get('phone'), // ctel 그대로 사용
+            cEmail: formData.get('email') || user.cEmail, // cEmail로 수정
+            cAdr: formData.get('fullAddress') || user.cAdr, // cAdr로 수정
+            cProfileImage: profileImage || user.cProfileImage, // cProfileImage 그대로 사용
+            role: user.role // role 그대로 사용
         };
-
-        // 순서가 보장된 JSON 문자열 생성
-        const jsonString = JSON.stringify({
-            user_Id: updatedUserInfo.user_Id,
-            cid: updatedUserInfo.cid,
-            cpw: updatedUserInfo.cpw,
-            cname: updatedUserInfo.cname,
-            cgender: updatedUserInfo.cgender,
-            cbirthDate: updatedUserInfo.cbirthDate,
-            ctel: updatedUserInfo.ctel,
-            cemail: updatedUserInfo.cemail,
-            cadr: updatedUserInfo.cadr,
-            cprofileImage: updatedUserInfo.cprofileImage,
-            role: updatedUserInfo.role
-        });
-
         try {
             // PUT 요청으로 회원 정보 수정
-            const response = await axios.put(`http://localhost:8080/api/user/${user.user_Id}`, jsonString, {
+            console.log(updatedUserInfo);
+
+            const response = await axios.put(`http://localhost:8080/api/user/${user.userId}`, updatedUserInfo, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -116,7 +110,7 @@ export default function Mypage() {
     // 사용자 삭제
     const userDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/api/user/${id}`);
+            await axios.delete(`http://localhost:8080/api/user/${user.userId}`);
             alert('삭제가 완료되었습니다.');
         } catch (error) {
             console.error('삭제 중 오류가 발생했습니다:', error);
@@ -128,6 +122,12 @@ export default function Mypage() {
         handleClose(); // 모달 닫기
     };
 
+    const [selected, setSelected] = useState(null);
+
+    // 버튼 클릭 시 상태 업데이트
+    const handleButtonClick = (buttonId) => {
+        setSelected(buttonId);
+    };
 
     const handleImageChange = (e) => {
       const reader = new FileReader();
@@ -223,8 +223,8 @@ export default function Mypage() {
 
                     <Grid item xs={12}>
                         <Typography component="legend">성별</Typography>
-                        <Button value="M" name="gender">남</Button>
-                        <Button value="F" name="gender">여</Button>
+                        <Button value="M" sx={{bgcolor: 'gray', color: 'white' }} name="gender">남</Button>
+                        <Button value="F" name="gender" sx={{bgcolor: 'white', color: 'black' }} >여</Button>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -303,7 +303,7 @@ export default function Mypage() {
 
                     <Grid item xs={12}>
                         <Box mt={1}>
-                            <Button variant="contained" color="primary" onClick={() => setOpenAdr(true)}>
+                            <Button variant="contained" sx = {{bgcolor: 'gray', color: 'white'}} onClick={() => setOpenAdr(true)}>
                                 우편번호 검색
                             </Button>
                             <Dialog open={openAdr} onClose={() => setOpenAdr(false)}>
@@ -342,7 +342,7 @@ export default function Mypage() {
                         {profileImage && <img src={profileImage} alt="프로필 이미지" style={{ width: 100, height: 100 }} />}
                     </Grid>
                 </Grid>
-                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 , bgcolor: 'gray', color: 'white'}}>
                     회원정보 수정 완료
                 </Button>
           </Box>
@@ -350,7 +350,7 @@ export default function Mypage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2 , bgcolor: 'gray', color: 'white'}}
                 onClick={handleOpen} // 모달 열기
             >
                 회원탈퇴하기

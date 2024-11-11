@@ -183,14 +183,28 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <Typography component="legend">성별</Typography>
                 <Button
-                  variant={user.cgender === '남' ? 'contained' : 'outlined'}
-                  onClick={() => handleGenderChange('남')}
+                    sx={{
+                      bgcolor: user.cgender === '남' ? 'gray' : 'white',
+                      color: user.cgender === '남' ? 'white' : 'gray',
+                      border: '1px solid gray',
+                      '&:hover': {
+                        bgcolor: user.cgender === '남' ? 'darkgray' : 'lightgray',
+                      },
+                    }}
+                    onClick={() => handleGenderChange('남')}
                 >
                   남
                 </Button>
                 <Button
-                  variant={user.cgender === '여' ? 'contained' : 'outlined'}
-                  onClick={() => handleGenderChange('여')}
+                    sx={{
+                      bgcolor: user.cgender === '여' ? 'gray' : 'white',
+                      color: user.cgender === '여' ? 'white' : 'gray',
+                      border: '1px solid gray',
+                      '&:hover': {
+                        bgcolor: user.cgender === '여' ? 'darkgray' : 'lightgray',
+                      },
+                    }}
+                    onClick={() => handleGenderChange('여')}
                 >
                   여
                 </Button>
@@ -278,7 +292,7 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <Box mt={1}>
-                  <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+                  <Button variant="contained" sx={{bgcolor: 'gray', color: 'white'}} onClick={() => setOpen(true)}>
                     우편번호 검색
                   </Button>
                   <Dialog open={open} onClose={() => setOpen(false)}>
@@ -338,20 +352,13 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2 , bgcolor: 'gray', color: 'white' }}
             >
               회원가입 하기
             </Button>
             <Dialog open={openModal} onClose={() => setOpenModal(false)}>
               <DialogTitle>회원가입이 성공하였습니다.</DialogTitle>
             </Dialog>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  이미 아이디가 있으신가요? 로그인하러 가기
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />

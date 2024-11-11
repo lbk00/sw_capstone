@@ -113,22 +113,10 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2 ,bgcolor: 'gray', color: 'white'}}
             >
               로그인
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  비밀번호를 잊으셨나요?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"계정이 없으신가요? 회원가입하기"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

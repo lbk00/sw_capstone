@@ -101,9 +101,9 @@ export default function Explain() {
                     </Grid>
                     {[
                         { title: "공급업체 관리", icon: <BusinessIcon sx={{ fontSize: 30 }} />, description: "공급업체 등록 : 새로운 공급업체 정보 입력 및 등록\n공급업체 조회 : 모든 공급업체 정보 조회\n공급업체 수정 및 삭제 : 선택한 공급업체 정보 수정 및 삭제"},
+                        { title: "반품 및 납품 관리", icon: <InventoryIcon sx={{ fontSize: 30 }} />, description: "반품 품목 조회 : 반품 진행 중인 상품들의 리스트 조회\n납품 품목 조회 : 납품 처리된 상품들의 리스트 조회" },
+                        { title: "재고 관리", icon: <ShoppingCartIcon sx={{ fontSize: 30 }} />, description: "상품 등록 : 새로운 상품 정보 입력 및 등록\n상품 조회 : 모든 상품 정보 조회\n상품 수정 및 삭제 : 선택한 상품 정보 수정 및 삭제" },
                         { title: "사용자 관리", icon: <PeopleIcon sx={{ fontSize: 30 }} />, description: "사용자 조회 : 현재 쇼핑몰의 고객 및 관리자 정보 조회" },
-                        { title: "재고 관리", icon: <InventoryIcon sx={{ fontSize: 30 }} />, description: "반품 품목 확인 : 반품 처리된 상품들의 리스트 조회\n납품 품목 확인 : 납품 처리된 상품들의 리스트 조회" },
-                        { title: "상품 관리", icon: <ShoppingCartIcon sx={{ fontSize: 30 }} />, description: "상품 등록 : 새로운 상품 정보 입력 및 등록\n상품 조회 : 모든 상품 정보 조회\n상품 수정 및 삭제 : 선택한 상품 정보 수정 및 삭제" },
                     ].map((item, index) => (
                         <Grid item xs={12} md={6} key={index + 1}>
                             <Paper

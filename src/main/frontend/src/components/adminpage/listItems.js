@@ -220,16 +220,16 @@ export const MainListItems = ({ user ,statePage, setStatePage }) => {
               <ListItemIcon>
                 <Inventory />
               </ListItemIcon>
-              <ListItemText primary="납품 관리" />
+              <ListItemText primary="반품 및 납품 관리" />
               {openInventory ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openInventory} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }} onClick={handleClickReturnProduct}>
-                  <ListItemText primary="반품 품목 확인" />
+                  <ListItemText primary="반품 품목 조회" />
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }} onClick={handleClickDeliveryProduct}>
-                  <ListItemText primary="납품 품목 확인" />
+                  <ListItemText primary="납품 품목 조회" />
                 </ListItemButton>
 
               </List>

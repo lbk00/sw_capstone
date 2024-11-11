@@ -211,7 +211,7 @@ const ReadPage = ({ id }) => {
                   color="primary"
                   onClick={handleOpen} // 모달 열기
               >
-                  주문 삭제
+                  해당 주문 삭제
               </Button>
 
               {/* 삭제 확인 모달 */}
@@ -334,7 +334,7 @@ const ReadPage = ({ id }) => {
                     color="primary"
                     onClick={handleOpen} // 모달 열기
                 >
-                    주문 삭제
+                    해당 주문 삭제
                 </Button>
 
                 {/* 삭제 확인 모달 */}

@@ -82,7 +82,7 @@ const AddComponent = () => {
                 fullWidth
                 margin="normal"
             />
-            <Button variant="contained" onClick={handleClickAdd}>
+            <Button variant="contained" sx={{bgcolor: 'gray', color: 'white'}}onClick={handleClickAdd}>
                 등록
             </Button>
         </Box>

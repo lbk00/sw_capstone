@@ -43,7 +43,7 @@ const AddComponent = () => {
     }
 
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 } }}>
+        <Box sx={{ '& > :not(style)': { m: 2 } }}>
             {result ? <ResultModal title={'Add Result'} content={`New ${result} Added`} callbackFn={closeModal}/>: <></>}
             <TextField
                 label="Name"
@@ -74,8 +74,8 @@ const AddComponent = () => {
                 onChange={handleChangeProduct}
             />
 
-            <Button variant="contained" onClick={handleClickAdd}>
-                상품 추가하기
+            <Button variant="contained" sx ={{bgcolor: 'gray', color: 'white'}} onClick={handleClickAdd}>
+                등록
             </Button>
         </Box>
     );

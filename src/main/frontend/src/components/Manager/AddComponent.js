@@ -71,11 +71,9 @@ const AddComponent = () => {
         inputProps={{ pattern: "[a-zA-Z0-9\\s,]+" }}
         helperText="Format: Street, City, State, Country"
       />
-      <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
-        <Button variant="contained" onClick={handleClickAdd}>
+        <Button variant="contained" sx={{bgcolor: 'gray', color: 'white'}} onClick={handleClickAdd}>
           등록
         </Button>
-      </Box>
     </Box>
   );
 };

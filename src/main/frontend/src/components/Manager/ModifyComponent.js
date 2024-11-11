@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+  import { useEffect, useState } from "react";
 import { deleteOne, getOne, putOne } from "../../api/ManagerApi";
 import { TextField, Button, Box, Grid, Typography } from '@mui/material';
 
@@ -42,7 +42,11 @@ const ModifyComponent = ({ userId }) => {
   }
 
   useEffect(() => {
-    getOne(userId).then(data => setManager(data));
+    if (userId) {
+      getOne(userId).then(data => setManager(data)).catch(error => {
+        console.error('Error fetching data: ', error);
+      });
+    }
   }, [userId]);
 
   const handleChangeManager = (e) => {

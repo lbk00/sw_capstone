@@ -7,7 +7,7 @@ const ModifyPage = ({id, onClose}) => {
 
 
             <ModifyComponent id={id}/>
-        </div>
+
 
     );
 }

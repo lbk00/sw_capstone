@@ -142,23 +142,7 @@ const ModifyComponent = ({ id, onClose }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} sm={5}>
-                    <TextField
-                        label="COMPLETE"
-                        variant="outlined"
-                        name="complete"
-                        value={product.complete ? 'Y' : 'N'}
-                        onChange={handleChangeProductComplete}
-                        select
-                        SelectProps={{
-                            native: true,
-                        }}
-                        fullWidth
-                    >
-                        <option value="Y">Completed</option>
-                        <option value="N">Not Yet</option>
-                    </TextField>
-                </Grid>
+
             </Grid>
 
             <Box display="flex" justifyContent="center" marginTop={2}>

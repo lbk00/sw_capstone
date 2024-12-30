@@ -15,7 +15,15 @@
 - 주문 수요 예측을 통해 현재 재고량이 충분하지 않다고 판단될 경우 자동 주문 발주
 - 재고량을 최적으로 유지함으로써 상품의 가치하락을 방지하여 관리비용 최소화 
 
+## 기술 스택
+Spring ,Tensorflow ,React ,Anaconda ,Flask ,Mysql 
+
 ## 작품 구성도
 ![image](https://github.com/user-attachments/assets/05c0cdae-c1cf-40b1-9192-ea12eba59459)
+
+## 역할 분담
+- 이본규 : 다이어그램 및  API 설계 , Order / Product 도메인 구현, 프론트엔드 및 백엔드 개발 , 메일 송수신 기능 구현
+- 김재훈 : 수요예측 모델 개발 , 데이터 전처리
+- 강민석 : User / Manager 도메인 구현 , Mysql 연동, 프론트엔드 및 백엔드 개발
 
 

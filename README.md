@@ -13,7 +13,7 @@
 https://github.com/user-attachments/assets/40c704e4-f19d-403b-bfa2-495e3743661c
 
 ### 역할 분담
-- 이본규 : 다이어그램 및  API 설계 , Order / Product 도메인 구현, 프론트엔드 및 백엔드 개발 , 메일 송수신 기능 구현
+- 이본규 : 다이어그램 및  API 설계 , Order / Product 도메인 구현, 프론트엔드 및 백엔드 개발 , 메일 송수신 기능 구현 , 로그인 및 세션 유지 기능 구현 , Flask api를 통한 예측 모델 연동
 - 김재훈 : 수요예측 모델 개발 , 데이터 전처리
 - 강민석 : User / Manager 도메인 구현 , Mysql 연동, 프론트엔드 및 백엔드 개발
   

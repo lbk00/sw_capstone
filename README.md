@@ -32,3 +32,8 @@ Spring ,Tensorflow ,React ,Anaconda ,Flask ,Mysql
 ![image](https://github.com/user-attachments/assets/2fa21f0c-651e-4a04-984b-8ed386f5794d)
 
 
+피드백
+- 해당 시스템을 적용하기 전과 적용 후의 매출을 그래프로 보여줄 수 있으면 좋을것 같다.
+
+- 기존에 있는 데이터로 학습한 것에 그치지 않고, 실시간 트랜드에 맞춰 상품의 판매 예측이 가능해지면 좋을것 같다.( 연예인이 입은 특정 브랜드 옷 등 )
+

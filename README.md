@@ -24,7 +24,7 @@ https://github.com/user-attachments/assets/40c704e4-f19d-403b-bfa2-495e3743661c
 - 재고량을 최적으로 유지함으로써 상품의 가치하락을 방지하여 관리비용 최소화 
 
 ### 기술 스택
-Spring ,Tensorflow ,React ,Anaconda ,Flask ,Mysql 
+- Spring ,Tensorflow ,React ,Anaconda ,Flask ,Mysql 
 
 ### 작품 구성도
 ![image](https://github.com/user-attachments/assets/05c0cdae-c1cf-40b1-9192-ea12eba59459)
